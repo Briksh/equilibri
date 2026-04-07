@@ -1,0 +1,3483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Equilibri · Tu esencia, en balance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════
+   TOKENS — Paleta oficial Equilibri
+════════════════════════════════════════ */
+:root {
+  --green:      #7a8d7a;
+  --green-dark: #4f5e4f;
+  --green-deep: #3a4a3a;
+  --cream:      #eee6da;
+  --cream-light:#f7f2eb;
+  --gold:       #cda274;
+  --gold-light: #e8d5b5;
+  --gray:       #6b6b6b;
+  --gray-light: #9a9a9a;
+  --text-dark:  #2c2c2a;
+  --white:      #fdfaf5;
+
+  --ff-serif: 'Cormorant Garamond', Georgia, serif;
+  --ff-sans:  'Jost', sans-serif;
+
+  --ease: cubic-bezier(.4,0,.2,1);
+  --ease-out: cubic-bezier(0,.55,.45,1);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* ════════════════════════════════════════
+   NAVEGACIÓN
+════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 5vw;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(238,230,218,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid rgba(122,141,122,0.2);
+  transition: background .3s var(--ease);
+}
+
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+.nav-logo-name {
+  font-family: var(--ff-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  color: var(--green-dark);
+  text-transform: uppercase;
+}
+.nav-logo-sub {
+  font-family: var(--ff-serif);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 0.5px;
+  background: var(--gold);
+  transition: width .3s var(--ease);
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--gold); }
+
+/* ════════════════════════════════════════
+   PÁGINAS — sistema de navegación SPA
+════════════════════════════════════════ */
+.page { display: none; padding-top: 64px; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ════════════════════════════════════════
+   SECCIÓN HERO — INICIO
+════════════════════════════════════════ */
+.hero {
+  min-height: calc(100vh - 64px);
+  background: var(--green-deep);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* textura sutil */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(122,141,122,0.25) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(205,162,116,0.12) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* patrón de puntos fino */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(238,230,218,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.hero-text {
+  padding: 80px 6vw 80px 8vw;
+  position: relative;
+  z-index: 2;
+  animation: fadeUp .9s var(--ease-out) both;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 0.5px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.hero-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(48px, 5.5vw, 80px);
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--cream);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.hero-titulo em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.hero-sub {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(238,230,218,0.5);
+  margin-bottom: 28px;
+}
+
+.hero-desc {
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.78);
+  line-height: 1.85;
+  max-width: 420px;
+  margin-bottom: 44px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gold);
+  color: var(--green-deep);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: background .25s, transform .2s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: rgba(238,230,218,0.7);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  border: 0.5px solid rgba(238,230,218,0.25);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color .25s, color .25s;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* lado derecho del hero — visual abstracto */
+.hero-visual {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 8vw 60px 4vw;
+  animation: fadeUp .9s .2s var(--ease-out) both;
+}
+
+.hero-circle-wrap {
+  position: relative;
+  width: min(400px, 90%);
+  aspect-ratio: 1;
+}
+
+/* círculo principal crema */
+.hero-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+}
+
+/* borde dorado giratorio */
+.hero-circle::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 0.5px solid var(--gold);
+  opacity: 0.5;
+  animation: spin 30s linear infinite;
+}
+.hero-circle::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 0.5px dashed rgba(205,162,116,0.25);
+  animation: spin 45s linear infinite reverse;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hero-circle-marca {
+  font-family: var(--ff-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 16px;
+}
+
+/* SVG celestial dentro del círculo */
+.celestial-svg { margin-bottom: 14px; }
+
+.hero-circle-titulo {
+  font-family: var(--ff-serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--green-dark);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.hero-circle-sub {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 18px;
+}
+
+.hero-circle-claim {
+  font-family: var(--ff-serif);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--green-dark);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.logo-badge-hero {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--green);
+  border-radius: 32px 32px 10px 10px;
+  padding: 8px 20px 6px;
+}
+.logo-badge-hero span:first-child {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: #fff;
+}
+.logo-badge-hero span:last-child {
+  font-size: 7px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.65);
+  font-family: var(--ff-serif);
+  letter-spacing: 0.1em;
+}
+
+/* ── SECCIÓN PILARES (inicio) ── */
+.pilares {
+  background: var(--cream-light);
+  padding: 100px 8vw;
+}
+
+.sec-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.sec-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 300;
+  color: var(--green-dark);
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.sec-titulo em { font-style: italic; color: var(--gold); }
+
+.sec-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray);
+  text-align: center;
+  line-height: 1.8;
+  max-width: 560px;
+  margin: 0 auto 60px;
+}
+
+.divider-center {
+  width: 48px;
+  height: 0.5px;
+  background: var(--gold);
+  margin: 0 auto 20px;
+}
+
+.pilares-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pilar-card {
+  background: var(--cream);
+  border: 0.5px solid rgba(122,141,122,0.2);
+  border-top: 2px solid var(--gold);
+  border-radius: 3px;
+  padding: 36px 28px;
+  text-align: center;
+  transition: transform .3s var(--ease), box-shadow .3s;
+}
+.pilar-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(79,94,79,0.1); }
+
+.pilar-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(205,162,116,0.12);
+  border: 0.5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  font-size: 20px;
+}
+
+.pilar-titulo {
+  font-family: var(--ff-serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--green-dark);
+  margin-bottom: 10px;
+}
+
+.pilar-texto {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+/* ── SECCIÓN CIENCIA ── */
+.ciencia {
+  background: var(--green-deep);
+  padding: 100px 8vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ciencia::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(238,230,218,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.ciencia-text { position: relative; z-index: 1; }
+
+.ciencia-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ciencia-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 0.5px;
+  background: var(--gold);
+}
+
+.ciencia-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.ciencia-titulo em { font-style: italic; color: var(--gold-light); }
+
+.ciencia-cuerpo {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.75);
+  line-height: 1.9;
+  margin-bottom: 32px;
+}
+
+.ciencia-datos {
+  display: flex;
+  gap: 32px;
+}
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dato-num {
+  font-family: var(--ff-serif);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.dato-label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(238,230,218,0.5);
+}
+
+/* pathway visual */
+.pathway {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pathway-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-left: 0.5px solid rgba(205,162,116,0.3);
+  padding-left: 28px;
+  position: relative;
+}
+.pathway-step::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 22px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.8;
+}
+
+.pathway-step:last-child { border-left-color: transparent; }
+
+.pathway-step-num {
+  font-family: var(--ff-serif);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--gold);
+  min-width: 20px;
+  line-height: 1.8;
+  opacity: 0.7;
+}
+
+.pathway-step-body {}
+.pathway-step-t {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+}
+.pathway-step-p {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.6);
+  line-height: 1.7;
+}
+
+/* ── BRISAS PREVIEW ── */
+.brisas-preview {
+  padding: 100px 8vw;
+  background: var(--cream);
+}
+
+.brisas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1100px;
+  margin: 0 auto;
+  border: 0.5px solid rgba(122,141,122,0.2);
+}
+
+.brisa-preview-card {
+  padding: 40px 32px;
+  background: var(--cream-light);
+  border-right: 0.5px solid rgba(122,141,122,0.15);
+  transition: background .3s;
+  cursor: pointer;
+}
+.brisa-preview-card:last-child { border-right: none; }
+.brisa-preview-card:hover { background: var(--white); }
+
+.brisa-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.brisa-nombre-prev {
+  font-family: var(--ff-serif);
+  font-size: 38px;
+  font-weight: 300;
+  color: var(--green-dark);
+  margin-bottom: 6px;
+  line-height: 1.0;
+}
+
+.brisa-claim-prev {
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+
+.brisa-pills-prev {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.pill-sm {
+  font-size: 11px;
+  color: var(--green-dark);
+  border: 0.5px solid rgba(122,141,122,0.4);
+  border-radius: 20px;
+  padding: 3px 10px;
+  background: rgba(122,141,122,0.06);
+}
+
+.brisa-afirm-prev {
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--green-dark);
+  line-height: 1.65;
+  padding-top: 18px;
+  border-top: 0.5px solid rgba(205,162,116,0.3);
+  opacity: 0.85;
+}
+
+/* ── CTA BANNER ── */
+.cta-banner {
+  background: var(--green);
+  padding: 80px 8vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.cta-banner-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.cta-banner-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.7);
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+.cta-banner .btn-primary { position: relative; z-index: 1; margin: 0 auto; }
+
+/* ════════════════════════════════════════
+   PÁGINA EQUILIBRI
+════════════════════════════════════════ */
+.equil-hero {
+  background: var(--cream);
+  padding: 80px 8vw 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  border-bottom: 0.5px solid rgba(122,141,122,0.15);
+}
+
+.equil-hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.equil-hero-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(48px, 5.5vw, 80px);
+  font-weight: 300;
+  color: var(--green-dark);
+  line-height: 1.0;
+  margin-bottom: 10px;
+}
+
+.equil-hero-eslogan {
+  font-family: var(--ff-serif);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 28px;
+  letter-spacing: 0.03em;
+}
+
+.equil-hero-body {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.9;
+}
+
+.equil-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.equil-circle {
+  width: min(340px, 90%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--green-deep);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px;
+  position: relative;
+}
+.equil-circle::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 0.5px solid var(--gold);
+  opacity: 0.4;
+}
+
+.equil-circle-marca {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(238,230,218,0.5);
+  margin-bottom: 14px;
+}
+
+.equil-circle-titulo {
+  font-family: var(--ff-serif);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.0;
+  margin-bottom: 6px;
+}
+
+.equil-circle-eslogan {
+  font-family: var(--ff-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--gold-light);
+  opacity: 0.85;
+  margin-bottom: 22px;
+}
+
+.equil-circle-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--green);
+  border-radius: 28px 28px 8px 8px;
+  padding: 7px 18px 5px;
+}
+.equil-circle-badge span:first-child {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.26em; color: #fff;
+}
+.equil-circle-badge span:last-child {
+  font-size: 7px; font-weight: 300; font-style: italic;
+  font-family: var(--ff-serif); color: rgba(255,255,255,0.65); letter-spacing: 0.1em;
+}
+
+/* manifesto */
+.manifesto {
+  background: var(--cream-light);
+  padding: 80px 8vw;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.manifesto-quote {
+  font-family: var(--ff-serif);
+  font-size: clamp(26px, 2.8vw, 36px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--green-dark);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  position: relative;
+  padding: 0 32px;
+}
+.manifesto-quote::before {
+  content: '\201C';
+  position: absolute;
+  left: 0; top: -10px;
+  font-size: 64px;
+  color: var(--gold);
+  opacity: 0.4;
+  font-family: var(--ff-serif);
+  line-height: 1;
+}
+
+.manifesto-autor {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* valores */
+.valores {
+  background: var(--cream);
+  padding: 80px 8vw;
+}
+
+.valores-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.valor-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 28px;
+  background: var(--cream-light);
+  border: 0.5px solid rgba(122,141,122,0.18);
+  border-radius: 3px;
+  transition: transform .3s;
+}
+.valor-item:hover { transform: translateX(4px); }
+
+.valor-num {
+  font-family: var(--ff-serif);
+  font-size: 32px;
+  font-weight: 300;
+  color: rgba(205,162,116,0.35);
+  line-height: 1;
+  min-width: 36px;
+}
+
+.valor-body {}
+.valor-titulo {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--green-dark);
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.valor-texto {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.75;
+}
+
+/* ritual section */
+.ritual-section {
+  background: var(--green-deep);
+  padding: 80px 8vw;
+  position: relative;
+  overflow: hidden;
+}
+.ritual-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(238,230,218,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.ritual-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 300;
+  color: var(--cream);
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative; z-index: 1;
+}
+
+.ritual-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.65);
+  text-align: center;
+  margin-bottom: 52px;
+  position: relative; z-index: 1;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ritual-pasos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.ritual-paso {
+  text-align: center;
+  padding: 32px 24px;
+  background: rgba(238,230,218,0.05);
+  border: 0.5px solid rgba(205,162,116,0.2);
+  border-radius: 3px;
+}
+
+.ritual-paso-n {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 0.5px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--ff-serif);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.ritual-paso-t {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.ritual-paso-p {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.65);
+  line-height: 1.75;
+}
+
+.ritual-afirm {
+  max-width: 600px;
+  margin: 52px auto 0;
+  text-align: center;
+  position: relative; z-index: 1;
+}
+
+.ritual-afirm p {
+  font-family: var(--ff-serif);
+  font-size: 22px;
+  font-style: italic;
+  color: rgba(238,230,218,0.85);
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════
+   PÁGINA KIT BALANCE & BLOOM
+════════════════════════════════════════ */
+.kit-hero {
+  background: var(--cream);
+  padding: 80px 8vw;
+  text-align: center;
+  border-bottom: 0.5px solid rgba(122,141,122,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.kit-hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(205,162,116,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.kit-hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.kit-hero-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(48px, 5.5vw, 80px);
+  font-weight: 300;
+  color: var(--green-dark);
+  line-height: 1.0;
+  margin-bottom: 8px;
+}
+
+.kit-hero-subtitulo {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 24px;
+}
+
+.kit-hero-desc {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.85;
+  max-width: 580px;
+  margin: 0 auto 40px;
+}
+
+.kit-precio-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-deep);
+  border-radius: 4px;
+  padding: 20px 48px;
+  margin-bottom: 16px;
+}
+
+.kit-precio-label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(238,230,218,0.5);
+}
+
+.kit-precio {
+  font-family: var(--ff-serif);
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.kit-precio-nota {
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(238,230,218,0.45);
+  font-family: var(--ff-serif);
+}
+
+.kit-includes {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.kit-include-tag {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--green-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.kit-include-tag::before {
+  content: '✦';
+  color: var(--gold);
+  font-size: 8px;
+}
+
+/* BRISAS DETAIL */
+.brisas-detail {
+  padding: 80px 8vw;
+  background: var(--cream-light);
+}
+
+.brisas-detail-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.brisa-detail-row {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 0;
+  background: var(--cream);
+  border: 0.5px solid rgba(122,141,122,0.15);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: box-shadow .3s;
+}
+.brisa-detail-row:hover { box-shadow: 0 8px 32px rgba(79,94,79,0.08); }
+
+.brisa-detail-left {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 0.5px solid rgba(122,141,122,0.12);
+}
+
+.brisa-detail-momento {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.brisa-detail-nombre {
+  font-family: var(--ff-serif);
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--green-dark);
+  line-height: 1.0;
+  margin-bottom: 6px;
+}
+
+.brisa-detail-claim {
+  font-family: var(--ff-serif);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--gray);
+  margin-bottom: 16px;
+}
+
+.brisa-detail-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.brisa-detail-right {
+  padding: 32px 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-content: start;
+}
+
+.bd-sec-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.bd-texto {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.75;
+}
+
+.bd-emer-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.bd-emer-list li {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.6;
+  padding-left: 12px;
+  position: relative;
+}
+.bd-emer-list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+.bd-emer-list li strong {
+  font-weight: 500;
+  color: var(--green-dark);
+}
+
+.bd-afirm {
+  grid-column: span 2;
+  background: rgba(205,162,116,0.08);
+  border: 0.5px solid rgba(205,162,116,0.3);
+  border-radius: 3px;
+  padding: 14px 18px;
+  text-align: center;
+}
+.bd-afirm p {
+  font-family: var(--ff-serif);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--green-dark);
+  line-height: 1.6;
+}
+
+/* formulación */
+.formulacion {
+  background: var(--cream);
+  padding: 80px 8vw;
+}
+
+.formulacion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 900px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.form-texto {}
+.form-titulo {
+  font-family: var(--ff-serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--green-dark);
+  margin-bottom: 18px;
+  line-height: 1.2;
+}
+.form-titulo em { font-style: italic; color: var(--gold); }
+
+.form-body {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.85;
+  margin-bottom: 28px;
+}
+
+.form-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-spec {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--cream-light);
+  border: 0.5px solid rgba(122,141,122,0.15);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 3px 3px 0;
+}
+.form-spec-label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--green-dark);
+  min-width: 100px;
+}
+.form-spec-val {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray);
+}
+
+.form-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-card {
+  background: var(--green-deep);
+  border-radius: 3px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.form-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(238,230,218,0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.form-card-t {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.form-card-p {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.72);
+  line-height: 1.75;
+  position: relative; z-index: 1;
+}
+
+/* PRECAUCIONES KIT */
+.kit-precauciones {
+  background: var(--cream-light);
+  padding: 60px 8vw;
+}
+
+.prec-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.prec-main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.prec-item {
+  background: var(--cream);
+  border: 0.5px solid rgba(122,141,122,0.15);
+  border-top: 2px solid var(--green);
+  border-radius: 3px;
+  padding: 18px 16px;
+}
+.prec-item-t {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green-dark);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+.prec-item-p {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.65;
+}
+
+.prec-contra {
+  background: var(--cream);
+  border: 0.5px solid rgba(122,141,122,0.15);
+  border-radius: 3px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.prec-contra-t {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.prec-contra-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.prec-contra-list li {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--gray);
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.6;
+}
+.prec-contra-list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+.disclaimer-web {
+  background: rgba(122,141,122,0.08);
+  border: 0.5px solid rgba(122,141,122,0.2);
+  border-radius: 3px;
+  padding: 16px 20px;
+  text-align: center;
+}
+.disclaimer-web p {
+  font-size: 13px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer {
+  background: var(--green-deep);
+  padding: 52px 8vw 32px;
+  position: relative;
+  overflow: hidden;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(238,230,218,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  position: relative; z-index: 1;
+}
+
+.footer-brand {}
+.footer-brand-name {
+  font-family: var(--ff-sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.footer-brand-eslogan {
+  font-family: var(--ff-serif);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.footer-brand-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.5);
+  line-height: 1.8;
+}
+
+.footer-col-t {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-links a {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.6);
+  transition: color .2s;
+  cursor: pointer;
+}
+.footer-links a:hover { color: var(--gold); }
+
+.footer-bottom {
+  border-top: 0.5px solid rgba(238,230,218,0.1);
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative; z-index: 1;
+}
+.footer-copy {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.35);
+  letter-spacing: 0.05em;
+}
+
+/* ════════════════════════════════════════
+   ANIMACIONES
+════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+
+/* ════════════════════════════════════════
+   RESPONSIVE — TABLET  (max 1024px)
+════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  /* Nav */
+  nav { padding: 0 4vw; }
+  .nav-links { gap: 24px; }
+
+  /* Hero */
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-text { padding: 72px 6vw 56px; }
+  .hero-visual { display: none; }
+  .hero-titulo { font-size: clamp(44px, 7vw, 72px); }
+  .hero-desc { font-size: 17px; max-width: 100%; }
+
+  /* Pilares */
+  .pilares { padding: 72px 6vw; }
+  .pilares-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+
+  /* Ciencia */
+  .ciencia { grid-template-columns: 1fr; gap: 48px; padding: 72px 6vw; }
+  .ciencia-datos { gap: 24px; }
+
+  /* Brisas preview */
+  .brisas-preview { padding: 72px 6vw; }
+  .brisas-grid { grid-template-columns: 1fr; gap: 2px; }
+  .brisa-preview-card { padding: 32px 28px; }
+
+  /* Equilibri page */
+  .equil-hero { grid-template-columns: 1fr; padding: 64px 6vw 48px; gap: 48px; }
+  .equil-visual { display: none; }
+  .valores { padding: 64px 6vw; }
+  .valores-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .ritual-section { padding: 64px 6vw; }
+  .ritual-pasos { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* Kit page */
+  .kit-hero { padding: 64px 6vw; }
+  .brisas-detail { padding: 64px 6vw; }
+  .brisa-detail-row { grid-template-columns: 1fr; }
+  .brisa-detail-left { border-right: none; border-bottom: 0.5px solid rgba(122,141,122,0.12); padding: 28px 28px 20px; }
+  .brisa-detail-right { grid-template-columns: 1fr 1fr; padding: 24px 28px 28px; }
+  .formulacion { padding: 64px 6vw; }
+  .formulacion-grid { grid-template-columns: 1fr; gap: 36px; }
+  .prec-main-grid { grid-template-columns: 1fr 1fr; }
+  .prec-contra-list { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-brand { grid-column: span 2; }
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE — MOBILE  (max 768px)
+════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── NAV ── */
+  nav {
+    padding: 0 5vw;
+    height: 56px;
+  }
+  .nav-links { gap: 16px; }
+  .nav-links a {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-visual { display: none; }
+  .hero-text {
+    padding: 56px 5vw 52px;
+  }
+  .hero-eyebrow { font-size: 10px; }
+  .hero-titulo { font-size: clamp(36px, 10vw, 52px); line-height: 1.05; }
+  .hero-sub { font-size: 10px; letter-spacing: 0.18em; }
+  .hero-desc { font-size: 15px; margin-bottom: 32px; }
+  .hero-ctas { flex-direction: column; gap: 10px; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; padding: 15px 24px; }
+
+  /* ── PILARES ── */
+  .pilares { padding: 60px 5vw; }
+  .pilares-grid { grid-template-columns: 1fr; gap: 14px; }
+  .pilar-card { padding: 28px 22px; }
+  .pilar-titulo { font-size: 20px; }
+  .pilar-texto { font-size: 15px; }
+
+  /* ── CIENCIA ── */
+  .ciencia { grid-template-columns: 1fr; gap: 40px; padding: 60px 5vw; }
+  .ciencia-titulo { font-size: clamp(28px, 8vw, 40px); }
+  .ciencia-cuerpo { font-size: 15px; }
+  .ciencia-datos { gap: 20px; flex-wrap: wrap; }
+  .dato-num { font-size: 32px; }
+  .pathway { padding-left: 0; }
+  .pathway-step { padding-left: 22px; }
+  .pathway-step-t { font-size: 15px; }
+  .pathway-step-p { font-size: 13px; }
+
+  /* ── BRISAS PREVIEW ── */
+  .brisas-preview { padding: 60px 5vw; }
+  .brisas-grid { grid-template-columns: 1fr; }
+  .brisa-preview-card { padding: 28px 22px; }
+  .brisa-nombre-prev { font-size: 32px; }
+  .brisa-claim-prev { font-size: 14px; }
+  .brisa-afirm-prev { font-size: 14px; }
+
+  /* ── SEC COMUNES ── */
+  .sec-titulo { font-size: clamp(28px, 8vw, 40px); }
+  .sec-sub { font-size: 15px; }
+  .pilares { padding: 60px 5vw; }
+  .cta-banner { padding: 60px 5vw; }
+  .cta-banner-titulo { font-size: clamp(24px, 7vw, 36px); }
+  .cta-banner-sub { font-size: 15px; }
+
+  /* ── EQUILIBRI PAGE ── */
+  .equil-hero {
+    grid-template-columns: 1fr;
+    padding: 56px 5vw 48px;
+    gap: 0;
+  }
+  .equil-visual { display: none; }
+  .equil-hero-titulo { font-size: clamp(44px, 12vw, 64px); }
+  .equil-hero-eslogan { font-size: 17px; }
+  .equil-hero-body { font-size: 15px; }
+
+  /* Manifesto */
+  .manifesto { padding: 60px 5vw; }
+  .manifesto-quote { font-size: clamp(20px, 5.5vw, 28px); padding: 0 16px; }
+  .manifesto-quote::before { font-size: 48px; }
+
+  /* Valores */
+  .valores { padding: 60px 5vw; }
+  .valores-grid { grid-template-columns: 1fr; gap: 12px; }
+  .valor-item { padding: 22px 18px; }
+  .valor-num { font-size: 26px; }
+  .valor-titulo { font-size: 15px; }
+  .valor-texto { font-size: 15px; }
+
+  /* Ritual */
+  .ritual-section { padding: 60px 5vw; }
+  .ritual-titulo { font-size: clamp(26px, 7vw, 36px); }
+  .ritual-sub { font-size: 15px; }
+  .ritual-pasos { grid-template-columns: 1fr; gap: 14px; }
+  .ritual-paso { padding: 24px 20px; }
+  .ritual-paso-t { font-size: 12px; }
+  .ritual-paso-p { font-size: 15px; }
+  .ritual-afirm p { font-size: 18px; }
+
+  /* ── KIT PAGE ── */
+  .kit-hero { padding: 56px 5vw 48px; }
+  .kit-hero-titulo { font-size: clamp(40px, 11vw, 64px); }
+  .kit-hero-desc { font-size: 15px; }
+  .kit-precio-wrap { padding: 18px 32px; width: 100%; }
+  .kit-precio { font-size: 40px; }
+  .kit-includes { flex-direction: column; align-items: center; gap: 10px; }
+  .kit-include-tag { font-size: 13px; }
+
+  /* Brisas detail */
+  .brisas-detail { padding: 56px 5vw; }
+  .brisas-detail-grid { gap: 16px; }
+  .brisa-detail-row { grid-template-columns: 1fr; }
+  .brisa-detail-left {
+    border-right: none;
+    border-bottom: 0.5px solid rgba(122,141,122,0.12);
+    padding: 24px 20px 18px;
+  }
+  .brisa-detail-nombre { font-size: 40px; }
+  .brisa-detail-claim { font-size: 15px; }
+  .brisa-detail-right {
+    grid-template-columns: 1fr;
+    padding: 20px 20px 24px;
+    gap: 16px;
+  }
+  .bd-afirm { grid-column: span 1; }
+  .bd-texto { font-size: 15px; }
+  .bd-emer-list li { font-size: 14px; }
+  .bd-afirm p { font-size: 15px; }
+
+  /* Formulación */
+  .formulacion { padding: 56px 5vw; }
+  .formulacion-grid { grid-template-columns: 1fr; gap: 28px; }
+  .form-titulo { font-size: 28px; }
+  .form-body { font-size: 15px; }
+  .form-spec { flex-direction: column; gap: 2px; }
+  .form-spec-label { min-width: unset; font-size: 12px; }
+  .form-spec-val { font-size: 14px; }
+  .form-card-p { font-size: 14px; }
+
+  /* Precauciones */
+  .kit-precauciones { padding: 56px 5vw; }
+  .prec-main-grid { grid-template-columns: 1fr; gap: 10px; }
+  .prec-item { padding: 16px 14px; }
+  .prec-item-t { font-size: 13px; }
+  .prec-item-p { font-size: 13px; }
+  .prec-contra { padding: 20px; }
+  .prec-contra-list { grid-template-columns: 1fr; gap: 10px; }
+  .prec-contra-list li { font-size: 14px; }
+  .disclaimer-web p { font-size: 12px; }
+
+  /* ── FOOTER ── */
+  footer { padding: 48px 5vw 28px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+  .footer-brand { margin-bottom: 8px; }
+  .footer-brand-desc { font-size: 13px; }
+  .footer-links a { font-size: 14px; }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  .footer-copy { font-size: 11px; }
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE  (max 400px)
+════════════════════════════════════════ */
+@media (max-width: 400px) {
+  .hero-titulo { font-size: 34px; }
+  .hero-desc { font-size: 14px; }
+  .nav-links a { font-size: 9px; letter-spacing: 0.1em; }
+  .nav-links { gap: 10px; }
+  .kit-hero-titulo { font-size: 36px; }
+  .equil-hero-titulo { font-size: 40px; }
+  .brisa-detail-nombre { font-size: 34px; }
+  .sec-titulo { font-size: 26px; }
+  .ritual-titulo { font-size: 24px; }
+  .cta-banner-titulo { font-size: 22px; }
+  .manifesto-quote { font-size: 18px; }
+  .pilares-grid { gap: 10px; }
+  .valores-grid { gap: 10px; }
+  .kit-precio { font-size: 34px; }
+  .btn-primary, .btn-ghost { font-size: 11px; padding: 14px 20px; }
+}
+
+/* ══ USO RESPONSABLE ══ */
+.uso-resp {
+  background: var(--green-deep);
+  padding: 80px 8vw;
+  position: relative;
+  overflow: hidden;
+}
+.uso-resp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(238,230,218,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+.uso-resp-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.uso-resp-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.uso-resp-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.uso-resp-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.uso-resp-titulo em { font-style: italic; color: var(--gold-light); }
+.uso-resp-intro {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.72);
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.uso-resp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.uso-resp-card {
+  background: rgba(238,230,218,0.06);
+  border: 0.5px solid rgba(205,162,116,0.25);
+  border-radius: 4px;
+  padding: 22px 20px;
+  transition: background .25s;
+}
+.uso-resp-card:hover { background: rgba(238,230,218,0.1); }
+.uso-resp-card-icon {
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: block;
+}
+.uso-resp-card-t {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold-light);
+  letter-spacing: 0.04em;
+  margin-bottom: 7px;
+}
+.uso-resp-card-p {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.68);
+  line-height: 1.7;
+}
+.uso-resp-contra {
+  background: rgba(238,230,218,0.05);
+  border: 0.5px solid rgba(205,162,116,0.2);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 4px 4px 0;
+  padding: 22px 24px;
+  margin-bottom: 24px;
+}
+.uso-resp-contra-t {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.uso-resp-contra-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.uso-resp-contra-list li {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.7);
+  line-height: 1.65;
+  padding-left: 14px;
+  position: relative;
+}
+.uso-resp-contra-list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  opacity: 0.7;
+}
+.uso-resp-disclaimer {
+  background: rgba(122,141,122,0.12);
+  border: 0.5px solid rgba(122,141,122,0.3);
+  border-radius: 4px;
+  padding: 18px 22px;
+  text-align: center;
+}
+.uso-resp-disclaimer p {
+  font-size: 13px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(238,230,218,0.55);
+  line-height: 1.7;
+}
+
+/* ══ FAQs ══ */
+.faq-hero {
+  background: var(--cream);
+  padding: 80px 8vw 60px;
+  text-align: center;
+  border-bottom: 0.5px solid rgba(122,141,122,0.15);
+}
+.faq-hero-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 300;
+  color: var(--green-dark);
+  line-height: 1.0;
+  margin-bottom: 8px;
+}
+.faq-hero-sub {
+  font-family: var(--ff-serif);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.faq-hero-desc {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.faq-section {
+  background: var(--cream-light);
+  padding: 72px 8vw 80px;
+}
+.faq-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+}
+.faq-cat-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.faq-cat-label:first-child { margin-top: 0; }
+.faq-cat-label::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: rgba(205,162,116,0.3);
+}
+.faq-item {
+  border-bottom: 0.5px solid rgba(122,141,122,0.18);
+  overflow: hidden;
+}
+.faq-item:first-of-type { border-top: 0.5px solid rgba(122,141,122,0.18); }
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 0;
+  text-align: left;
+}
+.faq-question-text {
+  font-family: var(--ff-serif);
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--green-dark);
+  line-height: 1.35;
+  flex: 1;
+  transition: color .2s;
+}
+.faq-question:hover .faq-question-text { color: var(--gold); }
+.faq-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(205,162,116,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: background .25s, border-color .25s, transform .35s;
+  position: relative;
+}
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: transform .35s, opacity .25s;
+}
+.faq-icon::before { width: 10px; height: 1px; }
+.faq-icon::after  { width: 1px; height: 10px; }
+.faq-item.open .faq-icon {
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: rotate(45deg);
+}
+.faq-item.open .faq-icon::before,
+.faq-item.open .faq-icon::after { background: var(--green-deep); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .45s cubic-bezier(.4,0,.2,1), padding .35s;
+  padding: 0 0 0;
+}
+.faq-item.open .faq-answer {
+  max-height: 600px;
+  padding-bottom: 24px;
+}
+.faq-answer p {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.85;
+}
+.faq-answer strong {
+  font-weight: 500;
+  color: var(--green-dark);
+}
+.faq-answer em {
+  font-style: italic;
+  color: var(--green-dark);
+}
+.faq-cta {
+  background: var(--cream);
+  padding: 64px 8vw;
+  text-align: center;
+  border-top: 0.5px solid rgba(122,141,122,0.12);
+}
+.faq-cta-titulo {
+  font-family: var(--ff-serif);
+  font-size: clamp(22px, 2.8vw, 34px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--green-dark);
+  margin-bottom: 10px;
+}
+.faq-cta-sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--gray);
+  margin-bottom: 28px;
+}
+
+/* ══ RESPONSIVE USO RESP + FAQ ══ */
+@media (max-width: 1024px) {
+  .uso-resp { padding: 64px 6vw; }
+  .uso-resp-grid { grid-template-columns: 1fr 1fr; }
+  .uso-resp-contra-list { grid-template-columns: 1fr; }
+  .faq-section { padding: 56px 6vw 64px; }
+  .faq-hero { padding: 64px 6vw 48px; }
+}
+@media (max-width: 768px) {
+  .uso-resp { padding: 56px 5vw; }
+  .uso-resp-grid { grid-template-columns: 1fr; gap: 12px; }
+  .uso-resp-card { padding: 18px 16px; }
+  .uso-resp-contra { padding: 18px 18px; }
+  .uso-resp-contra-list { grid-template-columns: 1fr; gap: 8px; }
+  .faq-hero { padding: 56px 5vw 40px; }
+  .faq-hero-titulo { font-size: clamp(36px, 10vw, 56px); }
+  .faq-section { padding: 48px 5vw 56px; }
+  .faq-question-text { font-size: 16px; }
+  .faq-answer p { font-size: 15px; }
+  .faq-cta { padding: 48px 5vw; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav>
+  <div class="nav-logo" onclick="showPage('inicio')" style="cursor:pointer;">
+    <svg style="height:36px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #7a8d7a;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('inicio')" id="nav-inicio" class="active">Inicio</a></li>
+    <li><a href="#" onclick="showPage('equilibri')" id="nav-equilibri">Nosotros</a></li>
+    <li><a href="#" onclick="showPage('kit')" id="nav-kit">Kit Balance &amp; Bloom</a></li>
+    <li><a href="#" onclick="showPage('faq')" id="nav-faq">Preguntas Frecuentes</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════
+     PÁGINA 1: INICIO
+════════════════════════════════════════ -->
+<div class="page active" id="page-inicio">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Cosmética Emocional</p>
+      <h1 class="hero-titulo">Bienvenida a<br><em>tu refugio.</em></h1>
+      <p class="hero-sub">· Aromaterapia · Autoafirmaciones · Bienestar emocional ·</p>
+      <p class="hero-desc">En un mundo que exige ir deprisa, Equilibri es tu pausa y tu refugio. Transforma tu estado de ánimo, reduce el estrés y recupera tu centro de forma natural — en cuestión de segundos.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="showPage('kit')">Conocer el Kit</button>
+        <button class="btn-ghost" onclick="showPage('equilibri')">Nuestra Historia</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-circle-wrap">
+        <div class="hero-circle">
+          <div style="margin-bottom:10px;"><svg style="height:28px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #7a8d7a;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg></div>
+          <svg class="celestial-svg" width="140" height="50" viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="0.8" opacity="0.7"/>
+            <circle cx="30" cy="30" r="15" fill="none" stroke="#cda274" stroke-width="0.8"/>
+            <circle cx="30" cy="30" r="6" fill="#cda274" opacity="0.85"/>
+            <line x1="30" y1="11" x2="30" y2="7" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="30" y1="49" x2="30" y2="53" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="11" y1="30" x2="7" y2="30" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="49" y1="30" x2="53" y2="30" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="17" y1="17" x2="14" y2="14" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="43" y1="43" x2="46" y2="46" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="43" y1="17" x2="46" y2="14" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="17" y1="43" x2="14" y2="46" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+            <circle cx="80" cy="30" r="15" fill="none" stroke="#cda274" stroke-width="0.8"/>
+            <path d="M86 22 A9 9 0 1 0 86 38 A5.5 5.5 0 1 1 86 22Z" fill="#cda274" opacity="0.85"/>
+            <circle cx="130" cy="30" r="15" fill="none" stroke="#cda274" stroke-width="0.8"/>
+            <path d="M130 21 L131.5 27 L138 27 L132.5 31 L134.5 38 L130 34 L125.5 38 L127.5 31 L122 27 L128.5 27Z" fill="#cda274" opacity="0.85"/>
+          </svg>
+          <h2 class="hero-circle-titulo">Balance<br>&amp; Bloom</h2>
+          <p class="hero-circle-sub">· Ritual de Brisas ·</p>
+          <p class="hero-circle-claim">Equilibra cuerpo,<br>mente y alma</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILARES -->
+  <section class="pilares">
+    <p class="sec-eyebrow">¿Qué hacemos?</p>
+    <h2 class="sec-titulo">Más que un aroma, una <em>herramienta de bienestar</em></h2>
+    <div class="divider-center"></div>
+    <p class="sec-sub">Nuestras fórmulas fusionan la pureza de la aromaterapia botánica con el poder de las autoafirmaciones. Juntos, crean un anclaje que ayuda a tu mente y cuerpo a encontrar el equilibrio en momentos clave de tu día.</p>
+    <div class="pilares-grid">
+      <div class="pilar-card fade-up">
+        <div class="pilar-icon">🧠</div>
+        <h3 class="pilar-titulo">Aromaterapia botánica</h3>
+        <p class="pilar-texto">Los aceites esenciales puros son extractos botánicos que, al inhalarse, viajan directamente al cerebro emocional. Su efecto no es magia — es simplemente cómo funciona tu olfato.</p>
+      </div>
+      <div class="pilar-card fade-up" style="transition-delay:.1s">
+        <div class="pilar-icon">🌿</div>
+        <h3 class="pilar-titulo">Anclaje mente–cuerpo</h3>
+        <p class="pilar-texto">Al unir el aroma con una afirmación, tu mente crea una asociación poderosa. Con el tiempo, el solo hecho de oler tu bruma te regresa a ese estado de calma o energía.</p>
+      </div>
+      <div class="pilar-card fade-up" style="transition-delay:.2s">
+        <div class="pilar-icon">✨</div>
+        <h3 class="pilar-titulo">Rituales intencionales</h3>
+        <p class="pilar-texto">No se trata de aromas que hacen el trabajo por ti — se trata de crear un momento de pausa consciente que te permita procesar tus emociones con más suavidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIENCIA PATHWAY -->
+  <section class="ciencia">
+    <div class="ciencia-text">
+      <p class="ciencia-eyebrow">¿Cómo funciona?</p>
+      <h2 class="ciencia-titulo">El viaje directo<br>hacia tus <em>emociones</em></h2>
+      <p class="ciencia-cuerpo">Cuando inhalas un aroma, las moléculas viajan directamente al cerebro emocional sin barreras. Es por eso que un olor puede llevarte de inmediato a un recuerdo, una sensación o un estado de ánimo. Nuestras brumas aprovechan esa conexión de forma intencional, para acompañarte a encontrar calma, enfoque o energía cuando más lo necesitas.</p>
+      <div class="ciencia-datos">
+        <div class="dato">
+          <span class="dato-num">3</span>
+          <span class="dato-label">brumas funcionales</span>
+        </div>
+        <div class="dato">
+          <span class="dato-num">10–15</span>
+          <span class="dato-label">días de maceración</span>
+        </div>
+        <div class="dato">
+          <span class="dato-num">100%</span>
+          <span class="dato-label">aceites puros</span>
+        </div>
+      </div>
+    </div>
+    <div class="pathway">
+      <div class="pathway-step">
+        <span class="pathway-step-num">01</span>
+        <div class="pathway-step-body">
+          <p class="pathway-step-t">Inhalas la bruma</p>
+          <p class="pathway-step-p">Las moléculas aromáticas entran por tu nariz y comienzan su viaje directo al cerebro.</p>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <span class="pathway-step-num">02</span>
+        <div class="pathway-step-body">
+          <p class="pathway-step-t">Llegan al cerebro emocional</p>
+          <p class="pathway-step-p">El aroma alcanza el sistema límbico — el centro que regula tus emociones, el estrés y la memoria.</p>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <span class="pathway-step-num">03</span>
+        <div class="pathway-step-body">
+          <p class="pathway-step-t">Tu estado emocional responde</p>
+          <p class="pathway-step-p">Tu cuerpo recibe la señal: es momento de activarse, calmarse o centrarse — según la bruma que elijas.</p>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <span class="pathway-step-num">04</span>
+        <div class="pathway-step-body">
+          <p class="pathway-step-t">La afirmación sella el momento</p>
+          <p class="pathway-step-p">Al unir el aroma con tus palabras, creas un anclaje. Tu mente aprende a regresar a ese estado cada vez que usas tu bruma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRISAS PREVIEW -->
+  <section class="brisas-preview">
+    <p class="sec-eyebrow">El Kit Equilibri</p>
+    <h2 class="sec-titulo">Tu botiquín emocional<br><em>para cada momento del día</em></h2>
+    <div class="divider-center" style="margin-bottom:48px;"></div>
+    <div class="brisas-grid">
+      <div class="brisa-preview-card fade-up" onclick="showPage('kit')">
+        <p class="brisa-tag">☀ Rutina AM</p>
+        <h3 class="brisa-nombre-prev">Abundancia</h3>
+        <p class="brisa-claim-prev">El aroma del optimismo y la suficiencia.</p>
+        <div class="brisa-pills-prev">
+          <span class="pill-sm">Naranja Dulce</span>
+          <span class="pill-sm">Bergamota</span>
+          <span class="pill-sm">Cedro</span>
+        </div>
+        <p class="brisa-afirm-prev">"Hoy me reconozco digna y suficiente. Atraigo el éxito desde la alegría."</p>
+      </div>
+      <div class="brisa-preview-card fade-up" onclick="showPage('kit')" style="transition-delay:.1s">
+        <p class="brisa-tag">◯ Rutina Mid-Day</p>
+        <h3 class="brisa-nombre-prev">Centro</h3>
+        <p class="brisa-claim-prev">El ancla para la mente y el cuerpo.</p>
+        <div class="brisa-pills-prev">
+          <span class="pill-sm">Bergamota</span>
+          <span class="pill-sm">Romero</span>
+          <span class="pill-sm">Sándalo</span>
+          <span class="pill-sm">Pachulí</span>
+        </div>
+        <p class="brisa-afirm-prev">"Mi mente está clara y mi cuerpo estable. Me anclo en el presente."</p>
+      </div>
+      <div class="brisa-preview-card fade-up" onclick="showPage('kit')" style="transition-delay:.2s">
+        <p class="brisa-tag">☽ Rutina PM</p>
+        <h3 class="brisa-nombre-prev">Serenidad</h3>
+        <p class="brisa-claim-prev">El abrazo olfativo que apaga el sistema nervioso.</p>
+        <div class="brisa-pills-prev">
+          <span class="pill-sm">Lavanda</span>
+          <span class="pill-sm">Naranja Dulce</span>
+          <span class="pill-sm">Cedro</span>
+        </div>
+        <p class="brisa-afirm-prev">"Suelto las cargas de hoy. Me permito descansar en paz."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <h2 class="cta-banner-titulo">¿Lista para hacer una pausa y volver a ti?</h2>
+    <p class="cta-banner-sub">Descubre el Kit Balance &amp; Bloom · Ritual de Brisas</p>
+    <button class="btn-primary" onclick="showPage('kit')">Ver el Kit Completo →</button>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="margin-bottom:14px;"><svg style="height:44px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #eee6da;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg></div>
+        <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con neurociencia para transformar tu estado de ánimo.</p>
+      </div>
+      <div>
+        <p class="footer-col-t">Páginas</p>
+        <ul class="footer-links">
+          <li><a onclick="showPage('inicio')">Inicio</a></li>
+          <li><a onclick="showPage('equilibri')">Nosotros</a></li>
+          <li><a onclick="showPage('kit')">Kit Balance &amp; Bloom</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-t">El Kit</p>
+        <ul class="footer-links">
+          <li><a onclick="showPage('kit')">Bruma Abundancia</a></li>
+          <li><a onclick="showPage('kit')">Bruma Centro</a></li>
+          <li><a onclick="showPage('kit')">Bruma Serenidad</a></li>
+          <li><a onclick="showPage('kit')">Ritual de Uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Equilibri · Cosmética Emocional Premium · Producto artesanal.</p>
+      <svg width="80" height="28" viewBox="0 0 160 60" opacity="0.3">
+        <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="1"/>
+        <circle cx="30" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <circle cx="30" cy="30" r="5" fill="#cda274"/>
+        <circle cx="80" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <path d="M85 23 A8 8 0 1 0 85 37 A5 5 0 1 1 85 23Z" fill="#cda274"/>
+        <circle cx="130" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <path d="M130 22 L131.5 27.5 L138 27.5 L132.5 31.5 L134.5 38 L130 34 L125.5 38 L127.5 31.5 L122 27.5 L128.5 27.5Z" fill="#cda274"/>
+      </svg>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PÁGINA 2: EQUILIBRI
+════════════════════════════════════════ -->
+<div class="page" id="page-equilibri">
+
+  <section class="equil-hero">
+    <div>
+      <p class="equil-hero-eyebrow">Nuestra filosofía</p>
+      <div class="equil-hero-titulo" style="margin-bottom:10px;"><svg style="height:52px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #7a8d7a;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg></div>
+      <p class="equil-hero-eslogan">La ciencia detrás de Equilibri</p>
+      <p class="equil-hero-body">Si nunca has probado la aromaterapia, es fácil pensar que se trata de "aromas que huelen rico". Pero en realidad, la aromaterapia utiliza extractos botánicos concentrados para apoyar tu bienestar físico y emocional de forma natural.<br><br>La magia de nuestras brumas está en cómo tu cuerpo procesa los olores. A diferencia de otros sentidos, el olfato tiene un camino directo al cerebro emocional — el centro que regula el estrés, el placer, el miedo y la tristeza. Es por eso que un aroma puede cambiar tu estado de ánimo casi de inmediato.</p>
+    </div>
+    <div class="equil-visual">
+      <div class="equil-circle">
+        <div style="margin-bottom:10px;"><svg style="height:28px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #eee6da;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg></div>
+        <svg width="120" height="44" viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px">
+          <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="0.8" opacity="0.7"/>
+          <circle cx="30" cy="30" r="14" fill="none" stroke="#cda274" stroke-width="0.8"/>
+          <circle cx="30" cy="30" r="6" fill="#cda274" opacity="0.85"/>
+          <line x1="30" y1="12" x2="30" y2="8" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="30" y1="48" x2="30" y2="52" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="12" y1="30" x2="8" y2="30" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="48" y1="30" x2="52" y2="30" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
+          <circle cx="80" cy="30" r="14" fill="none" stroke="#cda274" stroke-width="0.8"/>
+          <path d="M86 22 A9 9 0 1 0 86 38 A5.5 5.5 0 1 1 86 22Z" fill="#cda274" opacity="0.85"/>
+          <circle cx="130" cy="30" r="14" fill="none" stroke="#cda274" stroke-width="0.8"/>
+          <path d="M130 21 L131.5 27 L138 27 L132.5 31 L134.5 38 L130 34 L125.5 38 L127.5 31 L122 27 L128.5 27Z" fill="#cda274" opacity="0.85"/>
+        </svg>
+        <h2 class="equil-circle-titulo">Balance<br>&amp; Bloom</h2>
+        <p class="equil-circle-eslogan">Ritual de Brisas</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--cream-light); padding:80px 8vw;">
+    <div class="manifesto" style="padding:0; max-width:680px; margin:0 auto; text-align:center;">
+      <p class="sec-eyebrow" style="margin-bottom:14px;">Nuestra filosofía</p>
+      <div class="manifesto-quote">
+        Nuestras brumas no hacen el trabajo emocional por ti — preparan el terreno para que tú puedas hacerlo con más suavidad.
+      </div>
+      <p class="manifesto-autor" style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">—&nbsp;<svg style="height:24px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #7a8d7a;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg>&nbsp;· Cosmética Emocional</p>
+    </div>
+  </section>
+
+  <section class="valores">
+    <p class="sec-eyebrow">Lo que nos mueve</p>
+    <h2 class="sec-titulo">Nuestra <em>filosofía</em></h2>
+    <div class="divider-center" style="margin-bottom:48px;"></div>
+    <div class="valores-grid">
+      <div class="valor-item fade-up">
+        <span class="valor-num">01</span>
+        <div class="valor-body">
+          <p class="valor-titulo">Acompañamiento, no solución mágica</p>
+          <p class="valor-texto">Nuestras brumas no hacen el trabajo emocional por ti. Son una mano que te sostiene mientras tú decides pausar, respirar y reconectarte contigo misma.</p>
+        </div>
+      </div>
+      <div class="valor-item fade-up" style="transition-delay:.1s">
+        <span class="valor-num">02</span>
+        <div class="valor-body">
+          <p class="valor-titulo">Ingredientes que importan</p>
+          <p class="valor-texto">Usamos aceites esenciales 100% puros y naturales, macerados en frío para preservar la integridad de cada extracto botánico. Sin sintéticos, sin rellenos.</p>
+        </div>
+      </div>
+      <div class="valor-item fade-up" style="transition-delay:.2s">
+        <span class="valor-num">03</span>
+        <div class="valor-body">
+          <p class="valor-titulo">Cuerpo, mente y alma conectados</p>
+          <p class="valor-texto">Creemos que el bienestar no es solo físico. Nuestros rituales invitan a crear momentos de presencia consciente donde puedas escuchar lo que realmente necesitas.</p>
+        </div>
+      </div>
+      <div class="valor-item fade-up" style="transition-delay:.3s">
+        <span class="valor-num">04</span>
+        <div class="valor-body">
+          <p class="valor-titulo">Simple, accesible e intencional</p>
+          <p class="valor-texto">El autocuidado no debería ser complicado. Rocía, inhala, afirma. Tres pasos para crear un momento que es solo tuyo, en cualquier momento del día.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ritual-section">
+    <p class="sec-eyebrow" style="color:var(--gold); margin-bottom:10px;">El método</p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:4px;"><div><svg style="height:36px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #7a8d7a;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg></div><h2 class="ritual-titulo" style="margin-bottom:0;">Tu Ritual en 3 pasos</h2></div>
+    <p class="ritual-sub">Transforma la aplicación de tu bruma en un pequeño momento de pausa consciente. Tres pasos, menos de un minuto, un cambio real.</p>
+    <div class="ritual-pasos">
+      <div class="ritual-paso fade-up">
+        <div class="ritual-paso-n">1</div>
+        <p class="ritual-paso-t">Rocía</p>
+        <p class="ritual-paso-p">Agita suavemente el frasco. Pulveriza la bruma a tu alrededor, sobre tu almohada o en tu espacio de trabajo.</p>
+      </div>
+      <div class="ritual-paso fade-up" style="transition-delay:.1s">
+        <div class="ritual-paso-n">2</div>
+        <p class="ritual-paso-t">Inhala</p>
+        <p class="ritual-paso-p">Cierra los ojos. Inhala profundo por la nariz y deja que el aroma llegue a ti. Sin prisa.</p>
+      </div>
+      <div class="ritual-paso fade-up" style="transition-delay:.2s">
+        <div class="ritual-paso-n">3</div>
+        <p class="ritual-paso-t">Afirma</p>
+        <p class="ritual-paso-p">Mientras exhalas, repite la afirmación de tu bruma en voz alta o en tu mente. Deja que tus palabras y el aroma trabajen juntos.</p>
+      </div>
+    </div>
+    <div class="ritual-afirm">
+      <p>"Estoy en calma, conecto con mi esencia y florezco desde mi equilibrio."</p>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <h2 class="cta-banner-titulo">¿Curiosa por saber qué bruma necesitas hoy?</h2>
+    <p class="cta-banner-sub">Descubre el Kit Balance &amp; Bloom y su guía de rescate emocional</p>
+    <button class="btn-primary" onclick="showPage('kit')">Ver el Kit →</button>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="margin-bottom:14px;"><svg style="height:44px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #eee6da;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg></div>
+        <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con neurociencia.</p>
+      </div>
+      <div>
+        <p class="footer-col-t">Páginas</p>
+        <ul class="footer-links">
+          <li><a onclick="showPage('inicio')">Inicio</a></li>
+          <li><a onclick="showPage('equilibri')">Nosotros</a></li>
+          <li><a onclick="showPage('kit')">Kit Balance &amp; Bloom</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-t">El Kit</p>
+        <ul class="footer-links">
+          <li><a onclick="showPage('kit')">Bruma Abundancia</a></li>
+          <li><a onclick="showPage('kit')">Bruma Centro</a></li>
+          <li><a onclick="showPage('kit')">Bruma Serenidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Equilibri · Cosmética Emocional Premium</p>
+      <svg width="80" height="28" viewBox="0 0 160 60" opacity="0.3">
+        <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="1"/>
+        <circle cx="30" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <circle cx="30" cy="30" r="5" fill="#cda274"/>
+        <circle cx="80" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <path d="M85 23 A8 8 0 1 0 85 37 A5 5 0 1 1 85 23Z" fill="#cda274"/>
+        <circle cx="130" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <path d="M130 22 L131.5 27.5 L138 27.5 L132.5 31.5 L134.5 38 L130 34 L125.5 38 L127.5 31.5 L122 27.5 L128.5 27.5Z" fill="#cda274"/>
+      </svg>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PÁGINA 3: KIT BALANCE & BLOOM
+════════════════════════════════════════ -->
+<div class="page" id="page-kit">
+
+  <!-- HERO KIT -->
+  <section class="kit-hero">
+    <div style="margin:0 auto 20px;display:flex;justify-content:center;"><svg style="height:38px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #7a8d7a;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg></div>
+    <p class="kit-hero-eyebrow">✦ Producto estrella · Equilibri ✦</p>
+    <h1 class="kit-hero-titulo">Balance &amp; Bloom</h1>
+    <p class="kit-hero-subtitulo">· Ritual de Brisas · Kit de 3 Brumas Funcionales ·</p>
+    <p class="kit-hero-desc">Tres brumas de aromaterapia funcional que te acompañan desde que despiertas hasta que te vas a dormir. Cada una está diseñada para un momento específico de tu día: activarte, centrarte o descansar. Úsalas como tu ritual diario o como guía de rescate cuando más lo necesites.</p>
+
+    <div class="kit-precio-wrap">
+      <span class="kit-precio-label">Precio del Kit</span>
+      <span class="kit-precio">$ · · ·</span>
+      <span class="kit-precio-nota">Precio próximamente</span>
+    </div>
+
+    <div class="kit-includes">
+      <span class="kit-include-tag">3 Brumas de 30ml c/u</span>
+      <span class="kit-include-tag">Caja kraft premium</span>
+      <span class="kit-include-tag">Guía de ritual</span>
+      <span class="kit-include-tag">Aceites 100% puros</span>
+    </div>
+  </section>
+
+  <!-- BRISAS DETAIL -->
+  <section class="brisas-detail">
+    <p class="sec-eyebrow">Las tres brisas</p>
+    <h2 class="sec-titulo">Tu guía de <em>rescate emocional</em></h2>
+    <div class="divider-center" style="margin-bottom:48px;"></div>
+    <div class="brisas-detail-grid">
+
+      <!-- ABUNDANCIA -->
+      <div class="brisa-detail-row fade-up">
+        <div class="brisa-detail-left">
+          <p class="brisa-detail-momento">☀ Rutina AM · Despertar Vital</p>
+          <h3 class="brisa-detail-nombre">Abundancia</h3>
+          <p class="brisa-detail-claim">El aroma del optimismo y la suficiencia.</p>
+          <div class="brisa-detail-pills">
+            <span class="pill-sm">Naranja Dulce</span>
+            <span class="pill-sm">Bergamota</span>
+            <span class="pill-sm">Cedro</span>
+          </div>
+        </div>
+        <div class="brisa-detail-right">
+          <div>
+            <p class="bd-sec-label">Para el ritual diario</p>
+            <p class="bd-texto">Un estallido de luz para tus mañanas. Diseñada para silenciar la autocrítica y arrancar el día desde una mentalidad de suficiencia y fluidez. Su aroma vibrante te enraíza para que sientas el apoyo de tu entorno.</p>
+          </div>
+          <div>
+            <p class="bd-sec-label">Úsala en emergencias</p>
+            <ul class="bd-emer-list">
+              <li><strong>Tristeza o apatía:</strong> La combinación de cítricos aporta frescura y optimismo, invitándote a ver el día con otros ojos.</li>
+              <li><strong>Desmotivación:</strong> Cuando el exceso de trabajo te abruma y necesitas un impulso para continuar.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="bd-sec-label">Usos fuera del ritual</p>
+            <ul class="bd-emer-list">
+              <li><strong>En el auto:</strong> Rocía antes de manejar para llegar con actitud creadora.</li>
+              <li><strong>En la ropa:</strong> Aplica en bufanda antes de eventos sociales.</li>
+            </ul>
+          </div>
+          <div class="bd-afirm">
+            <p>"Hoy me reconozco digna y suficiente. Me abro a recibir el apoyo que me rodea y atraigo el éxito desde la alegría y la fluidez."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTRO -->
+      <div class="brisa-detail-row fade-up" style="transition-delay:.1s">
+        <div class="brisa-detail-left">
+          <p class="brisa-detail-momento">◯ Rutina Mid-Day · Foco y Claridad</p>
+          <h3 class="brisa-detail-nombre">Centro</h3>
+          <p class="brisa-detail-claim">El ancla para la mente y el cuerpo.</p>
+          <div class="brisa-detail-pills">
+            <span class="pill-sm">Bergamota</span>
+            <span class="pill-sm">Romero</span>
+            <span class="pill-sm">Sándalo</span>
+            <span class="pill-sm">Pachulí</span>
+          </div>
+        </div>
+        <div class="brisa-detail-right">
+          <div>
+            <p class="bd-sec-label">Para el ritual diario</p>
+            <p class="bd-texto">Tu refugio de claridad en el caos. Despeja la confusión, aquieta el pensamiento excesivo y te devuelve al aquí y ahora con una sensación de alerta en total calma.</p>
+          </div>
+          <div>
+            <p class="bd-sec-label">Úsala en emergencias</p>
+            <ul class="bd-emer-list">
+              <li><strong>Dolor de cabeza:</strong> Romero y Bergamota como analgésicos naturales.</li>
+              <li><strong>Bloqueo mental:</strong> Sándalo frena el pensamiento excesivo.</li>
+              <li><strong>Ataques de pánico:</strong> Pachulí "aterriza" a la realidad física.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="bd-sec-label">Usos fuera del ritual</p>
+            <ul class="bd-emer-list">
+              <li><strong>Escritorio o estudio:</strong> Rocía en tu espacio antes de una sesión de trabajo importante o de tomar decisiones.</li>
+              <li><strong>Yoga o ejercicio:</strong> Úsala antes de estirar para alinear tu respiración con el movimiento.</li>
+            </ul>
+          </div>
+          <div class="bd-afirm">
+            <p>"Mi mente está clara y mi cuerpo está estable. Suelto el control, me anclo en este momento y avanzo con calma y enfoque."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERENIDAD -->
+      <div class="brisa-detail-row fade-up" style="transition-delay:.2s">
+        <div class="brisa-detail-left">
+          <p class="brisa-detail-momento">☽ Rutina PM · Descanso Profundo</p>
+          <h3 class="brisa-detail-nombre">Serenidad</h3>
+          <p class="brisa-detail-claim">El abrazo olfativo que apaga el sistema nervioso.</p>
+          <div class="brisa-detail-pills">
+            <span class="pill-sm">Lavanda</span>
+            <span class="pill-sm">Naranja Dulce</span>
+            <span class="pill-sm">Cedro</span>
+          </div>
+        </div>
+        <div class="brisa-detail-right">
+          <div>
+            <p class="bd-sec-label">Para el ritual diario</p>
+            <p class="bd-texto">El abrazo olfativo para las mentes que no pueden apagarse. Te sostiene para que bajes la guardia y liberes las tensiones y las palabras no dichas del día — arrullándote hacia un descanso profundo y seguro.</p>
+          </div>
+          <div>
+            <p class="bd-sec-label">Úsala en emergencias</p>
+            <ul class="bd-emer-list">
+              <li><strong>Insomnio o ansiedad nocturna:</strong> La lavanda es mundialmente conocida por sus propiedades calmantes que favorecen el sueño. El cedro añade una sensación de arraigo y seguridad.</li>
+              <li><strong>Angustia o llanto:</strong> Ayuda a liberar el "nudo en la garganta" cuando las emociones del día no encuentran salida.</li>
+              <li><strong>Tensión muscular:</strong> Ideal para cuando el estrés se acumula físicamente en el cuello, hombros o espalda.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="bd-sec-label">Usos fuera del ritual</p>
+            <ul class="bd-emer-list">
+              <li><strong>Pillow Mist:</strong> Rocía sobre la almohada 5 min antes de dormir.</li>
+              <li><strong>Niños:</strong> Lavanda y Naranja son nobles y seguros para calmar.</li>
+            </ul>
+          </div>
+          <div class="bd-afirm">
+            <p>"Suelto las cargas que guardé hoy. Ya no tengo que luchar; estoy a salvo y me permito descansar en paz."</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FORMULACIÓN -->
+  <section class="formulacion">
+    <div class="formulacion-grid">
+      <div class="form-texto">
+        <p class="sec-eyebrow" style="text-align:left; margin-bottom:12px;">La fórmula</p>
+        <h3 class="form-titulo">Artesanal.<br><em>Intencional.</em><br>Precisa.</h3>
+        <p class="form-body">Cada bruma está elaborada con agua destilada, una base de vodka que permite dispersar las esencias de forma uniforme y segura, y una dosis cuidadosamente medida de aceites esenciales 100% puros y naturales. La mezcla reposa en frío entre 10 y 15 días para que las notas aromáticas maduren y se integren perfectamente.</p>
+        <div class="form-specs">
+          <div class="form-spec">
+            <span class="form-spec-label">Contenido</span>
+            <span class="form-spec-val">30 ml por bruma · Kit de 3</span>
+          </div>
+          <div class="form-spec">
+            <span class="form-spec-label">Base</span>
+            <span class="form-spec-val">27 ml agua destilada + 3 ml vodka (10%)</span>
+          </div>
+          <div class="form-spec">
+            <span class="form-spec-label">Aceites</span>
+            <span class="form-spec-val">5 gotas · dosis terapéutica</span>
+          </div>
+          <div class="form-spec">
+            <span class="form-spec-label">Maceración</span>
+            <span class="form-spec-val">10–15 días en frío</span>
+          </div>
+          <div class="form-spec">
+            <span class="form-spec-label">Envase</span>
+            <span class="form-spec-val">Vidrio ámbar con atomizador</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-visual">
+        <div class="form-card">
+          <p class="form-card-t">💡 Tip Experto · Método del Pañuelo</p>
+          <p class="form-card-p">Para momentos de estrés agudo, rocía tu bruma en un pañuelo o trozo de algodón y realiza 3 inhalaciones cortas y suaves. Esta técnica permite que el aroma llegue rápidamente al cerebro emocional sin saturar el olfato.</p>
+        </div>
+        <div class="form-card" style="background:rgba(205,162,116,0.12); border:0.5px solid rgba(205,162,116,0.3);">
+          <p class="form-card-t" style="color:var(--gold);">Si alguna fragancia no resuena contigo</p>
+          <p class="form-card-p" style="color:var(--green-dark);">Obsérvala con curiosidad y apertura. A veces la resistencia que sentimos ante un aroma nos habla de algo que está listo para ser procesado. No hay respuesta incorrecta — solo información valiosa sobre ti.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECAUCIONES -->
+  <section class="uso-resp">
+    <div class="uso-resp-inner">
+      <div class="uso-resp-header">
+        <p class="uso-resp-eyebrow">Antes de usar tu kit</p>
+        <h2 class="uso-resp-titulo">Úsala con <em>amor y consciencia</em></h2>
+        <p class="uso-resp-intro">Nuestras brumas están formuladas con aceites esenciales 100% puros — ingredientes naturales y poderosos que merecen respeto. Aquí te contamos cómo cuidarte mientras las disfrutas.</p>
+      </div>
+
+      <div class="uso-resp-grid">
+        <div class="uso-resp-card">
+          <span class="uso-resp-card-icon">🌬</span>
+          <p class="uso-resp-card-t">Solo ambiental y externo</p>
+          <p class="uso-resp-card-p">Están hechas para rociarse en tu espacio, ropa o almohada — nunca para ingestionarlas. Su potencia está en el aroma, no en beberlas.</p>
+        </div>
+        <div class="uso-resp-card">
+          <span class="uso-resp-card-icon">👁</span>
+          <p class="uso-resp-card-t">Cuidado con tus ojos</p>
+          <p class="uso-resp-card-p">Si la bruma llega accidentalmente a tus ojos, no uses agua. Limpia con algodón impregnado en aceite vegetal (oliva o almendras) y consulta a tu médico si persiste.</p>
+        </div>
+        <div class="uso-resp-card">
+          <span class="uso-resp-card-icon">☀️</span>
+          <p class="uso-resp-card-t">Sol y piel sensible</p>
+          <p class="uso-resp-card-p">Si la aplicas sobre la piel, evita el sol directo por 24 hrs. Los aceites cítricos (Bergamota, Naranja) pueden causar manchas si se exponen a la luz solar.</p>
+        </div>
+        <div class="uso-resp-card">
+          <span class="uso-resp-card-icon">🔥</span>
+          <p class="uso-resp-card-t">Producto inflamable</p>
+          <p class="uso-resp-card-p">Contienen alcohol como dispersante natural. Guárdalas alejadas de fuentes de calor, llamas directas y luz solar prolongada.</p>
+        </div>
+        <div class="uso-resp-card">
+          <span class="uso-resp-card-icon">🐾</span>
+          <p class="uso-resp-card-t">Mascotas en casa</p>
+          <p class="uso-resp-card-p">El olfato de los animales es muy sensible. Rocía siempre en espacios ventilados y nunca directamente sobre ellos. Si tu mascota se aleja, respeta su espacio.</p>
+        </div>
+        <div class="uso-resp-card">
+          <span class="uso-resp-card-icon">🧒</span>
+          <p class="uso-resp-card-t">Niños y bebés</p>
+          <p class="uso-resp-card-p">Guarda los frascos fuera de su alcance. Para ambientar sus cuartos, usa solo la bruma Serenidad (Lavanda y Naranja) en espacios bien ventilados.</p>
+        </div>
+      </div>
+
+      <div class="uso-resp-contra">
+        <p class="uso-resp-contra-t">Consulta a tu médico si…</p>
+        <ul class="uso-resp-contra-list">
+          <li>Estás embarazada o en periodo de lactancia.</li>
+          <li>Padeces asma, epilepsia o hipertensión severa.</li>
+          <li>Estás bajo tratamiento médico específico.</li>
+          <li>Notas irritación, enrojecimiento o malestar al usarla — simplemente suspende su uso.</li>
+        </ul>
+      </div>
+
+      <div class="uso-resp-disclaimer">
+        <p>Los productos de Equilibri tienen un propósito exclusivamente cosmético y de apoyo al bienestar. La aromaterapia es una práctica complementaria y no sustituye el consejo, diagnóstico ni tratamiento médico o psicológico profesional. El uso e interpretación de la información brindada es responsabilidad absoluta del consumidor.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="margin-bottom:14px;"><svg style="height:44px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #eee6da;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg></div>
+        <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con neurociencia para transformar tu estado de ánimo.</p>
+      </div>
+      <div>
+        <p class="footer-col-t">Páginas</p>
+        <ul class="footer-links">
+          <li><a onclick="showPage('inicio')">Inicio</a></li>
+          <li><a onclick="showPage('equilibri')">Nosotros</a></li>
+          <li><a onclick="showPage('kit')">Kit Balance &amp; Bloom</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-t">El Kit</p>
+        <ul class="footer-links">
+          <li><a onclick="showPage('kit')">Bruma Abundancia</a></li>
+          <li><a onclick="showPage('kit')">Bruma Centro</a></li>
+          <li><a onclick="showPage('kit')">Bruma Serenidad</a></li>
+          <li><a onclick="showPage('kit')">Precauciones</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Equilibri · Cosmética Emocional Premium · Producto artesanal.</p>
+      <svg width="80" height="28" viewBox="0 0 160 60" opacity="0.3">
+        <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="1"/>
+        <circle cx="30" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <circle cx="30" cy="30" r="5" fill="#cda274"/>
+        <circle cx="80" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <path d="M85 23 A8 8 0 1 0 85 37 A5 5 0 1 1 85 23Z" fill="#cda274"/>
+        <circle cx="130" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <path d="M130 22 L131.5 27.5 L138 27.5 L132.5 31.5 L134.5 38 L130 34 L125.5 38 L127.5 31.5 L122 27.5 L128.5 27.5Z" fill="#cda274"/>
+      </svg>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PÁGINA 4: FAQS
+════════════════════════════════════════ -->
+<div class="page" id="page-faq">
+
+  <section class="faq-hero">
+    <p class="sec-eyebrow" style="margin-bottom:14px;">Todo lo que necesitas saber</p>
+    <h1 class="faq-hero-titulo">Preguntas<br>Frecuentes</h1>
+    <p class="faq-hero-sub">-Equilibri te responde-</p>
+    <div class="divider-center" style="margin:16px auto 20px;"></div>
+    <p class="faq-hero-desc">Aquí encontrarás respuestas honestas a las dudas más comunes sobre nuestras brumas, su uso seguro y cómo sacarles el mayor provecho.</p>
+  </section>
+
+  <section class="faq-section">
+    <div class="faq-wrap">
+
+      <p class="faq-cat-label">Sobre el producto</p>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Qué es la cosmética emocional y cómo funcionan las brumas Equilibri?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>La cosmética emocional es un enfoque holístico que usa ingredientes naturales para apoyar tanto tu bienestar físico como emocional. Al inhalar los aceites esenciales puros de nuestras brumas, las moléculas aromáticas viajan directamente al cerebro emocional — el centro que regula el estrés, las emociones y la memoria. Al combinar el aroma con tus autoafirmaciones, creas un anclaje poderoso que te ayuda a cambiar tu estado de ánimo de forma natural y consciente.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">El líquido de mi bruma se ve separado, ¿es normal?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>¡Totalmente normal! Formulamos con agua destilada y aceites esenciales 100% puros, sin emulsionantes ni químicos sintéticos. El agua y el aceite no se mezclan de forma natural, por eso verás las gotas flotando. El primer paso de tu ritual siempre debe ser <strong>agitar el frasco vigorosamente antes de cada uso</strong> para integrar las esencias. Es una señal de que tu producto es genuinamente natural.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Cómo debo guardar mis brumas Equilibri?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>Para preservar la potencia de los aceites esenciales, guarda tus frascos en un <strong>lugar fresco, seco y alejado de la luz solar directa o fuentes de calor</strong>. El vidrio ámbar del envase ya protege los aceites de la luz, pero el calor excesivo puede alterar las propiedades aromáticas. Recuerda también que contienen alcohol, por lo que son inflamables y deben mantenerse lejos del fuego.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Qué pasa si un aroma no me gusta al principio?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>En la aromaterapia emocional, a veces rechazamos un aroma porque nos conecta inconscientemente con una emoción que aún no estamos listas para procesar. Si una bruma te genera rechazo, <strong>no te obligues a usarla</strong>. Déjala descansar unas semanas y vuelve a intentarlo. Te sorprenderá cómo tu percepción puede cambiar cuando tu cuerpo esté listo para recibirla. Si te causa dolor de cabeza o malestar físico, simplemente suspende su uso.</p>
+        </div>
+      </div>
+
+      <p class="faq-cat-label">Uso seguro</p>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Puedo aplicar las brumas directamente sobre mi piel o rostro?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>Nuestras brumas están diseñadas principalmente para uso ambiental — rociadas en tu espacio, ropa o almohada. Si decides aplicarlas sobre la piel, te recomendamos hacer primero una prueba en el antebrazo. <strong>Importante:</strong> las brumas <em>Abundancia</em> y <em>Centro</em> contienen aceites cítricos como la Bergamota, que son fotosensibles. Evita la exposición directa al sol en la zona aplicada durante al menos 24 horas para prevenir manchas o irritaciones.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Qué hago si la bruma entra accidentalmente en mis ojos?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>Los aceites esenciales nunca deben entrar en contacto con los ojos. Si ocurre por accidente, <strong>no te enjuagues con agua</strong> — el agua extenderá el aceite. Lo correcto es aplicar un aceite vegetal (oliva, almendras o coco) en un disco de algodón y limpiar suavemente el área. Luego puedes enjuagar con agua fría. Si la irritación persiste, consulta a tu médico sin demora.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Puedo rociar la bruma si tengo mascotas en casa?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>Sí, pero con precaución. El olfato de los animales es mucho más potente que el nuestro, y ciertos aceites esenciales pueden resultarles irritantes — especialmente a los gatos. Te sugerimos rociar las brumas en <strong>espacios bien ventilados</strong> y nunca aplicarlas directamente sobre tu mascota, su pelaje o sus camas. Si notas que se aleja o muestra signos de estrés, respeta su espacio y usa la bruma en otra habitación.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Es seguro usar las brumas cerca de bebés o niños pequeños?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>El sistema respiratorio de los bebés y niños pequeños es muy sensible. Algunas brumas contienen aceites potentes como el Romero (en <em>Centro</em>) que pueden ser demasiado intensos para ellos. Mantén siempre los frascos fuera de su alcance. Si deseas ambientar sus cuartos, usa <strong>solo la bruma Serenidad</strong> (Lavanda y Naranja) en espacios bien ventilados, asegurándote de que no caiga directamente sobre ellos.</p>
+        </div>
+      </div>
+
+      <p class="faq-cat-label">Salud y bienestar</p>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Puedo usar las brumas si estoy embarazada o amamantando?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p>Durante el embarazo el sentido del olfato se vuelve mucho más sensible y el cuerpo experimenta cambios importantes. Aunque la inhalación es la vía más suave de la aromaterapia, <strong>te recomendamos consultar siempre con tu médico o partera</strong> antes de incorporar aceites esenciales a tu rutina durante el embarazo o la lactancia. Tu tranquilidad y la de tu bebé son lo primero.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">¿Las brumas curan enfermedades o reemplazan a un médico o terapeuta?</span>
+          <span class="faq-icon"></span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>No.</strong> Equilibri es una herramienta de apoyo al bienestar emocional, no un tratamiento médico ni psicológico. Nuestras brumas están diseñadas para acompañarte en tu día a día, preparar el terreno emocional y ayudarte a crear momentos de pausa consciente. Si estás pasando por una situación de salud física o mental, por favor busca el acompañamiento de un profesional. Nuestro kit puede ser un complemento hermoso a ese proceso.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="faq-cta">
+    <h2 class="faq-cta-titulo">¿Tienes otra pregunta?</h2>
+    <p class="faq-cta-sub">Escríbenos — con gusto te acompañamos.</p>
+    <button class="btn-primary" onclick="showPage('kit')">Conocer el Kit →</button>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg style="height:44px;width:auto;margin-bottom:14px;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #eee6da;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <g>
+        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
+        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
+        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
+        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
+        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
+        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
+        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
+        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
+        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
+        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
+        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
+        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
+        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
+      </g>
+      <g>
+        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
+        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
+        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
+        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
+        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
+        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
+        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
+        <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con el poder de las autoafirmaciones para transformar tu estado de ánimo.</p>
+      </div>
+      <div>
+        <p class="footer-col-t">Páginas</p>
+        <ul class="footer-links">
+          <li><a onclick="showPage('inicio')">Inicio</a></li>
+          <li><a onclick="showPage('equilibri')">Nosotros</a></li>
+          <li><a onclick="showPage('kit')">Kit Balance &amp; Bloom</a></li>
+          <li><a onclick="showPage('faq')">Preguntas Frecuentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-t">El Kit</p>
+        <ul class="footer-links">
+          <li><a onclick="showPage('kit')">Bruma Abundancia</a></li>
+          <li><a onclick="showPage('kit')">Bruma Centro</a></li>
+          <li><a onclick="showPage('kit')">Bruma Serenidad</a></li>
+          <li><a onclick="showPage('kit')">Uso Responsable</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Equilibri · Cosmética Emocional · Producto artesanal.</p>
+      <svg width="80" height="28" viewBox="0 0 160 60" opacity="0.3">
+        <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="1"/>
+        <circle cx="30" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <circle cx="30" cy="30" r="5" fill="#cda274"/>
+        <circle cx="80" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <path d="M85 23 A8 8 0 1 0 85 37 A5 5 0 1 1 85 23Z" fill="#cda274"/>
+        <circle cx="130" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
+        <path d="M130 22 L131.5 27.5 L138 27.5 L132.5 31.5 L134.5 38 L130 34 L125.5 38 L127.5 31.5 L122 27.5 L128.5 27.5Z" fill="#cda274"/>
+      </svg>
+    </div>
+  </footer>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(initFadeUp, 100);
+}
+
+function initFadeUp() {
+  const els = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => {
+    if (!el.classList.contains('visible')) observer.observe(el);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initFadeUp);
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Close all open items
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  // Open clicked if it was closed
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
