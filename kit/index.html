@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<title>Kit Balance &amp; Bloom · Equilibri</title>
+<meta name="description" content="Kit Balance & Bloom: tres brumas de aromaterapia para activar, centrar y descansar. Tu esencia, en balance. Equilibri.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#eee6da;--cream-soft:#f5f0e8;--green:#4f5e4f;--green-deep:#3e4a3e;
+    --gold:#cda274;--gold-soft:#dcc0a0;--lilac:#b9a3c4;--ink:#3a3833;--ink-soft:#6b665d;
+    --shadow:rgba(79,94,79,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);font-weight:300;line-height:1.7;letter-spacing:.02em;overflow-x:hidden}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.08;letter-spacing:.01em}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:.74rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold)}
+  .divider{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--gold)}
+  .divider::before,.divider::after{content:"";height:1px;width:54px;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(238,230,218,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(205,162,116,.25)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 28px;max-width:1180px;margin:0 auto}
+  .nav-links{display:flex;align-items:center;gap:28px;list-style:none;margin:0;padding:0;flex:1;justify-content:center}
+  .nav-links a{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green-deep);text-decoration:none;opacity:.8;transition:.2s}
+  .nav-links a:hover{opacity:1;color:var(--gold)}
+  .brand{font-weight:400;letter-spacing:.42em;font-size:.86rem;color:var(--green);text-transform:uppercase;padding-left:.42em}
+  .nav-cta{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--green);padding:11px 22px;border-radius:40px;text-decoration:none;transition:.3s;white-space:nowrap}
+  .nav-cta:hover{background:var(--green-deep)}
+
+  .hero{position:relative;height:100vh;min-height:600px;max-height:1080px;overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#4f5e4f 0%,rgba(122,141,122,.88) 35%,rgba(122,141,122,.3) 64%,transparent 100%);z-index:0;pointer-events:none}
+
+  .hero-col{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;padding-right:clamp(16px,3vw,48px)}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+  .hero .inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;height:100%;align-items:center;padding:clamp(80px,10vh,120px) 0 clamp(40px,6vh,80px)}
+  .hero .eyebrow{margin-bottom:12px;display:block;color:var(--gold-soft);letter-spacing:.32em}
+  .hero h1{font-size:clamp(2.4rem,4.5vw,4.8rem);color:#fff;margin-bottom:4px;line-height:1.05}
+  .ritual-tag{font-weight:300;letter-spacing:.3em;text-transform:uppercase;font-size:.76rem;color:var(--gold-soft);margin-bottom:20px}
+  .hero .lede{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.2rem,2.2vw,1.7rem);color:#fff;margin:0 0 8px}
+  .hero .sublede{max-width:460px;margin:0 0 28px;color:rgba(238,230,218,.95);font-size:clamp(.88rem,1.1vw,1rem)}
+  .cta-row{display:flex;gap:16px;justify-content:flex-start;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+  .btn{font-weight:400;letter-spacing:.12em;text-transform:uppercase;font-size:.82rem;text-decoration:none;border-radius:46px;padding:17px 38px;transition:.3s;display:inline-block;cursor:pointer;border:none}
+  .btn-gold{background:var(--gold);color:#fff;box-shadow:0 14px 30px -12px rgba(205,162,116,.7)}
+  .btn-outline{background:transparent;color:var(--green-deep);border:1.5px solid var(--green);box-shadow:none}
+  .btn-outline:hover{background:var(--green);color:#fff}
+  .btn-gold:hover{background:#bb9264;transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--green);border:1px solid var(--green)}
+  .btn-ghost:hover{background:var(--green);color:#fff}
+  .ship-note{font-size:.82rem;letter-spacing:.06em;color:var(--ink-soft);margin-top:6px}
+
+  .band{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-top:0;min-height:clamp(500px,70vw,780px);display:flex;align-items:center;overflow:hidden}
+  .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center}
+  .band::after{display:none}
+  .band .band-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 28px;width:100%}
+  .band .band-txt{color:#fff;max-width:480px;margin-left:auto;text-align:right}
+  .band .eyebrow{color:#617455;display:block;margin-bottom:12px}
+  .band h2{font-size:clamp(1.9rem,4.4vw,3rem);color:#617455}
+  @media(min-width:601px){
+    .band .eyebrow{color:#fff}
+    .band h2{color:#fff}
+  }
+
+  .section-head{text-align:center;margin-bottom:52px}
+  .section-head .eyebrow{display:block;margin-bottom:14px}
+  .section-head h2{font-size:clamp(2rem,5vw,3rem);color:var(--green-deep)}
+  .section-head p{max-width:560px;margin:14px auto 0;color:var(--ink-soft)}
+
+  .blends{padding:90px 0 20px}
+  .blend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-top:90px}
+  .blend{background:var(--cream-soft);border:1px solid rgba(205,162,116,.3);border-radius:20px;padding:240px 28px 34px;position:relative;transition:.4s;display:flex;flex-direction:column;overflow:visible;text-align:center}
+  .blend:hover{transform:translateY(-6px);box-shadow:0 28px 50px -28px var(--shadow);border-color:var(--gold-soft)}
+  .blend .top{text-align:center;margin-bottom:4px}
+  .blend .icon{width:52px;height:52px;margin:0 auto 10px}
+  .blend .icon img{width:100%;height:100%;object-fit:contain}
+  .blend.b1 .icon,.blend.b1 .moment{color:var(--gold)}
+  .blend.b2 .icon,.blend.b2 .moment{color:var(--green)}
+  .blend.b3 .icon,.blend.b3 .moment{color:var(--lilac)}
+  .blend.b1{background:linear-gradient(160deg,#c8784a 0%,#d4906a 100%);border-color:rgba(180,100,60,.4)}
+  .blend.b2{background:linear-gradient(160deg,#557a5c 0%,#6e9870 100%);border-color:rgba(60,100,65,.4)}
+  .blend.b3{background:linear-gradient(160deg,#8060b0 0%,#9878c4 100%);border-color:rgba(120,80,170,.4)}
+  .blend.b1 .icon,.blend.b1 .moment,.blend.b1 .affirm,.blend.b1 .releases b,.blend.b1 li::before{color:#ab7a35}
+  .blend.b3 .icon,.blend.b3 .moment,.blend.b3 .affirm,.blend.b3 .releases b,.blend.b3 li::before{color:#896a9d}
+  .blend .moment{font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;margin-bottom:6px}
+  .blend h3{font-size:2rem;color:var(--green-deep);margin-bottom:14px}
+  .blend .essences{font-size:.78rem;letter-spacing:.03em;color:rgba(255,255,255,.9);background:rgba(255,255,255,.2);border-radius:30px;padding:7px 16px;display:inline-block;margin-bottom:18px}
+  .blend .promise{font-family:'Cormorant Garamond',serif;font-size:1.45rem;color:rgba(255,255,255,.95);margin-bottom:6px;text-align:center;font-weight:500}
+  .blend .promise-sub{font-size:.9rem;margin-bottom:18px;text-align:center}
+  .blend .helps-label{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px;text-align:left}
+  .blend ul{list-style:none;margin-bottom:24px;flex-grow:1;background:rgba(255,255,255,.1);border-radius:12px;padding:10px 16px}
+  .blend li{font-size:.86rem;padding:7px 0 7px 18px;position:relative;border-bottom:1px solid rgba(255,255,255,.1);text-align:left}
+  .blend li:last-child{border-bottom:none}
+  .blend li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5}
+  .blend.b1 li::before{color:var(--gold)}.blend.b2 li::before{color:var(--green)}.blend.b3 li::before{color:var(--lilac)}
+  .blend .affirm{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;line-height:1.4;border-top:1px dashed rgba(255,255,255,.25);padding-top:18px;margin-top:auto}
+  .blend.b3 .affirm{color:var(--lilac)}
+  .blend .affirm::before{content:"“"}.blend .affirm::after{content:"”"}
+
+  .ritual-sec{padding:96px 0 70px}
+  .ritual{display:grid;grid-template-columns:1fr 1fr;background:var(--green);border-radius:26px;overflow:hidden;align-items:stretch}
+  .ritual .photo{position:relative;min-height:380px;order:2}
+  .ritual .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ritual .content{padding:56px 50px;color:var(--cream);order:2}
+  .ritual .eyebrow{color:var(--gold-soft);display:block;margin-bottom:12px}
+  .ritual h2{color:#fff;font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:30px}
+  .step{display:flex;gap:18px;margin-bottom:22px}
+  .step .num{font-family:'Cormorant Garamond',serif;font-size:2.1rem;color:var(--gold-soft);line-height:1;flex-shrink:0;width:38px}
+  .step .st{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;margin-bottom:3px}
+  .step p{font-size:.93rem;color:rgba(238,230,218,.82);font-weight:300}
+  .tip{margin-top:30px;background:rgba(238,230,218,.1);border-left:2px solid var(--gold-soft);border-radius:8px;padding:16px 20px}
+  .tip b{color:var(--gold-soft);font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:.7rem;display:block;margin-bottom:6px}
+  .tip p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.02rem;color:rgba(238,230,218,.9)}
+
+  .buy{padding:30px 0 70px}
+  .offers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1180px;margin:0 auto}
+  .card{background:var(--cream-soft);border:1px solid rgba(205,162,116,.3);border-radius:22px;padding:36px 28px;text-align:center;display:flex;flex-direction:column}
+  .card.feature{background:linear-gradient(165deg,#fdfaf5,var(--cream-soft));border:2px solid var(--gold);position:relative;box-shadow:0 26px 50px -20px var(--shadow);transform:scale(1.03)}
+  .ribbon{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;padding:7px 20px;border-radius:30px;white-space:nowrap}
+  .card .kicker{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block}
+  .card h3{font-size:1.6rem;color:var(--green-deep);margin-bottom:4px}
+  .card .sub{font-size:.88rem;color:var(--ink-soft);margin-bottom:16px;line-height:1.55}
+  .card-img{width:100%;height:auto;border-radius:12px;display:block;margin:0 auto 16px;max-width:200px}
+  .price{font-family:'Jost',sans-serif;color:var(--green-deep);margin-bottom:4px;line-height:1}
+  .price .num{font-size:3.2rem;font-weight:500}
+  .price .cur{font-size:1.6rem;color:var(--green);letter-spacing:.06em;vertical-align:super;font-family:'Jost',sans-serif}
+  .price-note{font-size:.8rem;color:var(--ink-soft);margin-bottom:20px}
+  .shipping-badge{display:inline-block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);border-radius:20px;padding:5px 14px;margin-bottom:16px}
+  .shipping-badge.free{background:rgba(79,94,79,.15);color:var(--green-deep);font-weight:500}
+  .save{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:rgba(79,94,79,.1);border-radius:30px;padding:6px 14px;margin-bottom:18px}
+  .card .btn{margin-top:auto}
+  .buy-foot{text-align:center;margin-top:34px;color:var(--ink-soft);font-size:.9rem;letter-spacing:.04em}
+  .buy-foot svg{width:16px;height:16px;vertical-align:-2px;color:var(--gold);margin-right:6px}
+
+  .safe{padding:20px 0 40px}
+  .safe-box{background:var(--cream-soft);border:1px solid rgba(205,162,116,.3);border-radius:22px;padding:48px 46px;max-width:980px;margin:0 auto}
+  .safe-box h3{text-align:center;font-size:1.8rem;color:var(--green-deep);margin-bottom:8px}
+  .safe-box .lead{text-align:center;color:var(--ink-soft);font-size:.95rem;margin-bottom:34px}
+  .safe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 30px;margin-bottom:30px}
+  .safe-item{display:flex;gap:12px}
+  .safe-item svg{width:22px;height:22px;color:var(--gold);flex-shrink:0;margin-top:2px}
+  .safe-item .t{font-weight:500;color:var(--green);font-size:.92rem}
+  .safe-item .d{font-size:.84rem;color:var(--ink-soft);line-height:1.5}
+  .disclaimer{font-size:.78rem;color:var(--ink-soft);line-height:1.6;text-align:center;border-top:1px solid rgba(205,162,116,.3);padding-top:22px;font-style:italic}
+
+  /* TESTIMONIOS */
+  .testimonios{padding:90px 0 70px}
+  .test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:52px}
+  .test-card{background:var(--cream-soft);border:1px solid rgba(205,162,116,.28);border-radius:20px;padding:36px 30px 32px;position:relative;transition:.4s;display:flex;flex-direction:column}
+  .test-card:hover{transform:translateY(-4px);box-shadow:0 24px 50px -24px var(--shadow)}
+  .test-card::before{content:'\201C';font-family:'Cormorant Garamond',serif;font-size:5rem;line-height:.7;color:var(--gold);opacity:.35;position:absolute;top:22px;left:22px}
+  .test-stars{display:flex;gap:3px;margin-bottom:14px;justify-content:flex-end}
+  .test-stars span{color:var(--gold);font-size:1rem}
+  .test-body{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--green-deep);line-height:1.65;margin-bottom:20px;position:relative;z-index:1;flex:1}
+  .test-author{display:flex;align-items:center;gap:12px;border-top:1px solid rgba(205,162,116,.22);padding-top:16px;margin-top:auto}
+  .test-avatar{width:38px;height:38px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream);flex-shrink:0}
+  .test-name{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:500}
+  .test-product{font-size:.74rem;color:var(--ink-soft);letter-spacing:.04em}
+  .test-highlight{background:linear-gradient(165deg,#fdfaf5,#f5ecdb);border:1.5px solid rgba(205,162,116,.5);grid-column:span 2}
+  .test-highlight .test-body{font-size:1.22rem}
+
+  /* FAQ */
+  .faq-sec{padding:70px 0 80px;background:linear-gradient(180deg,var(--cream) 0%,var(--cream-soft) 100%)}
+  .faq-wrap{max-width:760px;margin:0 auto;padding:0 28px}
+  .faq-list{margin-top:46px}
+  .faq-item{border-bottom:1px solid rgba(205,162,116,.28);overflow:hidden}
+  .faq-item:first-child{border-top:1px solid rgba(205,162,116,.28)}
+  .faq-q{width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Cormorant Garamond',serif;font-size:1.22rem;color:var(--green-deep);line-height:1.3}
+  .faq-q:hover{color:var(--green)}
+  .faq-icon{flex-shrink:0;width:20px;height:20px;color:var(--gold);transition:transform .4s ease}
+  .faq-item.open .faq-icon{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .5s ease,padding .4s ease}
+  .faq-item.open .faq-a{max-height:400px}
+  .faq-a p{padding:0 0 22px;font-size:.95rem;color:var(--ink-soft);line-height:1.75}
+  .faq-a em{color:var(--green);font-style:normal;font-weight:500}
+
+  /* URGENCIA BANNER */
+  .urgency-bar{background:var(--green-deep);color:var(--cream);text-align:center;padding:10px 20px;font-size:.76rem;letter-spacing:.12em;position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+  header{top:var(--bar-height,0)}
+  .urgency-bar .dot{width:8px;height:8px;border-radius:50%;background:#e8a87c;display:inline-block;animation:pulse-dot 1.8s infinite}
+  @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+  .urgency-bar strong{color:var(--gold-soft)}
+  .urgency-bar a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:3px;cursor:pointer;letter-spacing:.08em}
+
+  /* PARA QUIÉN */
+  .para-quien{padding:90px 0 80px;background:linear-gradient(175deg,var(--cream-soft) 0%,var(--cream) 100%)}
+  .perfiles{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:52px;max-width:860px;margin-left:auto;margin-right:auto}
+  .perfil{background:#fff;border:1px solid rgba(205,162,116,.25);border-radius:20px;padding:34px 30px;display:flex;gap:20px;align-items:flex-start;transition:.4s;cursor:default}
+  .perfil:hover{transform:translateY(-5px);box-shadow:0 22px 46px -22px var(--shadow);border-color:rgba(205,162,116,.6)}
+  .perfil-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.5rem}
+  .perfil.p1 .perfil-icon{background:linear-gradient(135deg,#f5e8d0,#ebd4b0)}
+  .perfil.p2 .perfil-icon{background:linear-gradient(135deg,#e7ede4,#d4e3cf)}
+  .perfil.p3 .perfil-icon{background:linear-gradient(135deg,#ede7f3,#ddd0ea)}
+  .perfil.p4 .perfil-icon{background:linear-gradient(135deg,#fce8e0,#f5d0c4)}
+  .perfil.p5 .perfil-icon{background:linear-gradient(135deg,#e4ecf5,#ccdaeb)}
+  .perfil.p6 .perfil-icon{background:linear-gradient(135deg,#f0ede8,#e2dbd0)}
+  .perfil h3{font-size:1.22rem;color:var(--green-deep);margin-bottom:6px}
+  .perfil p{font-size:.9rem;color:var(--ink-soft);line-height:1.6}
+  .perfil-no{padding:34px 30px;background:var(--cream-soft);border:1.5px dashed rgba(205,162,116,.4);border-radius:20px;max-width:860px;margin:22px auto 0;display:flex;gap:18px;align-items:center}
+  .perfil-no .icon{font-size:1.6rem;flex-shrink:0}
+  .perfil-no p{font-size:.88rem;color:var(--ink-soft);line-height:1.65}
+  .perfil-no strong{color:var(--green);font-weight:500}
+
+  /* ANIMACIONES MEJORADAS */
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal-left{opacity:0;transform:translateX(-36px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}
+  .reveal-left.in{opacity:1;transform:none}
+  .reveal-right{opacity:0;transform:translateX(36px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}
+  .reveal-right.in{opacity:1;transform:none}
+  .reveal-scale{opacity:0;transform:scale(.94);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .reveal-scale.in{opacity:1;transform:scale(1)}
+  .stagger-1{transition-delay:.08s}
+  .stagger-2{transition-delay:.18s}
+  .stagger-3{transition-delay:.28s}
+  .stagger-4{transition-delay:.38s}
+  .stagger-5{transition-delay:.48s}
+
+  /* URGENCIA EN SECCIÓN COMPRA */
+  .stock-alert{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#fdf3e8,#fae8d0);border:1px solid rgba(205,162,116,.5);border-radius:14px;padding:14px 22px;margin-bottom:28px;max-width:900px;margin-left:auto;margin-right:auto}
+  .stock-alert .dot{width:9px;height:9px;border-radius:50%;background:#d4875a;flex-shrink:0;animation:pulse-dot 1.8s infinite}
+  .stock-alert p{font-size:.88rem;color:var(--ink);letter-spacing:.04em}
+  .stock-alert strong{color:#b5622e;font-weight:500}
+
+  footer{background:var(--green-deep);color:var(--cream);text-align:center;padding:60px 28px 50px;margin-top:30px}
+  footer .divider{margin:0 auto 24px;border:none}
+  footer .divider::before,footer .divider::after{display:none}
+  .fbrand{letter-spacing:.46em;font-size:1rem;text-transform:uppercase;padding-left:.46em;margin-bottom:10px}
+  .ftag{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--gold-soft);margin-bottom:24px}
+  footer a{color:var(--cream);text-decoration:none;letter-spacing:.08em;font-size:.9rem;border-bottom:1px solid transparent;transition:.3s}
+  footer a:hover{border-color:var(--gold-soft)}
+  .flinks{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+  .copy{font-size:.74rem;letter-spacing:.14em;color:rgba(238,230,218,.55);text-transform:uppercase}
+
+  .blend .releases{font-size:.9rem;color:var(--ink-soft);text-align:center;margin-bottom:24px;line-height:1.5}
+  .blend .releases b{font-weight:500;letter-spacing:.16em;text-transform:uppercase;font-size:.64rem;display:block;margin-bottom:5px}
+  .blend.b1 .releases b{color:var(--gold)}.blend.b2 .releases b{color:var(--green)}.blend.b3 .releases b{color:var(--lilac)}
+  .by-brand{font-size:.78rem;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:26px}
+  .by-brand strong{color:var(--green);font-weight:500;letter-spacing:.22em}
+  .card .by{font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .price-old{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--gold-soft);margin-right:10px;vertical-align:middle}
+  .showcase{padding:10px 0 80px}
+  .showcase-img{display:block;width:100%;max-width:1080px;margin:0 auto;border-radius:18px;box-shadow:0 30px 70px -30px var(--shadow)}
+  .blends .showcase-img{max-width:920px;margin-bottom:50px}
+  .showcase-cap{text-align:center;max-width:560px;margin:24px auto 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;color:var(--green)}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* tablet */
+  @media(max-width:1024px){
+    .wrap{padding:0 24px}
+    .blends{padding:72px 0 16px}
+    .ritual-sec{padding:72px 0 56px}
+    .ritual .content{padding:48px 40px}
+    .section-head{margin-bottom:42px}
+    .blend-grid{gap:18px}
+    .blend{padding:240px 22px 30px}
+  }
+  @media(max-width:880px){
+    .perfiles{grid-template-columns:1fr;max-width:460px}
+    .test-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}
+    .test-highlight{grid-column:span 1}
+    .blend{padding:240px 30px 32px}
+    .price-grid{grid-template-columns:1fr;max-width:440px}
+    .offers-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto;gap:30px}
+    .card.feature{transform:none}
+    .offers-grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+    .card.feature{transform:none}
+    .safe-grid{grid-template-columns:1fr 1fr}
+    .band{min-height:clamp(460px,70vw,680px)}
+    .band-bg{content:url("img/Equilibri - Balance and Bloom - caja-mobile.jpg");object-position:center center}
+  }
+  /* mobile */
+  @media(max-width:600px){
+    .wrap{padding:40px 20px}
+    /* secciones full-bleed: cancelar padding lateral del wrap */
+    .trust-bar .wrap,.trust-bar{padding-left:0;padding-right:0}
+    .hero .inner{padding-left:24px;padding-right:24px}
+    .band .band-inner{padding:0 30px 32px}
+    .quiz-cards{padding-left:20px;padding-right:20px}
+    .blend-grid{padding-left:0;padding-right:0}
+    .guia-box{margin-left:-20px;margin-right:-20px}
+    .nav{padding:13px 18px;gap:12px}
+    .nav-links{display:none}
+    .brand{letter-spacing:.3em;font-size:.72rem}
+    .nav-cta{padding:10px 16px;font-size:.68rem;letter-spacing:.12em}
+
+    /* Hero — 1 columna */
+    .hero{height:auto;min-height:100svh}
+    .hero-bg{content:url("img/Equilibri - Balance and Bloom - caja 6.jpg")}
+    .hero::after{background:linear-gradient(180deg,#4f5e4f 0%,rgba(122,141,122,.88) 28%,rgba(122,141,122,.3) 54%,transparent 100%)}
+    .hero .inner{grid-template-columns:1fr;padding:60px 44px 40px}
+    .hero-col{padding-right:0;max-width:100%}
+    .hero-img-col{display:none}
+    .hero h1{font-size:11vw}
+    .hero .lede{font-size:1.2rem}
+    .hero .sublede{font-size:.9rem;max-width:100%}
+    .cta-row{flex-direction:column;gap:10px;align-items:flex-start}
+    .btn{padding:16px 28px}
+    .btn-gold{width:auto}
+
+    /* Trust bar */
+    .trust-grid{grid-template-columns:repeat(2,1fr);gap:0}
+    .trust-card{border-right:none;border-bottom:1px solid rgba(205,162,116,.2)}
+    .trust-card:last-child{border-bottom:none}
+
+    /* Band */
+    .band{margin-top:0;min-height:420px;align-items:flex-end}
+    .band::after{display:none}
+    .band .band-inner{padding:0 20px 32px}
+    .band .band-txt{max-width:100%;margin-left:0;text-align:left}
+
+    /* Blends */
+    .blends{padding:54px 30px 8px}
+    .blend-grid{grid-template-columns:1fr;gap:120px;padding-top:120px}
+    .blend{padding:200px 24px 30px}
+    .section-head{margin-bottom:32px}
+
+    /* Ritual */
+    .ritual-sec{padding:50px 20px 40px}
+    .ritual{grid-template-columns:1fr}
+    .ritual .photo{min-height:260px;order:1}
+    .ritual .content{padding:36px 28px;order:2}
+    .step{gap:12px;margin-bottom:18px}
+    .step .num{font-size:1.8rem;width:30px}
+
+    /* Comprar */
+    .buy{padding:24px 20px 50px}
+    .kit-card-wrap{max-width:100%}
+    .kit-solo{padding:0 0 28px}
+    .kit-solo h3{font-size:2.4rem}
+    .kit-includes{margin:0 18px 20px;padding:14px 18px}
+    .btn-lg{width:calc(100% - 36px);margin:0 18px;padding:18px 24px}
+    .ribbon{white-space:normal;max-width:85%;text-align:center;line-height:1.4}
+    .price .num{font-size:3rem}
+    .buy-foot{font-size:.82rem}
+
+    /* Safe */
+    .safe{padding:14px 20px 28px}
+    .safe-box{padding:32px 20px}
+    .safe-grid{grid-template-columns:50% 2fr;gap:16px;margin-bottom:22px}
+
+    /* Guía */
+    /* guia — mobile overrides handled by base styles above */
+
+    /* Quiz */
+    .quiz-sec{padding:60px 0 50px}
+    .quiz-cards{grid-template-columns:1fr;gap:14px;padding:0 18px;margin-top:32px}
+
+    /* Testimonios */
+    .test-grid{grid-template-columns:1fr;gap:18px;margin-top:36px}
+    .test-highlight{grid-column:span 1}
+
+    /* Para quién */
+    .perfiles{grid-template-columns:1fr;gap:14px;margin-top:36px}
+    .perfil{padding:26px 22px}
+
+    /* FAQ */
+    .faq-wrap{padding:0 18px}
+    .faq-q{font-size:1.08rem}
+
+    /* Instagram */
+    .insta-sec{padding:54px 0 50px}
+    .insta-quote{font-size:1.2rem}
+
+    /* Footer */
+    footer{padding:46px 20px 40px}
+
+    /* WhatsApp */
+    .wa-fab{bottom:18px;right:18px;width:50px;height:50px}
+  }
+  @media(max-width:380px){
+    .hero h1{font-size:2.4rem}
+    .hero .lede{font-size:1.15rem}
+    .blend{padding:180px 20px 28px}
+    .blend h3{font-size:1.7rem}
+    .kit-solo h3{font-size:2rem}
+    .ribbon{font-size:.56rem}
+    .trust-card{padding:18px 14px}
+  }
+
+  /* Fotos de producto en tarjetas */
+  .blend-photo{position:absolute;top:-85px;left:50%;transform:translateX(-50%);width:80%;height:auto;object-fit:contain;object-position:center;border-radius:20px;box-shadow:none;transition:.4s;z-index:1}
+  .blend:hover .blend-photo{transform:translateX(-50%) scale(1.04)}
+
+  /* WhatsApp flotante */
+  .wa-fab{position:fixed;bottom:28px;right:28px;z-index:200;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px -8px rgba(37,211,102,.7);text-decoration:none;transition:.3s}
+  .wa-fab:hover{transform:scale(1.1);background:#1ebe5d}
+  .wa-fab svg{width:30px;height:30px;fill:#fff}
+
+  /* Sección quiz / descubre tu bruma */
+  .quiz-sec{padding:90px 0 80px;background:var(--green-deep)}
+  .quiz-sec .section-head .eyebrow{color:var(--gold-soft)}
+  .quiz-sec .section-head h2{color:#fff}
+  .quiz-sec .section-head p{color:rgba(238,230,218,.78)}
+  .quiz-cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:40px;max-width:960px;margin-left:auto;margin-right:auto;padding:0 24px}
+  @media(min-width:601px){.quiz-cards{grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;padding:0 28px}}
+  .quiz-card{background:rgba(255,255,255,.07);border:1px solid rgba(205,162,116,.3);border-radius:20px;padding:34px 24px;text-align:center;cursor:pointer;transition:.4s}
+  .quiz-card:hover{background:rgba(255,255,255,.13);border-color:var(--gold-soft);transform:translateY(-5px)}
+  .quiz-card .q-emoji{font-size:2.4rem;margin-bottom:14px;display:block}
+  .quiz-card h3{font-size:1.3rem;color:#fff;margin-bottom:8px}
+  .quiz-card p{font-size:.88rem;color:rgba(238,230,218,.72);line-height:1.6;margin-bottom:18px}
+  .quiz-card .q-result{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);font-weight:400}
+  .quiz-cta{text-align:center;margin-top:40px}
+
+  /* Sección comunidad Instagram */
+  .insta-sec{padding:80px 20px 70px;text-align:center}
+  .insta-sec .section-head{margin-bottom:36px}
+  .insta-handle{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;border-radius:40px;padding:14px 30px;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:.3s;margin-top:8px}
+  .insta-handle:hover{background:var(--green-deep)}
+  .insta-handle svg{width:20px;height:20px;fill:#fff}
+  .insta-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.3rem,3vw,1.9rem);color:var(--green-deep);max-width:620px;margin:0 auto 28px;line-height:1.5}
+
+
+  /* Kit card — versión solo */
+  .kit-card-wrap{max-width:500px;margin:0 auto}
+  .kit-solo{text-align:center;padding:0 0 36px;overflow:hidden}
+  .kit-solo .kicker{margin-top:36px;display:block}
+  .kit-solo h3{font-size:clamp(2.4rem,5vw,3.2rem);color:var(--green-deep);margin-bottom:4px;line-height:1.05}
+  .kit-hero-img{width:90%;display:block;border-radius:16px;margin:0 auto}
+  .kit-solo .ribbon{position:relative;top:auto;left:auto;transform:none;white-space:normal;font-size:.72rem;margin:20px auto;display:inline-block;border-radius:30px}
+  .kit-subtitle{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:20px;display:block}
+  .kit-solo .sub{font-size:.92rem;color:var(--ink-soft);margin-bottom:20px;padding:0 28px}
+  .kit-includes{display:flex;flex-direction:column;gap:8px;margin:0 28px 24px;text-align:left;background:rgba(79,94,79,.06);border-radius:14px;padding:18px 22px}
+  .kit-includes span{font-size:.88rem;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .kit-includes em{color:var(--gold);font-style:normal;font-weight:500}
+  .kit-solo .price{margin-bottom:4px}
+  .kit-solo .price-note{margin-bottom:16px}
+  .kit-solo .save{display:block;margin:0 28px 20px}
+  .btn-lg{padding:18px 48px;font-size:.88rem;width:calc(100% - 56px);margin:0 28px}
+
+
+  /* Guía de aromaterapia — base (mobile first) */
+  .guia-sec{padding:40px 20px 36px}
+  .guia-box{background:linear-gradient(135deg,var(--green-deep),var(--green));border-radius:20px;overflow:hidden;display:flex;flex-direction:column;max-width:960px;margin:0 auto}
+  .guia-icon{line-height:0;width:100%;order:1}
+  .guia-portada{width:100%;height:auto;border-radius:0;box-shadow:none;display:block}
+  .guia-content{order:2;padding:28px 24px 32px}
+  .guia-content .eyebrow{color:var(--gold-soft);display:block;margin-bottom:10px}
+  .guia-content h2{color:#fff;font-size:clamp(1.7rem,6vw,2.4rem);margin-bottom:10px}
+  .guia-lead{color:rgba(238,230,218,.8);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;margin-bottom:22px}
+  .guia-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px}
+  .guia-item{display:flex;flex-direction:column;gap:4px}
+  .guia-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold-soft);line-height:1}
+  .guia-item strong{display:block;color:#fff;font-size:.86rem;font-weight:500;margin-bottom:2px;letter-spacing:.02em}
+  .guia-item p{color:rgba(238,230,218,.72);font-size:.8rem;line-height:1.55;margin:0}
+
+  /* Guía — desktop */
+  @media(min-width:601px){
+    .guia-sec{padding:80px 0 60px}
+    .guia-box{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:start;padding:56px 52px;flex-direction:unset;border-radius:28px;overflow:visible}
+    .guia-icon{order:unset;width:auto;line-height:1}
+    .guia-portada{width:360px;border-radius:12px;box-shadow:0 16px 40px -12px rgba(0,0,0,.4)}
+    .guia-content{order:unset;padding:0}
+    .guia-lead{font-size:1.15rem;margin-bottom:30px}
+    .guia-grid{grid-template-columns:1fr 1fr;gap:20px 30px}
+    .guia-item{flex-direction:row;gap:14px;align-items:flex-start}
+    .guia-num{font-size:1.8rem;flex-shrink:0;width:32px}
+    .guia-item strong{font-size:.9rem}
+    .guia-item p{font-size:.84rem}
+  }
+
+
+  .blend.b1 h3,.blend.b2 h3,.blend.b3 h3{color:#fff}
+  .blend.b1 .promise,.blend.b2 .promise,.blend.b3 .promise{color:#fff}
+  .blend.b1 .promise-sub,.blend.b2 .promise-sub,.blend.b3 .promise-sub{color:rgba(255,255,255,.82)}
+  .blend.b1 li,.blend.b2 li,.blend.b3 li{color:rgba(255,255,255,.9);border-bottom-color:rgba(255,255,255,.15)}
+  .blend.b1 .helps-label,.blend.b2 .helps-label,.blend.b3 .helps-label{color:rgba(255,255,255,.65)}
+  .blend.b1 .releases,.blend.b2 .releases,.blend.b3 .releases{color:rgba(255,255,255,.85)}
+  .blend.b1 .releases b,.blend.b2 .releases b,.blend.b3 .releases b{color:#fff}
+  .blend.b1 .essences,.blend.b2 .essences,.blend.b3 .essences{background:rgba(255,255,255,.18);color:#fff}
+  .blend.b1 .affirm{color:rgba(255,255,255,.9);border-top-color:rgba(255,255,255,.2)}
+  .blend.b2 .affirm{color:rgba(255,255,255,.9);border-top-color:rgba(255,255,255,.2)}
+  .blend.b3 .affirm{color:rgba(255,255,255,.9);border-top-color:rgba(255,255,255,.2)}
+  .blend.b1 .moment,.blend.b2 .moment,.blend.b3 .moment{color:#d4a055}
+  .blend.b1 .icon,.blend.b2 .icon,.blend.b3 .icon{color:#d4a055}
+
+
+  /* Trust bar */
+  .trust-bar{background:var(--cream-soft);border-top:1px solid rgba(205,162,116,.2);border-bottom:1px solid rgba(205,162,116,.2)}
+  .trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+  .trust-card{display:flex;align-items:flex-start;gap:14px;padding:26px 20px;text-decoration:none;color:inherit;border-right:1px solid rgba(205,162,116,.2);transition:.3s}
+  .trust-card:last-child{border-right:none}
+  .trust-card:hover{background:rgba(205,162,116,.08)}
+  .trust-icon{font-size:1.8rem;line-height:1;flex-shrink:0;margin-top:2px}
+  .trust-card strong{display:block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep);margin-bottom:4px;font-weight:500}
+  .trust-card p{font-size:.84rem;color:var(--ink-soft);line-height:1.5;margin:0}
+  @media(min-width:601px){.trust-grid{grid-template-columns:repeat(4,1fr)}}
+
+  p.releases{padding:16px;background:#ffffff21;border-radius:10px}
+</style>
+</head>
+<body>
+
+<div class="urgency-bar">
+  <span class="dot"></span>
+  <span>✦ Envío gratis comprando <strong>2 kits o más</strong> &nbsp;·&nbsp; Solo quedan <strong>5 kits</strong> de este lote artesanal — <a onclick="document.getElementById('comprar').scrollIntoView({behavior:'smooth'})" style="cursor:pointer">Asegura el tuyo</a></span>
+</div>
+
+<header>
+  <div class="nav">
+    <a href="#" aria-label="Equilibri — inicio" style="display:flex;align-items:center;line-height:0">
+      <img src="img/logo equilibri - verde.svg" alt="Equilibri" style="height:32px;width:auto;display:block">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#brumas">Las Brumas</a></li>
+      <li><a href="#ritual">Cómo usarlo</a></li>
+      <li><a href="#testimonios">Reseñas</a></li>
+    </ul>
+    <a href="#comprar" class="nav-cta">Comprar el Kit</a>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-bg" src="img/Equilibri - Balance and Bloom - caja 1.jpg" alt="Kit Balance &amp; Bloom · Equilibri">
+  <div class="wrap inner">
+    <div class="hero-col">
+      <span class="eyebrow">Equilibri · Cosmética emocional</span>
+      <h1>Balance &amp; Bloom</h1>
+      <p class="ritual-tag">3 brumas · 1 ritual completo</p>
+      <p class="lede">Activa. Centra. Descansa.</p>
+      <p class="sublede">El kit que te acompaña de la mañana a la noche — más tu <strong style="color:var(--gold-soft)">Guía de Aromaterapia de regalo.</strong></p>
+      <div class="cta-row">
+        <a href="#comprar" class="btn btn-gold">Comprar el Kit</a>
+      </div>
+      <p class="ship-note" style="color:rgba(238,230,218,.7)">✶ Envío a todo México · 5–6 días hábiles</p>
+    </div>
+    <div><!-- columna derecha: imagen de fondo visible --></div>
+  </div>
+</section>
+
+
+<!-- ══════════ TRUST BAR ══════════ -->
+<section class="trust-bar">
+  <div class="wrap trust-grid">
+    <a href="#brumas" class="trust-card">
+      <span class="trust-icon">🌿</span>
+      <div>
+        <strong>Aceites 100% naturales</strong>
+        <p>Formuladas con esencias puras, sin sulfatos ni parabenos.</p>
+      </div>
+    </a>
+    <a href="#brumas" class="trust-card">
+      <span class="trust-icon">✨</span>
+      <div>
+        <strong>Bienestar emocional</strong>
+        <p>Activa, centra y descansa. Una bruma para cada momento.</p>
+      </div>
+    </a>
+    <a href="#testimonios" class="trust-card">
+      <span class="trust-icon">⭐</span>
+      <div>
+        <strong>Reseñas reales</strong>
+        <p>Mujeres que ya transformaron su día con Equilibri.</p>
+      </div>
+    </a>
+    <a href="#comprar" class="trust-card">
+      <span class="trust-icon">🎁</span>
+      <div>
+        <strong>Guía de regalo</strong>
+        <p>Incluye tu Guía de Aromaterapia Equilibri con cada kit.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="band reveal">
+  <img src="img/Equilibri - Balance and Bloom - caja4.webp" alt="Kit Balance &amp; Bloom · Equilibri" class="band-bg">
+  <div class="band-inner">
+    <div class="band-txt">
+      <span class="eyebrow">Kit de 3 brumas funcionales</span>
+      <h2>Un gesto sencillo para volver a ti.</h2>
+    </div>
+  </div>
+</section>
+
+<section class="blends wrap" id="brumas">
+  <div class="section-head reveal">
+    <span class="eyebrow">Tu guía de rescate emocional</span>
+    <h2>Una brisa para cada momento del día</h2>
+    <p>Cada bruma reúne esencias seleccionadas para acompañarte en lo que sientes, a la hora que lo sientes.</p>
+  </div>
+  <div class="blend-grid">
+
+    <article class="blend b1 reveal stagger-1">
+      <img class="blend-photo" src="img/abundancia frasco.webp" alt="Bruma Abundancia">
+      <div class="top">
+        <div class="icon"><img src="img/abundancia-figura.svg" alt="Abundancia"></div>
+        <p class="moment">Mañana · Activar</p>
+        <h3>Abundancia</h3>
+        <p class="essences">Naranja · Bergamota · Cedro</p>
+      </div>
+      <p class="promise">Despertar vital</p>
+      <p class="promise-sub">Silencia la autocrítica y arranca el día desde la suficiencia y la fluidez.</p>
+      <p class="releases"><b>Te ayuda a soltar</b>Escasez mental, rigidez y baja energía.</p>
+      <p class="helps-label">Te acompaña en momentos de…</p>
+      <ul>
+        <li>Tristeza o apatía — los cítricos aportan frescura y optimismo.</li>
+        <li>Desmotivación — un impulso cuando el exceso de trabajo agota.</li>
+        <li>En el auto — antes de manejar, para llegar con actitud creadora.</li>
+      </ul>
+      <p class="affirm">Recibo el día con energía y abundancia.</p>
+    </article>
+
+    <article class="blend b2 reveal stagger-2">
+      <img class="blend-photo" src="img/centro frasco.webp" alt="Bruma Centro">
+      <div class="top">
+        <div class="icon"><img src="img/centro-figura.svg" alt="Centro"></div>
+        <p class="moment">Mediodía · Centrar</p>
+        <h3>Centro</h3>
+        <p class="essences">Romero · Bergamota · Sándalo · Pachulí</p>
+      </div>
+      <p class="promise">Foco y claridad</p>
+      <p class="promise-sub">Despeja la confusión y te devuelve al aquí y ahora, en alerta tranquila.</p>
+      <p class="releases"><b>Te ayuda a soltar</b>El pensamiento excesivo y la confusión mental.</p>
+      <p class="helps-label">Te acompaña en momentos de…</p>
+      <ul>
+        <li>Dolor de cabeza — romero y bergamota como alivio natural.</li>
+        <li>Bloqueo mental — sándalo frena el pensamiento excesivo.</li>
+        <li>Pánico o ansiedad — pachulí te aterriza a la realidad física.</li>
+      </ul>
+      <p class="affirm">Vuelvo a mi centro, claro y presente.</p>
+    </article>
+
+    <article class="blend b3 reveal stagger-3">
+      <img class="blend-photo" src="img/serenidad frasco.jpg" alt="Bruma Serenidad">
+      <div class="top">
+        <div class="icon"><img src="img/serenidad-figura.svg" alt="Serenidad"></div>
+        <p class="moment">Noche · Descansar</p>
+        <h3>Serenidad</h3>
+        <p class="essences">Lavanda · Naranja · Cedro</p>
+      </div>
+      <p class="promise">Descanso profundo</p>
+      <p class="promise-sub">Libera las tensiones del día y prepara tu sistema nervioso para descansar.</p>
+      <p class="releases"><b>Te ayuda a soltar</b>Las tensiones del día y el "nudo en la garganta".</p>
+      <p class="helps-label">Te acompaña en momentos de…</p>
+      <ul>
+        <li>Insomnio o ansiedad nocturna — la lavanda favorece el sueño reparador.</li>
+        <li>Angustia o llanto — libera el "nudo en la garganta".</li>
+        <li>Tensión muscular — ideal cuando el estrés se acumula físicamente.</li>
+      </ul>
+      <p class="affirm">Suelto el día y descanso en calma.</p>
+    </article>
+
+  </div>
+</section>
+
+<section class="ritual-sec wrap" id="ritual">
+  <div class="ritual reveal">
+    <div class="content">
+      <span class="eyebrow">Tu ritual de uso</span>
+      <h2>Rocía. Inhala. Afirma.</h2>
+      <div class="step">
+        <span class="num">1</span>
+        <div><p class="st">Rocía</p><p>Agita el frasco y pulveriza a tu alrededor, sobre la almohada o tu espacio, a 8–10 cm de distancia.</p></div>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <div><p class="st">Inhala</p><p>Cierra los ojos. Respira profundo por la nariz y deja que el aroma llegue a ti. Sin prisa.</p></div>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <div><p class="st">Afirma</p><p>Al exhalar, repite la afirmación de tu bruma. Deja que tus palabras y el aroma trabajen juntos.</p></div>
+      </div>
+      <div class="tip">
+        <b>✶ Tip · Método del pañuelo</b>
+        <p>En estrés agudo, rocía en un pañuelo y haz 3 inhalaciones cortas. El aroma llega rápido sin saturar el olfato.</p>
+      </div>
+    </div>
+    <div class="photo"><img src="img/serenidad - spray.webp" alt="Bruma Serenidad de Equilibri en uso."></div>
+  </div>
+</section>
+
+<section class="buy wrap" id="comprar">
+  <div class="section-head reveal">
+    <span class="eyebrow">Llévate tu ritual</span>
+    <h2>Tu kit completo te espera</h2>
+  </div>
+  <div class="stock-alert reveal">
+    <span class="dot"></span>
+    <p>Lote artesanal · <strong>Quedan pocos kits disponibles.</strong> Cada pieza se prepara a mano en pequeñas tandas para garantizar la calidad.</p>
+  </div>
+
+  <div class="offers-grid reveal">
+
+    <!-- OPCIÓN 1 · 1 Kit -->
+    <div class="card">
+      <span class="kicker">1 Kit</span>
+      <img src="img/balance and bloom + guia.webp" alt="1 Kit Balance &amp; Bloom" class="card-img">
+      <h3>Balance &amp; Bloom</h3>
+      <p class="sub">3 brumas + Guía de Aromaterapia de regalo.</p>
+      <div class="kit-includes" style="margin:0 0 16px;text-align:left">
+        <span>🌿 Bruma Abundancia · 30 ml</span>
+        <span>🌿 Bruma Centro · 30 ml</span>
+        <span>🌙 Bruma Serenidad · 30 ml</span>
+        <span>📖 Guía de Aromaterapia <em>(regalo)</em></span>
+        <span>🎁 Caja ritual Equilibri</span>
+      </div>
+      <div class="price"><span class="cur">$</span><span class="num">759</span><span class="cur">MXN</span></div>
+      <span class="shipping-badge">+ costo de envío</span>
+      <a href="https://mpago.la/2bqrtZx" class="btn btn-outline btn-lg" target="_blank" rel="noopener" style="margin-top:auto">Comprar 1 Kit</a>
+    </div>
+
+    <!-- OPCIÓN 2 · 2 Kits — DESTACADA -->
+    <div class="card feature">
+      <span class="ribbon">✦ Más popular</span>
+      <span class="kicker">2 Kits</span>
+      <img src="img/balance and bloom para regalo + guia.webp" alt="2 Kits Balance &amp; Bloom" class="card-img">
+      <h3>Para ti y para regalar</h3>
+      <p class="sub">Dos kits completos — comparte el ritual con alguien especial.</p>
+      <div class="kit-includes" style="margin:0 0 16px;text-align:left">
+        <span>🌿 2× Bruma Abundancia · 30 ml</span>
+        <span>🌿 2× Bruma Centro · 30 ml</span>
+        <span>🌙 2× Bruma Serenidad · 30 ml</span>
+        <span>📖 2× Guía de Aromaterapia <em>(regalo)</em></span>
+        <span>🎁 2× Caja ritual Equilibri</span>
+      </div>
+      <div class="price"><span class="cur">$</span><span class="num">1,518</span><span class="cur">MXN</span></div>
+      <span class="shipping-badge free">✦ Envío gratis</span>
+      <a href="https://mpago.la/2AiGup8" class="btn btn-gold btn-lg" target="_blank" rel="noopener" style="margin-top:auto">Comprar 2 Kits</a>
+    </div>
+
+    <!-- OPCIÓN 3 · 3 Kits -->
+    <div class="card">
+      <span class="kicker">3 Kits</span>
+      <img src="img/balance and bloom para la familia + guia.webp" alt="3 Kits Balance &amp; Bloom" class="card-img">
+      <h3>Para toda la familia</h3>
+      <p class="sub">Tres kits para compartir el bienestar con quienes más quieres.</p>
+      <div class="kit-includes" style="margin:0 0 16px;text-align:left">
+        <span>🌿 3× Bruma Abundancia · 30 ml</span>
+        <span>🌿 3× Bruma Centro · 30 ml</span>
+        <span>🌙 3× Bruma Serenidad · 30 ml</span>
+        <span>📖 3× Guía de Aromaterapia <em>(regalo)</em></span>
+        <span>🎁 3× Caja ritual Equilibri</span>
+      </div>
+      <div class="price"><span class="cur">$</span><span class="num">2,277</span><span class="cur">MXN</span></div>
+      <span class="shipping-badge free">✦ Envío gratis</span>
+      <a href="https://mpago.la/1cTAew7" class="btn btn-outline btn-lg" target="_blank" rel="noopener" style="margin-top:auto">Comprar 3 Kits</a>
+    </div>
+
+  </div>
+
+  <p class="buy-foot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+    Pago seguro con Mercado Pago · Envíos a todo México en 5–6 días hábiles · costo de envío adicional según tu ubicación.
+  </p>
+</section>
+
+<section class="safe wrap">
+  <div class="safe-box reveal">
+    <h3>Úsalas con amor y consciencia</h3>
+    <p class="lead">Indicaciones de uso seguro</p>
+    <div class="safe-grid">
+      <div class="safe-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 13c4-6 14-6 18 0"/><path d="M12 13v6M9 19h6"/></svg><div><span class="t">Solo ambiental</span><div class="d">Para tu espacio, ropa o almohada. Nunca ingerir.</div></div></div>
+      <div class="safe-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg><div><span class="t">Piel y sol</span><div class="d">Si la aplicas en piel, evita el sol directo 24 h.</div></div></div>
+      <div class="safe-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c3 4 4 6 4 9a4 4 0 0 1-8 0c0-2 1-4 4-9z"/></svg><div><span class="t">Inflamable</span><div class="d">Contiene alcohol. Lejos de calor y llamas.</div></div></div>
+      <div class="safe-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="10" r="3.4"/><path d="M5 20c1-3.5 4-5.2 7-5.2S18 16.5 19 20"/></svg><div><span class="t">Niños</span><div class="d">Fuera de su alcance. Solo Serenidad para sus cuartos.</div></div></div>
+      <div class="safe-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5c4 0 6 2 8 2s4-2 8-2c0 6-3 11-8 14C7 16 4 11 4 5z"/></svg><div><span class="t">Mascotas</span><div class="d">Rocía en espacios ventilados, nunca sobre ellas.</div></div></div>
+      <div class="safe-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></svg><div><span class="t">Ojos</span><div class="d">Si hay contacto, limpia con aceite vegetal, no agua.</div></div></div>
+    </div>
+    <p class="disclaimer">Consulta a tu médico si estás embarazada o en lactancia, padeces asma, epilepsia o hipertensión severa, o estás bajo tratamiento médico. Producto cosmético de apoyo al bienestar: la aromaterapia es una práctica complementaria y no sustituye el consejo, diagnóstico ni tratamiento médico o psicológico profesional.</p>
+  </div>
+</section>
+
+<!-- ══════════ PARA QUIÉN ══════════ -->
+<section class="para-quien">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">¿Es para ti?</span>
+      <h2>Equilibri fue hecho para ellas</h2>
+      <p>Para quienes saben que cuidarse no es un lujo — es una necesidad.</p>
+    </div>
+
+    <div class="perfiles">
+      <div class="perfil p1 reveal stagger-1">
+        <div class="perfil-icon">🌪️</div>
+        <div>
+          <h3>Mujeres con estrés o ansiedad</h3>
+          <p>Cuando el cuerpo va más rápido que la mente, un aroma puede ser el ancla que te trae de vuelta al presente.</p>
+        </div>
+      </div>
+      <div class="perfil p2 reveal stagger-2">
+        <div class="perfil-icon">🌙</div>
+        <div>
+          <h3>Quienes ya tienen rituales</h3>
+          <p>Si meditas, haces yoga, escribes en tu diario o simplemente tienes momentos sagrados para ti, Equilibri los eleva.</p>
+        </div>
+      </div>
+      <div class="perfil p3 reveal stagger-3">
+        <div class="perfil-icon">🎁</div>
+        <div>
+          <h3>Quienes buscan un regalo significativo</h3>
+          <p>No otro jabón de lavanda. Un kit que dice <em>"mereces un momento tuyo"</em> — para cumpleaños, fechas especiales o simplemente porque sí.</p>
+        </div>
+      </div>
+      <div class="perfil p4 reveal stagger-4">
+        <div class="perfil-icon">💛</div>
+        <div>
+          <h3>Mamás con poco tiempo para sí mismas</h3>
+          <p>Un ritual de 30 segundos que es solo tuyo. Antes de que se despierten, entre tarea y tarea, o cuando por fin se durmieron.</p>
+        </div>
+      </div>
+      <div class="perfil p5 reveal stagger-5">
+        <div class="perfil-icon">📚</div>
+        <div>
+          <h3>Maestras con la energía al límite</h3>
+          <p>Cuando das tanto todos los días, necesitas algo que te recuerde recargarte. Un momento entre grupo y grupo puede cambiarlo todo.</p>
+        </div>
+      </div>
+      <div class="perfil p6 reveal stagger-6">
+        <div class="perfil-icon">💼</div>
+        <div>
+          <h3>Profesionistas siempre en modo alerta</h3>
+          <p>Reuniones, pendientes, decisiones constantes — tu cuerpo acumula la tensión sin que te des cuenta. Centro y Serenidad te ayudan a soltar la carga al final del día y llegar a lo que importa con la mente clara.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="perfil-no reveal">
+      <span class="icon">🙅‍♀️</span>
+      <div>
+        <p style="margin-bottom:10px"><strong>Quizás no es para ti si…</strong></p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;font-size:.88rem;color:var(--ink-soft);line-height:1.6">
+          <li>🚫 Esperas resultados médicos garantizados — Equilibri no es un tratamiento.</li>
+          <li>🚫 Buscas algo que funcione sin ningún esfuerzo o intención de tu parte.</li>
+          <li>🚫 Quieres un producto de un solo uso rápido, sin ningún ritual.</li>
+          <li>✅ Si lo que buscas es <strong>una herramienta real de bienestar emocional</strong> que encaje en tu día — entonces sí es para ti.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══════════ GUÍA DE AROMATERAPIA ══════════ -->
+<section class="guia-sec wrap reveal">
+  <div class="guia-box">
+    <div class="guia-icon"><img src="img/guia portada.webp" alt="Guía de Aromaterapia Equilibri" class="guia-portada"></div>
+    <div class="guia-content">
+      <span class="eyebrow">Regalo incluido con tu Kit</span>
+      <h2>Guía de Aromaterapia Equilibri</h2>
+      <p class="guia-lead">Para que cada spray sea una práctica consciente, no solo un aroma.</p>
+      <div class="guia-grid">
+        <div class="guia-item">
+          <span class="guia-num">01</span>
+          <div>
+            <strong>Cómo usar tus brumas</strong>
+            <p>Técnicas de inhalación, difusión y aplicación para potenciar cada esencia.</p>
+          </div>
+        </div>
+        <div class="guia-item">
+          <span class="guia-num">02</span>
+          <div>
+            <strong>Rituales para cada momento del día</strong>
+            <p>Rutinas de mañana, mediodía y noche alineadas con Abundancia, Centro y Serenidad.</p>
+          </div>
+        </div>
+        <div class="guia-item">
+          <span class="guia-num">03</span>
+          <div>
+            <strong>Propiedades de cada esencia</strong>
+            <p>Qué hace cada aceite esencial en tu sistema nervioso y estado emocional.</p>
+          </div>
+        </div>
+        <div class="guia-item">
+          <span class="guia-num">04</span>
+          <div>
+            <strong>Afirmaciones y práctica de intención</strong>
+            <p>Frases para acompañar tu ritual y anclar el beneficio emocional de cada bruma.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DESCUBRE TU BRUMA ══════════ -->
+<section class="quiz-sec">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Encuentra tu aliada emocional</span>
+      <h2>¿Qué necesitas hoy?</h2>
+      <p>Cada bruma del kit está diseñada para un momento específico de tu día.</p>
+    </div>
+  </div>
+  <div class="quiz-cards">
+    <div class="quiz-card reveal stagger-1">
+      <span class="q-emoji">☀️</span>
+      <h3>Necesito energía</h3>
+      <p>El día arrancó pesado, sientes bloqueo o simplemente necesitas arrancar con impulso.</p>
+      <span class="q-result">→ Bruma Abundancia</span>
+    </div>
+    <div class="quiz-card reveal stagger-2">
+      <span class="q-emoji">🌿</span>
+      <h3>Necesito claridad</h3>
+      <p>Tu mente da vueltas, no puedes concentrarte o el estrés no te deja pensar con calma.</p>
+      <span class="q-result">→ Bruma Centro</span>
+    </div>
+    <div class="quiz-card reveal stagger-3">
+      <span class="q-emoji">🌙</span>
+      <h3>Necesito descanso</h3>
+      <p>El día fue intenso, hay tensión acumulada y tu cuerpo necesita soltar y respirar.</p>
+      <span class="q-result">→ Bruma Serenidad</span>
+    </div>
+  </div>
+  <div class="quiz-cta reveal">
+    <p style="max-width:560px;margin:0 auto 24px;color:rgba(238,230,218,.78);font-size:.95rem;line-height:1.7">
+      ¿Te identificaste con una? Normal — cada quien tiene su momento más difícil del día.<br>
+      Pero el día no es solo ese momento. El Kit completo te acompaña de la mañana a la noche: <strong style="color:var(--gold-soft)">las tres brumas trabajan juntas</strong>, y muchas clientas descubren que la que menos esperaban se convierte en su favorita.
+    </p>
+    <a href="#comprar" class="btn btn-gold" style="margin-top:0">Llevar el Kit completo</a>
+  </div>
+</section>
+
+<!-- ══════════ TESTIMONIOS ══════════ -->
+<section class="testimonios wrap" id="testimonios">
+  <div class="section-head reveal">
+    <span class="eyebrow">Lo que dicen ellas</span>
+    <h2>Historias que nos llenan el corazón</h2>
+    <p>Cada botella lleva la intención de quien la crea y la magia de quien la recibe.</p>
+  </div>
+  <div class="test-grid">
+
+    <!-- Karina — highlight -->
+    <div class="test-card test-highlight reveal">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-body">Oye quiero darles las gracias, debo confesar que son una maravilla. Me he mantenido relajada y los aromas me encantan, he dormido profundo, sin pausas, ni he batallado para dormir. Me siento muy estresada y cuando lo huelo digo qué rico huele, lo intenciono y parece que todo se acomoda. Hasta me da por abrazar a mis hijas… Les agradezco infinitamente. ¡Son una maravilla!</p>
+      <div class="test-author">
+        <div class="test-avatar">K</div>
+        <div>
+          <p class="test-name">Karina M.</p>
+          <p class="test-product">Kit Balance &amp; Bloom · Serenidad</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teresita -->
+    <div class="test-card reveal stagger-1">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-body">He usado la brisa de Serenidad de manera frecuente y realmente ha transformado mi estado emocional. Derivado del estrés laboral, usarla por la mañana al iniciar mi rutina me ha vuelto a la calma, mejorando mi estado de ánimo y nivelando el estrés. Me identifico con más apertura y aceptación del ritmo laboral. Me gusta sentirme menos presionada para continuar atendiendo lo que me gusta. 😉 La recomiendo. ✨</p>
+      <div class="test-author">
+        <div class="test-avatar" style="background:var(--lilac)">T</div>
+        <div>
+          <p class="test-name">Teresita L.</p>
+          <p class="test-product">Bruma Serenidad · Uso diario</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sofía -->
+    <div class="test-card reveal stagger-1">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-body">El Kit de 3 Brumas Funcionales está integrado por Abundancia, Centro y Serenidad, cada una con aromas y propiedades para diferentes momentos del día. La que más utilicé fue Centro, diseñada para favorecer la concentración y despejar la mente mientras se realizan actividades que requieren atención.</p>
+      <div class="test-author">
+        <div class="test-avatar" style="background:var(--green)">S</div>
+        <div>
+          <p class="test-name">Sofía R.</p>
+          <p class="test-product">Kit Balance &amp; Bloom · Bruma Centro</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mariana -->
+    <div class="test-card reveal stagger-2">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-body">Su uso es muy sencillo y los efectos de relajación se perciben de manera casi inmediata. Seguí la recomendación de aplicar la bruma sobre un pañuelo y realizar tres inhalaciones cortas, lo que me permitió aprovechar mejor su aroma y sus beneficios.</p>
+      <div class="test-author">
+        <div class="test-avatar" style="background:var(--green)">M</div>
+        <div>
+          <p class="test-name">Mariana V.</p>
+          <p class="test-product">Kit Balance &amp; Bloom · Bruma Centro</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daniela -->
+    <div class="test-card reveal stagger-3">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-body">Las esencias son concentradas, el empaque conserva bien el producto y los frascos generan una bruma fina y uniforme. Destaca el cuidado en la presentación y el embalaje, muy atractivos visualmente. Es un producto de muy buena calidad, funcional y agradable. Por su efectividad, presentación y practicidad, es una opción que recomiendo ampliamente.</p>
+      <div class="test-author">
+        <div class="test-avatar" style="background:var(--green)">D</div>
+        <div>
+          <p class="test-name">Daniela C.</p>
+          <p class="test-product">Kit Balance &amp; Bloom · Bruma Centro</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lucy -->
+    <div class="test-card test-highlight reveal stagger-1">
+      <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="test-body">¡Me encantaron las brisas!! 😃😃 Las he estado usando todos los días y siento mi energía súper durante el día y en la noche con la brisa de Serenidad no sabes lo bien que duermo. ¡Mil gracias!!! 🙏🏼🙏🏼</p>
+      <div class="test-author">
+        <div class="test-avatar" style="background:var(--gold)">L</div>
+        <div>
+          <p class="test-name">Lucy P.</p>
+          <p class="test-product">Kit Balance &amp; Bloom · Uso diario</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="faq-sec">
+  <div class="faq-wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Todo lo que quieres saber</h2>
+      <p>Si tienes alguna duda que no está aquí, escríbenos por WhatsApp con gusto te ayudamos.</p>
+    </div>
+    <div class="faq-list reveal">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Cómo se usan las brumas?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Rocía <em>8–10 cm</em> sobre tu espacio, almohada o ropa. Respira profundo, cierra los ojos e intenciona el momento. Úsalas según tu necesidad: <em>Abundancia</em> por la mañana para activarte, <em>Centro</em> a mediodía para enfocarte y <em>Serenidad</em> por la noche para descansar.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Puedo aplicarlas directo en la piel?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Son brumas <em>principalmente ambientales</em>. Si las aplicas en piel, evita la exposición al sol directo durante las <em>24 horas siguientes</em> ya que contienen aceites cítricos que pueden ser fotosensibilizantes. Nunca apliques cerca de los ojos.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Cuánto dura cada frasco?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Cada frasco de <em>30 ml</em> tiene aproximadamente <em>150–200 aplicaciones</em> con el atomizador. Usado en tu ritual diario te puede durar <em>1 a 3 meses</em> dependiendo de cuántas veces rocíes al día.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Los ingredientes son naturales?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Sí. Las brumas están formuladas con <em>aceites esenciales puros</em> (lavanda, bergamota, cedro, naranja dulce, romero, sándalo y pachulí) en agua purificada con alcohol como dispersante. Sin fragancias sintéticas ni ingredientes artificiales.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Cuánto tarda en llegar mi pedido?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>El envío tarda <em>5–6 días hábiles</em> a partir de la confirmación de pago. Recibirás tu número de guía por WhatsApp para que puedas rastrear tu paquete en todo momento.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Tienen envío gratuito?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>El envío gratuito aplica al comprar <em>2 o más kits</em>. En pedidos de un solo kit o brumas individuales se cobra el costo de envío estándar según tu ubicación.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Son aptas para embarazadas o personas con condiciones de salud?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Te recomendamos consultar a tu médico si estás <em>embarazada o en lactancia</em>, padeces asma, epilepsia o hipertensión, o estás bajo tratamiento médico. La aromaterapia es una práctica de apoyo complementario y no sustituye la atención médica profesional.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ COMUNIDAD ══════════ -->
+<section class="insta-sec wrap reveal">
+  <div class="section-head">
+    <span class="eyebrow">Comunidad Equilibri</span>
+    <h2 style="color:var(--green-deep)">Tu ritual, compartido</h2>
+  </div>
+  <p class="insta-quote">"Cada frasco es una intención. Cada spray, un regreso a ti."</p>
+  <p style="color:var(--ink-soft);font-size:.92rem;margin-bottom:24px">Comparte cómo usas tu kit y etiquétanos — nos encanta verte en balance.</p>
+  <a href="https://instagram.com/somosequilibri" target="_blank" rel="noopener" class="insta-handle">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    @somosequilibri
+  </a>
+</section>
+
+<footer>
+  <div class="divider">
+    <img src="img/imagen de balance and bloom.webp" alt="Balance &amp; Bloom · Equilibri" style="height:80px;width:auto;opacity:.85;border-radius:8px">
+  </div>
+  <p class="fbrand"><img src="img/logo equilibri -beige.svg" alt="Equilibri" style="height:44px;width:auto;display:inline-block"></p>
+  <p class="ftag">Tu esencia, en balance</p>
+  <div class="flinks">
+    <a href="https://somosequilibri.com" target="_blank" rel="noopener">somosequilibri.com</a>
+    <a href="https://instagram.com/somosequilibri" target="_blank" rel="noopener">Instagram · @somosequilibri</a>
+    <a href="https://facebook.com/somosequilibri" target="_blank" rel="noopener">Facebook · @somosequilibri</a>
+  </div>
+  <p class="copy">© 2026 Equilibri · Cosmética emocional</p>
+</footer>
+
+<script>
+  // Sticky header below urgency bar
+  (function(){
+    const bar=document.querySelector('.urgency-bar');
+    const hdr=document.querySelector('header');
+    function setTop(){
+      const h=bar?bar.getBoundingClientRect().height:0;
+      hdr.style.top=h+'px';
+    }
+    setTop();
+    window.addEventListener('resize',setTop);
+  })();
+
+  const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.1});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>io.observe(el));
+
+  function toggleFaq(btn){
+    const item=btn.closest('.faq-item');
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  }
+</script>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/524775895981?text=Hola%2C%20me%20interesa%20el%20Kit%20Balance%20%26%20Bloom" target="_blank" rel="noopener" class="wa-fab" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>
