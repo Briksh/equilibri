@@ -250,7 +250,7 @@
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
 
-  /* tablet */
+  /* tablet grande (hasta 1024px) */
   @media(max-width:1024px){
     .wrap{padding:0 24px}
     .blends{padding:72px 0 16px}
@@ -259,24 +259,79 @@
     .section-head{margin-bottom:42px}
     .blend-grid{gap:18px}
     .blend{padding:240px 22px 30px}
+    .offers-grid{gap:16px}
+    .card{padding:28px 20px}
   }
+  /* tablet mediana (hasta 880px) */
   @media(max-width:880px){
-    .perfiles{grid-template-columns:1fr;max-width:460px}
-    .test-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}
-    .test-highlight{grid-column:span 1}
-    .blend{padding:240px 30px 32px}
+    .wrap{padding:0 32px}
+
+    /* Hero — igual que mobile */
+    .hero{height:auto;min-height:100svh}
+    .hero-bg{content:url("img/Equilibri - Balance and Bloom - caja 6.jpg")}
+    .hero::after{background:linear-gradient(180deg,#4f5e4f 0%,rgba(122,141,122,.88) 28%,rgba(122,141,122,.3) 54%,transparent 100%)}
+    .hero .inner{grid-template-columns:1fr;padding:70px 40px 50px}
+    .hero-col{padding-right:0;max-width:100%}
+    .hero-img-col{display:none}
+    .hero h1{font-size:clamp(2.8rem,8vw,4rem)}
+    .cta-row{flex-wrap:wrap;gap:12px}
+
+    /* Band — texto abajo a la izquierda */
+    .band{min-height:clamp(460px,70vw,680px);align-items:flex-end}
+    .band .band-inner{padding:0 36px 52px}
+    .band .band-txt{max-width:100%;margin-left:0;text-align:left}
+    .band .band-bg{content:url("img/Equilibri - Balance and Bloom - caja-mobile.jpg");object-position:center center}
+
+    /* Blends */
+    .blend-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto;padding-top:100px;gap:100px}
+    .blend{padding:200px 28px 30px}
+
+    /* Ritual */
+    .ritual{grid-template-columns:1fr}
+    .ritual .photo{min-height:320px;order:1}
+    .ritual .content{order:2;padding:44px 40px}
+    .ritual-sec{padding:80px 0 70px}
+
+    /* Comprar — imágenes más grandes */
     .price-grid{grid-template-columns:1fr;max-width:440px}
-    .offers-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto;gap:30px}
+    .offers-grid{grid-template-columns:1fr;max-width:540px;margin:0 auto;gap:28px}
     .card.feature{transform:none}
-    .offers-grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}
-    .card.feature{transform:none}
+    .card-img{max-width:300px}
+    .buy{padding:40px 0 80px}
+
+    /* Safe */
     .safe-grid{grid-template-columns:1fr 1fr}
-    .band{min-height:clamp(460px,70vw,680px)}
-    .band-bg{content:url("img/Equilibri - Balance and Bloom - caja-mobile.jpg");object-position:center center}
+    .safe{padding:40px 0 60px}
+
+    /* Guía — mobile layout */
+    .guia-sec{padding:80px 0 70px}
+    .guia-box{display:flex!important;flex-direction:column!important;grid-template-columns:unset!important;padding:28px 24px 32px;gap:0;border-radius:20px;overflow:hidden}
+    .guia-icon{order:1;width:100%;line-height:0}
+    .guia-portada{width:100%;height:auto;border-radius:0;box-shadow:none;display:block;max-width:100%}
+    .guia-content{order:2;padding:28px 0 32px}
+
+    /* Quiz */
+    .quiz-cards{grid-template-columns:1fr 1fr;gap:16px}
+    .quiz-sec{padding:80px 0 70px}
+
+    /* Para quién */
+    .perfiles{grid-template-columns:1fr 1fr;max-width:100%}
+    .para-quien{padding:80px 0 70px}
+
+    /* Testimonios */
+    .test-grid{grid-template-columns:1fr 1fr;gap:18px;padding:0}
+    .test-highlight{grid-column:span 2}
+    .testimonios{padding:80px 0 70px}
+
+    /* FAQ */
+    .faq-sec{padding:80px 0 90px}
+
+    /* Secciones generales */
+    .blends{padding:80px 0 20px}
   }
   /* mobile */
   @media(max-width:600px){
-    .wrap{padding:40px 20px}
+    .wrap{padding:40px 20px 0}
     /* secciones full-bleed: cancelar padding lateral del wrap */
     .trust-bar .wrap,.trust-bar{padding-left:0;padding-right:0}
     .hero .inner{padding-left:24px;padding-right:24px}
@@ -345,7 +400,7 @@
     .safe-grid{grid-template-columns:50% 2fr;gap:16px;margin-bottom:22px}
 
     /* Guía */
-    /* guia — mobile overrides handled by base styles above */
+    .guia-content{padding:28px 0 32px}
 
     /* Quiz */
     .quiz-sec{padding:60px 0 50px}
