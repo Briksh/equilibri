@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Equilibri · Tu esencia, en balance</title>
+<link rel="icon" type="image/png" href="sitio-img/favicon.png">
+<link rel="apple-touch-icon" href="sitio-img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -113,6 +115,74 @@ nav {
 .nav-links a.active::after { width: 100%; }
 .nav-links a.active { color: var(--gold); }
 
+/* ── HAMBURGUESA ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 110;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--green-dark);
+  border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── MENÚ MOBILE DESPLEGABLE ── */
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0;
+  background: rgba(238,230,218,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid rgba(122,141,122,0.2);
+  z-index: 99;
+  padding: 24px 6vw 32px;
+  transform: translateY(-8px);
+  opacity: 0;
+  transition: opacity .25s, transform .25s;
+}
+.nav-mobile.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+.nav-mobile ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.nav-mobile ul li a {
+  display: block;
+  padding: 16px 0;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  border-bottom: 0.5px solid rgba(122,141,122,0.15);
+  transition: color .2s;
+}
+.nav-mobile ul li:last-child a { border-bottom: none; }
+.nav-mobile ul li a:hover { color: var(--gold); }
+
+@media (max-width: 880px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-mobile { display: block; }
+}
+
 /* ════════════════════════════════════════
    PÁGINAS — sistema de navegación SPA
 ════════════════════════════════════════ */
@@ -125,20 +195,26 @@ nav {
 .hero {
   min-height: calc(100vh - 64px);
   background: var(--green-deep);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  background-image: url('sitio-img/serenidad hero.webp');
+  background-size: cover;
+  background-position: center;
+  display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
 }
 
-/* textura sutil */
+/* overlay oscuro para contraste del texto */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(122,141,122,0.25) 0%, transparent 60%),
-              radial-gradient(ellipse at 20% 80%, rgba(205,162,116,0.12) 0%, transparent 50%);
+  background: linear-gradient(
+    105deg,
+    rgba(30,40,30,0.82) 0%,
+    rgba(30,40,30,0.72) 45%,
+    rgba(30,40,30,0.30) 100%
+  );
   pointer-events: none;
 }
 
@@ -147,13 +223,13 @@ nav {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(238,230,218,0.06) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(238,230,218,0.04) 1px, transparent 1px);
   background-size: 28px 28px;
   pointer-events: none;
 }
 
 .hero-text {
-  padding: 80px 6vw 80px 8vw;
+  padding: 80px 8vw;
   position: relative;
   z-index: 2;
   animation: fadeUp .9s var(--ease-out) both;
@@ -255,8 +331,9 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 8vw 60px 4vw;
+  padding: 60px 10vw 80px 4vw;
   animation: fadeUp .9s .2s var(--ease-out) both;
+  overflow: visible;
 }
 
 .hero-circle-wrap {
@@ -297,6 +374,51 @@ nav {
   border-radius: 50%;
   border: 0.5px dashed rgba(205,162,116,0.25);
   animation: spin 45s linear infinite reverse;
+}
+
+/* ── HERO IMG STACK ── */
+.hero-img-stack {
+  position: relative;
+  width: min(440px, 92%);
+}
+.hero-img-main {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  box-shadow: 0 48px 90px -24px rgba(0,0,0,0.55);
+}
+.hero-img-float {
+  position: absolute;
+  width: 58%;
+  height: auto;
+  border-radius: 14px;
+  bottom: -10%;
+  right: -14%;
+  box-shadow: 0 28px 56px -14px rgba(0,0,0,0.5);
+  border: 2px solid rgba(238,230,218,0.12);
+  transform: rotate(3deg);
+  transition: transform .4s ease;
+}
+.hero-img-float:hover { transform: rotate(1deg) scale(1.03); }
+.hero-img-ring {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(205,162,116,0.3);
+  top: -40px;
+  left: -50px;
+  animation: spin 40s linear infinite;
+  pointer-events: none;
+}
+.hero-img-ring::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 0.5px dashed rgba(205,162,116,0.18);
+  animation: spin 60s linear infinite reverse;
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -677,7 +799,10 @@ nav {
 /* ── CTA BANNER ── */
 .cta-banner {
   background: var(--green);
-  padding: 80px 8vw;
+  background-image: url('sitio-img/fondo - Balance and Bloom.webp');
+  background-size: cover;
+  background-position: bottom;
+  padding: 80px 8vw 0;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -686,8 +811,7 @@ nav {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background: linear-gradient(180deg, rgba(238,230,218,0.45) 0%, rgba(238,230,218,0.55) 100%);
 }
 
 .cta-banner-titulo {
@@ -695,7 +819,7 @@ nav {
   font-size: clamp(32px, 3.5vw, 48px);
   font-weight: 300;
   font-style: italic;
-  color: var(--cream);
+  color: var(--green-deep);
   margin-bottom: 12px;
   position: relative;
   z-index: 1;
@@ -703,25 +827,139 @@ nav {
 .cta-banner-sub {
   font-size: 16px;
   font-weight: 300;
-  color: rgba(238,230,218,0.7);
+  color: rgba(45,55,45,0.75);
   margin-bottom: 32px;
   position: relative;
   z-index: 1;
 }
-.cta-banner .btn-primary { position: relative; z-index: 1; margin: 0 auto; }
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.cta-text {
+  text-align: center;
+  width: 100%;
+}
+.cta-kit-img {
+  width: 100%;
+  max-width: 680px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 32px 60px rgba(0,0,0,0.15));
+}
+.cta-banner .btn-primary {
+  position: relative;
+  z-index: 1;
+  background: var(--green-deep);
+  color: var(--cream);
+  margin: 0;
+}
+.cta-banner .btn-primary:hover {
+  background: #2d3a2d;
+  transform: translateY(-1px);
+}
+
+/* ════════════════════════════════════════
+   ¿QUÉ NECESITAS HOY?
+════════════════════════════════════════ */
+.que-necesitas {
+  background: var(--cream);
+  padding: 90px 8vw 80px;
+  text-align: center;
+}
+.que-necesitas .sec-eyebrow { color: var(--gold); margin-bottom: 12px; }
+.que-necesitas .sec-titulo  { color: var(--green-deep); margin-bottom: 14px; }
+.que-necesitas .sec-sub     { color: var(--gray); margin-bottom: 52px; }
+
+.qn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto 44px;
+}
+.qn-card {
+  background: var(--green-dark);
+  border-radius: 16px;
+  padding: 40px 28px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  transition: transform .25s, box-shadow .25s;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.qn-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.25); }
+.qn-card--active {
+  border-color: rgba(205,162,116,0.35);
+  box-shadow: 0 0 0 1px rgba(205,162,116,0.2);
+}
+.qn-icon {
+  font-size: 36px;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+.qn-titulo {
+  font-family: var(--ff-serif);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+.qn-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(238,230,218,0.65);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  flex: 1;
+}
+.qn-link {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@media (max-width: 768px) {
+  .qn-grid { grid-template-columns: 1fr; max-width: 420px; }
+  .que-necesitas { padding: 70px 6vw 60px; }
+}
 
 /* ════════════════════════════════════════
    PÁGINA EQUILIBRI
 ════════════════════════════════════════ */
 .equil-hero {
   background: var(--cream);
-  padding: 80px 8vw 60px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  background-image: url('sitio-img/fondo-preguntas-hero-right.webp');
+  background-size: cover;
+  background-position: center right;
+  padding: 90px 8vw 90px;
+  display: flex;
   align-items: center;
+  min-height: 580px;
   border-bottom: 0.5px solid rgba(122,141,122,0.15);
+  position: relative;
 }
+
+.equil-hero-content {
+  max-width: 50%;
+  position: relative;
+  z-index: 1;
+}
+.equil-hero-eyebrow { color: var(--gold) !important; }
+.equil-hero-titulo { color: #1e2a1e !important; }
+.equil-hero-body { color: #2d3a2d !important; }
 
 .equil-hero-eyebrow {
   font-size: 11px;
@@ -734,11 +972,12 @@ nav {
 
 .equil-hero-titulo {
   font-family: var(--ff-serif);
-  font-size: clamp(48px, 5.5vw, 80px);
+  font-size: clamp(40px, 4.5vw, 68px);
   font-weight: 300;
+  font-style: italic;
   color: var(--green-dark);
-  line-height: 1.0;
-  margin-bottom: 10px;
+  line-height: 1.1;
+  margin-bottom: 28px;
 }
 
 .equil-hero-eslogan {
@@ -764,16 +1003,16 @@ nav {
 }
 
 .equil-circle {
-  width: min(340px, 90%);
+  width: min(400px, 90%);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: var(--green-deep);
+  background: var(--green);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 48px;
+  padding: 60px;
   position: relative;
 }
 .equil-circle::before {
@@ -1585,7 +1824,7 @@ footer::before {
 
   /* Ciencia */
   .ciencia { grid-template-columns: 1fr; gap: 48px; padding: 72px 6vw; }
-  .ciencia-datos { gap: 24px; }
+  .ciencia-datos { gap: 24px; flex-wrap: wrap; }
 
   /* Brisas preview */
   .brisas-preview { padding: 72px 6vw; }
@@ -1593,7 +1832,18 @@ footer::before {
   .brisa-preview-card { padding: 32px 28px; }
 
   /* Equilibri page */
-  .equil-hero { grid-template-columns: 1fr; padding: 64px 6vw 48px; gap: 48px; }
+  .equil-hero {
+    padding: 64px 6vw 48px;
+    background-position: right center;
+  }
+  .equil-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(238,230,218,0.72);
+    pointer-events: none;
+  }
+  .equil-hero-content { max-width: 100%; }
   .equil-visual { display: none; }
   .valores { padding: 64px 6vw; }
   .valores-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -1660,6 +1910,7 @@ footer::before {
   .ciencia-titulo { font-size: clamp(28px, 8vw, 40px); }
   .ciencia-cuerpo { font-size: 15px; }
   .ciencia-datos { gap: 20px; flex-wrap: wrap; }
+  .dato { min-width: 120px; }
   .dato-num { font-size: 32px; }
   .pathway { padding-left: 0; }
   .pathway-step { padding-left: 22px; }
@@ -1681,15 +1932,24 @@ footer::before {
   .cta-banner { padding: 60px 5vw; }
   .cta-banner-titulo { font-size: clamp(24px, 7vw, 36px); }
   .cta-banner-sub { font-size: 15px; }
+  .cta-banner { padding: 60px 5vw 20px; }
+  .cta-kit-img { max-width: 480px; }
 
   /* ── EQUILIBRI PAGE ── */
   .equil-hero {
-    grid-template-columns: 1fr;
     padding: 56px 5vw 48px;
-    gap: 0;
+    background-position: right center;
   }
+  .equil-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(238,230,218,0.78);
+    pointer-events: none;
+  }
+  .equil-hero-content { max-width: 100%; }
   .equil-visual { display: none; }
-  .equil-hero-titulo { font-size: clamp(44px, 12vw, 64px); }
+  .equil-hero-titulo { font-size: clamp(36px, 10vw, 52px); }
   .equil-hero-eslogan { font-size: 17px; }
   .equil-hero-body { font-size: 15px; }
 
@@ -1795,6 +2055,7 @@ footer::before {
   .sec-titulo { font-size: 26px; }
   .ritual-titulo { font-size: 24px; }
   .cta-banner-titulo { font-size: 22px; }
+  .cta-kit-img { max-width: 300px; }
   .manifesto-quote { font-size: 18px; }
   .pilares-grid { gap: 10px; }
   .valores-grid { gap: 10px; }
@@ -2123,59 +2384,27 @@ footer::before {
 <!-- ════════════ NAV ════════════ -->
 <nav>
   <div class="nav-logo" onclick="showPage('inicio')" style="cursor:pointer;">
-    <svg style="height:36px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #7a8d7a;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg>
+    <img src="sitio-img/logo equilibri - verde.svg" alt="Equilibri" style="height:32px;width:auto;display:block">
   </div>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('inicio')" id="nav-inicio" class="active">Inicio</a></li>
     <li><a href="#" onclick="showPage('equilibri')" id="nav-equilibri">Nosotros</a></li>
-    <li><a href="#" onclick="showPage('kit')" id="nav-kit">Kit Balance &amp; Bloom</a></li>
+    <li><a href="https://somosequilibri.com/kit/" target="_blank" id="nav-kit">Kit Balance &amp; Bloom</a></li>
     <li><a href="#" onclick="showPage('faq')" id="nav-faq">Preguntas Frecuentes</a></li>
   </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menú" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<!-- Menú mobile -->
+<div class="nav-mobile" id="navMobile">
+  <ul>
+    <li><a href="#" onclick="showPage('inicio');toggleMenu()">Inicio</a></li>
+    <li><a href="#" onclick="showPage('equilibri');toggleMenu()">Nosotros</a></li>
+    <li><a href="https://somosequilibri.com/kit/" target="_blank" onclick="toggleMenu()">Kit Balance &amp; Bloom</a></li>
+    <li><a href="#" onclick="showPage('faq');toggleMenu()">Preguntas Frecuentes</a></li>
+  </ul>
+</div>
 
 <!-- ════════════════════════════════════════
      PÁGINA 1: INICIO
@@ -2190,79 +2419,8 @@ footer::before {
       <p class="hero-sub">· Aromaterapia · Autoafirmaciones · Bienestar emocional ·</p>
       <p class="hero-desc">En un mundo que exige ir deprisa, Equilibri es tu pausa y tu refugio. Transforma tu estado de ánimo, reduce el estrés y recupera tu centro de forma natural — en cuestión de segundos.</p>
       <div class="hero-ctas">
-        <button class="btn-primary" onclick="showPage('kit')">Conocer el Kit</button>
+        <a href="https://somosequilibri.com/kit/" target="_blank" class="btn-primary">Conocer el Kit</a>
         <button class="btn-ghost" onclick="showPage('equilibri')">Nuestra Historia</button>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-circle-wrap">
-        <div class="hero-circle">
-          <div style="margin-bottom:10px;"><svg style="height:28px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #7a8d7a;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg></div>
-          <svg class="celestial-svg" width="140" height="50" viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg">
-            <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="0.8" opacity="0.7"/>
-            <circle cx="30" cy="30" r="15" fill="none" stroke="#cda274" stroke-width="0.8"/>
-            <circle cx="30" cy="30" r="6" fill="#cda274" opacity="0.85"/>
-            <line x1="30" y1="11" x2="30" y2="7" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-            <line x1="30" y1="49" x2="30" y2="53" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-            <line x1="11" y1="30" x2="7" y2="30" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-            <line x1="49" y1="30" x2="53" y2="30" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-            <line x1="17" y1="17" x2="14" y2="14" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-            <line x1="43" y1="43" x2="46" y2="46" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-            <line x1="43" y1="17" x2="46" y2="14" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-            <line x1="17" y1="43" x2="14" y2="46" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-            <circle cx="80" cy="30" r="15" fill="none" stroke="#cda274" stroke-width="0.8"/>
-            <path d="M86 22 A9 9 0 1 0 86 38 A5.5 5.5 0 1 1 86 22Z" fill="#cda274" opacity="0.85"/>
-            <circle cx="130" cy="30" r="15" fill="none" stroke="#cda274" stroke-width="0.8"/>
-            <path d="M130 21 L131.5 27 L138 27 L132.5 31 L134.5 38 L130 34 L125.5 38 L127.5 31 L122 27 L128.5 27Z" fill="#cda274" opacity="0.85"/>
-          </svg>
-          <h2 class="hero-circle-titulo">Balance<br>&amp; Bloom</h2>
-          <p class="hero-circle-sub">· Ritual de Brisas ·</p>
-          <p class="hero-circle-claim">Equilibra cuerpo,<br>mente y alma</p>
-        </div>
       </div>
     </div>
   </section>
@@ -2304,12 +2462,12 @@ footer::before {
           <span class="dato-label">brumas funcionales</span>
         </div>
         <div class="dato">
-          <span class="dato-num">10–15</span>
-          <span class="dato-label">días de maceración</span>
+          <span class="dato-num">100%</span>
+          <span class="dato-label">aceites esenciales puros</span>
         </div>
         <div class="dato">
-          <span class="dato-num">100%</span>
-          <span class="dato-label">aceites puros</span>
+          <span class="dato-num">1</span>
+          <span class="dato-label">respiración para sentirlo</span>
         </div>
       </div>
     </div>
@@ -2351,7 +2509,9 @@ footer::before {
     <h2 class="sec-titulo">Tu botiquín emocional<br><em>para cada momento del día</em></h2>
     <div class="divider-center" style="margin-bottom:48px;"></div>
     <div class="brisas-grid">
-      <div class="brisa-preview-card fade-up" onclick="showPage('kit')">
+      <a class="brisa-preview-card fade-up" href="https://somosequilibri.com/kit/" target="_blank">
+        <img src="sitio-img/abundancia frasco.webp" alt="Abundancia" style="width:90px;height:90px;object-fit:contain;margin:0 auto 6px">
+        <img src="sitio-img/abundancia-figura.svg" alt="" style="width:36px;height:auto;margin:0 auto 12px;opacity:.7">
         <p class="brisa-tag">☀ Rutina AM</p>
         <h3 class="brisa-nombre-prev">Abundancia</h3>
         <p class="brisa-claim-prev">El aroma del optimismo y la suficiencia.</p>
@@ -2361,8 +2521,10 @@ footer::before {
           <span class="pill-sm">Cedro</span>
         </div>
         <p class="brisa-afirm-prev">"Hoy me reconozco digna y suficiente. Atraigo el éxito desde la alegría."</p>
-      </div>
-      <div class="brisa-preview-card fade-up" onclick="showPage('kit')" style="transition-delay:.1s">
+      </a>
+      <a class="brisa-preview-card fade-up" href="https://somosequilibri.com/kit/" target="_blank" style="transition-delay:.1s">
+        <img src="sitio-img/centro frasco.webp" alt="Centro" style="width:90px;height:90px;object-fit:contain;margin:0 auto 6px">
+        <img src="sitio-img/centro-figura.svg" alt="" style="width:36px;height:auto;margin:0 auto 12px;opacity:.7">
         <p class="brisa-tag">◯ Rutina Mid-Day</p>
         <h3 class="brisa-nombre-prev">Centro</h3>
         <p class="brisa-claim-prev">El ancla para la mente y el cuerpo.</p>
@@ -2373,8 +2535,10 @@ footer::before {
           <span class="pill-sm">Pachulí</span>
         </div>
         <p class="brisa-afirm-prev">"Mi mente está clara y mi cuerpo estable. Me anclo en el presente."</p>
-      </div>
-      <div class="brisa-preview-card fade-up" onclick="showPage('kit')" style="transition-delay:.2s">
+      </a>
+      <a class="brisa-preview-card fade-up" href="https://somosequilibri.com/kit/" target="_blank" style="transition-delay:.2s">
+        <img src="sitio-img/serenidad - spray.webp" alt="Serenidad" style="width:90px;height:90px;object-fit:contain;margin:0 auto 6px">
+        <img src="sitio-img/serenidad-figura.svg" alt="" style="width:36px;height:auto;margin:0 auto 12px;opacity:.7">
         <p class="brisa-tag">☽ Rutina PM</p>
         <h3 class="brisa-nombre-prev">Serenidad</h3>
         <p class="brisa-claim-prev">El abrazo olfativo que apaga el sistema nervioso.</p>
@@ -2384,65 +2548,28 @@ footer::before {
           <span class="pill-sm">Cedro</span>
         </div>
         <p class="brisa-afirm-prev">"Suelto las cargas de hoy. Me permito descansar en paz."</p>
-      </div>
+      </a>
     </div>
   </section>
 
   <!-- CTA BANNER -->
   <section class="cta-banner">
-    <h2 class="cta-banner-titulo">¿Lista para hacer una pausa y volver a ti?</h2>
-    <p class="cta-banner-sub">Descubre el Kit Balance &amp; Bloom · Ritual de Brisas</p>
-    <button class="btn-primary" onclick="showPage('kit')">Ver el Kit Completo →</button>
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2 class="cta-banner-titulo">¿Lista para hacer una pausa y volver a ti?</h2>
+        <p class="cta-banner-sub">Descubre el Kit Balance &amp; Bloom · Ritual de Brisas</p>
+        <a href="https://somosequilibri.com/kit/" target="_blank" class="btn-primary">Ver el Kit Completo →</a>
+      </div>
+      <div class="cta-img-col">
+        <img src="sitio-img/kit - Balance and Bloom.webp" alt="Kit Balance &amp; Bloom" class="cta-kit-img">
+      </div>
+    </div>
   </section>
 
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div style="margin-bottom:14px;"><svg style="height:44px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #eee6da;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg></div>
+        <img src="sitio-img/logo equilibri -beige.svg" alt="Equilibri" style="height:44px;width:auto;display:block;margin-bottom:14px">
         <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con neurociencia para transformar tu estado de ánimo.</p>
       </div>
       <div>
@@ -2450,16 +2577,15 @@ footer::before {
         <ul class="footer-links">
           <li><a onclick="showPage('inicio')">Inicio</a></li>
           <li><a onclick="showPage('equilibri')">Nosotros</a></li>
-          <li><a onclick="showPage('kit')">Kit Balance &amp; Bloom</a></li>
+          <li><a href="https://somosequilibri.com/kit/" target="_blank">Kit Balance &amp; Bloom</a></li>
         </ul>
       </div>
       <div>
-        <p class="footer-col-t">El Kit</p>
+        <p class="footer-col-t">Síguenos</p>
         <ul class="footer-links">
-          <li><a onclick="showPage('kit')">Bruma Abundancia</a></li>
-          <li><a onclick="showPage('kit')">Bruma Centro</a></li>
-          <li><a onclick="showPage('kit')">Bruma Serenidad</a></li>
-          <li><a onclick="showPage('kit')">Ritual de Uso</a></li>
+          <li><a href="https://instagram.com/somosequilibri" target="_blank">Instagram</a></li>
+          <li><a href="https://facebook.com/somosequilibri" target="_blank">Facebook</a></li>
+          <li><a href="https://wa.me/524775895981" target="_blank">WhatsApp</a></li>
         </ul>
       </div>
     </div>
@@ -2484,119 +2610,11 @@ footer::before {
 <div class="page" id="page-equilibri">
 
   <section class="equil-hero">
-    <div>
+    <div class="equil-hero-content">
       <p class="equil-hero-eyebrow">Nuestra filosofía</p>
-      <div class="equil-hero-titulo" style="margin-bottom:10px;"><svg style="height:52px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #7a8d7a;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg></div>
-      <p class="equil-hero-eslogan">La ciencia detrás de Equilibri</p>
-      <p class="equil-hero-body">Si nunca has probado la aromaterapia, es fácil pensar que se trata de "aromas que huelen rico". Pero en realidad, la aromaterapia utiliza extractos botánicos concentrados para apoyar tu bienestar físico y emocional de forma natural.<br><br>La magia de nuestras brumas está en cómo tu cuerpo procesa los olores. A diferencia de otros sentidos, el olfato tiene un camino directo al cerebro emocional — el centro que regula el estrés, el placer, el miedo y la tristeza. Es por eso que un aroma puede cambiar tu estado de ánimo casi de inmediato.</p>
-    </div>
-    <div class="equil-visual">
-      <div class="equil-circle">
-        <div style="margin-bottom:10px;"><svg style="height:28px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #eee6da;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg></div>
-        <svg width="120" height="44" viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px">
-          <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="0.8" opacity="0.7"/>
-          <circle cx="30" cy="30" r="14" fill="none" stroke="#cda274" stroke-width="0.8"/>
-          <circle cx="30" cy="30" r="6" fill="#cda274" opacity="0.85"/>
-          <line x1="30" y1="12" x2="30" y2="8" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-          <line x1="30" y1="48" x2="30" y2="52" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-          <line x1="12" y1="30" x2="8" y2="30" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-          <line x1="48" y1="30" x2="52" y2="30" stroke="#cda274" stroke-width="0.8" stroke-linecap="round"/>
-          <circle cx="80" cy="30" r="14" fill="none" stroke="#cda274" stroke-width="0.8"/>
-          <path d="M86 22 A9 9 0 1 0 86 38 A5.5 5.5 0 1 1 86 22Z" fill="#cda274" opacity="0.85"/>
-          <circle cx="130" cy="30" r="14" fill="none" stroke="#cda274" stroke-width="0.8"/>
-          <path d="M130 21 L131.5 27 L138 27 L132.5 31 L134.5 38 L130 34 L125.5 38 L127.5 31 L122 27 L128.5 27Z" fill="#cda274" opacity="0.85"/>
-        </svg>
-        <h2 class="equil-circle-titulo">Balance<br>&amp; Bloom</h2>
-        <p class="equil-circle-eslogan">Ritual de Brisas</p>
-      </div>
+      <h1 class="equil-hero-titulo"><em>La ciencia detrás de<br>Equilibri</em></h1>
+      <p class="equil-hero-body">Si nunca has probado la aromaterapia, es fácil pensar que se trata de "aromas que huelen rico". Pero en realidad, la aromaterapia utiliza extractos botánicos concentrados para apoyar tu bienestar físico y emocional de forma natural.</p>
+      <p class="equil-hero-body" style="margin-top:20px;">La magia de nuestras brumas está en cómo tu cuerpo procesa los olores. A diferencia de otros sentidos, el olfato tiene un camino directo al cerebro emocional — el centro que regula el estrés, el placer, el miedo y la tristeza. Es por eso que un aroma puede cambiar tu estado de ánimo casi de inmediato.</p>
     </div>
   </section>
 
@@ -2670,7 +2688,7 @@ footer::before {
         <span class="valor-num">02</span>
         <div class="valor-body">
           <p class="valor-titulo">Ingredientes que importan</p>
-          <p class="valor-texto">Usamos aceites esenciales 100% puros y naturales, macerados en frío para preservar la integridad de cada extracto botánico. Sin sintéticos, sin rellenos.</p>
+          <p class="valor-texto">Usamos aceites esenciales 100% puros y naturales para preservar la integridad de cada extracto botánico. Sin sintéticos, sin rellenos.</p>
         </div>
       </div>
       <div class="valor-item fade-up" style="transition-delay:.2s">
@@ -2692,52 +2710,14 @@ footer::before {
 
   <section class="ritual-section">
     <p class="sec-eyebrow" style="color:var(--gold); margin-bottom:10px;">El método</p>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:4px;"><div><svg style="height:36px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #7a8d7a;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg></div><h2 class="ritual-titulo" style="margin-bottom:0;">Tu Ritual en 3 pasos</h2></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:16px;">
+      <img src="sitio-img/logo equilibri - verde.svg" alt="Equilibri" style="height:38px;width:auto;display:block">
+      <h2 class="ritual-titulo" style="margin-bottom:0;">Tu Ritual en 3 pasos</h2>
+    </div>
     <p class="ritual-sub">Transforma la aplicación de tu bruma en un pequeño momento de pausa consciente. Tres pasos, menos de un minuto, un cambio real.</p>
+    <div style="text-align:center;margin:40px auto 52px">
+      <img src="sitio-img/frasco- cilindros equilibri.webp" alt="Brumas Equilibri" style="width:min(680px,90%);height:auto;display:block;margin:0 auto;border-radius:16px;box-shadow:0 24px 56px -16px rgba(0,0,0,0.28)">
+    </div>
     <div class="ritual-pasos">
       <div class="ritual-paso fade-up">
         <div class="ritual-paso-n">1</div>
@@ -2760,81 +2740,58 @@ footer::before {
     </div>
   </section>
 
-  <section class="cta-banner">
-    <h2 class="cta-banner-titulo">¿Curiosa por saber qué bruma necesitas hoy?</h2>
-    <p class="cta-banner-sub">Descubre el Kit Balance &amp; Bloom y su guía de rescate emocional</p>
-    <button class="btn-primary" onclick="showPage('kit')">Ver el Kit →</button>
+  <section class="que-necesitas">
+    <p class="sec-eyebrow">Encuentra tu aliada emocional</p>
+    <h2 class="sec-titulo">¿Qué necesitas hoy?</h2>
+    <p class="sec-sub">Cada bruma del kit está diseñada para un momento específico de tu día.</p>
+    <div class="qn-grid">
+      <a href="https://somosequilibri.com/kit/" target="_blank" class="qn-card">
+        <div class="qn-icon">☀️</div>
+        <h3 class="qn-titulo">Necesito energía</h3>
+        <p class="qn-desc">El día arrancó pesado, sientes bloqueo o simplemente necesitas arrancar con impulso.</p>
+        <span class="qn-link">→ Bruma Abundancia</span>
+      </a>
+      <a href="https://somosequilibri.com/kit/" target="_blank" class="qn-card">
+        <div class="qn-icon">🌿</div>
+        <h3 class="qn-titulo">Necesito claridad</h3>
+        <p class="qn-desc">Tu mente da vueltas, no puedes concentrarte o el estrés no te deja pensar con calma.</p>
+        <span class="qn-link">→ Bruma Centro</span>
+      </a>
+      <a href="https://somosequilibri.com/kit/" target="_blank" class="qn-card qn-card--active">
+        <div class="qn-icon">🌙</div>
+        <h3 class="qn-titulo">Necesito descanso</h3>
+        <p class="qn-desc">El día fue intenso, hay tensión acumulada y tu cuerpo necesita soltar y respirar.</p>
+        <span class="qn-link">→ Bruma Serenidad</span>
+      </a>
+    </div>
+    <a href="https://somosequilibri.com/kit/" target="_blank" class="btn-primary" style="margin:0 auto">Llevar el Kit Completo</a>
   </section>
 
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div style="margin-bottom:14px;"><svg style="height:44px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #eee6da;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg></div>
-        <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con neurociencia.</p>
+        <img src="sitio-img/logo equilibri -beige.svg" alt="Equilibri" style="height:44px;width:auto;display:block;margin-bottom:14px">
+        <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con neurociencia para transformar tu estado de ánimo.</p>
       </div>
       <div>
         <p class="footer-col-t">Páginas</p>
         <ul class="footer-links">
           <li><a onclick="showPage('inicio')">Inicio</a></li>
           <li><a onclick="showPage('equilibri')">Nosotros</a></li>
-          <li><a onclick="showPage('kit')">Kit Balance &amp; Bloom</a></li>
+          <li><a href="https://somosequilibri.com/kit/" target="_blank">Kit Balance &amp; Bloom</a></li>
         </ul>
       </div>
       <div>
-        <p class="footer-col-t">El Kit</p>
+        <p class="footer-col-t">Síguenos</p>
         <ul class="footer-links">
-          <li><a onclick="showPage('kit')">Bruma Abundancia</a></li>
-          <li><a onclick="showPage('kit')">Bruma Centro</a></li>
-          <li><a onclick="showPage('kit')">Bruma Serenidad</a></li>
+          <li><a href="https://instagram.com/somosequilibri" target="_blank">Instagram</a></li>
+          <li><a href="https://facebook.com/somosequilibri" target="_blank">Facebook</a></li>
+          <li><a href="https://wa.me/524775895981" target="_blank">WhatsApp</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Equilibri · Cosmética Emocional Premium</p>
+      <p class="footer-copy">© 2025 Equilibri · Cosmética Emocional Premium · Producto artesanal.</p>
       <svg width="80" height="28" viewBox="0 0 160 60" opacity="0.3">
         <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="1"/>
         <circle cx="30" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
@@ -2848,58 +2805,11 @@ footer::before {
   </footer>
 </div>
 
-<!-- ════════════════════════════════════════
-     PÁGINA 3: KIT BALANCE & BLOOM
-════════════════════════════════════════ -->
-<div class="page" id="page-kit">
+<div class="page" id="page-kit" style="display:none!important;position:absolute;visibility:hidden;pointer-events:none;overflow:hidden;height:0;width:0">
 
   <!-- HERO KIT -->
   <section class="kit-hero">
-    <div style="margin:0 auto 20px;display:flex;justify-content:center;"><svg style="height:38px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #7a8d7a;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg></div>
+    <div style="margin:0 auto 20px;display:flex;justify-content:center;"><img src="sitio-img/logo equilibri - verde.svg" alt="Equilibri" style="height:38px;width:auto;display:block"></div>
     <p class="kit-hero-eyebrow">✦ Producto estrella · Equilibri ✦</p>
     <h1 class="kit-hero-titulo">Balance &amp; Bloom</h1>
     <p class="kit-hero-subtitulo">· Ritual de Brisas · Kit de 3 Brumas Funcionales ·</p>
@@ -3147,51 +3057,7 @@ footer::before {
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div style="margin-bottom:14px;"><svg style="height:44px;width:auto;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #eee6da;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg></div>
+        <img src="sitio-img/logo equilibri -beige.svg" alt="Equilibri" style="height:44px;width:auto;display:block;margin-bottom:14px">
         <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con neurociencia para transformar tu estado de ánimo.</p>
       </div>
       <div>
@@ -3199,16 +3065,15 @@ footer::before {
         <ul class="footer-links">
           <li><a onclick="showPage('inicio')">Inicio</a></li>
           <li><a onclick="showPage('equilibri')">Nosotros</a></li>
-          <li><a onclick="showPage('kit')">Kit Balance &amp; Bloom</a></li>
+          <li><a href="https://somosequilibri.com/kit/" target="_blank">Kit Balance &amp; Bloom</a></li>
         </ul>
       </div>
       <div>
-        <p class="footer-col-t">El Kit</p>
+        <p class="footer-col-t">Síguenos</p>
         <ul class="footer-links">
-          <li><a onclick="showPage('kit')">Bruma Abundancia</a></li>
-          <li><a onclick="showPage('kit')">Bruma Centro</a></li>
-          <li><a onclick="showPage('kit')">Bruma Serenidad</a></li>
-          <li><a onclick="showPage('kit')">Precauciones</a></li>
+          <li><a href="https://instagram.com/somosequilibri" target="_blank">Instagram</a></li>
+          <li><a href="https://facebook.com/somosequilibri" target="_blank">Facebook</a></li>
+          <li><a href="https://wa.me/524775895981" target="_blank">WhatsApp</a></li>
         </ul>
       </div>
     </div>
@@ -3356,80 +3221,34 @@ footer::before {
   <section class="faq-cta">
     <h2 class="faq-cta-titulo">¿Tienes otra pregunta?</h2>
     <p class="faq-cta-sub">Escríbenos — con gusto te acompañamos.</p>
-    <button class="btn-primary" onclick="showPage('kit')">Conocer el Kit →</button>
+    <a href="https://wa.me/524775895981?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20Equilibri%20%F0%9F%8C%BF" target="_blank" class="btn-primary">Escríbenos por WhatsApp →</a>
   </section>
 
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <svg style="height:44px;width:auto;margin-bottom:14px;display:block;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.44 30.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #eee6da;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <g>
-      <g>
-        <path class="cls-1" d="M.15,27.49v-.32h1.49v.32H.15Z"/>
-        <path class="cls-1" d="M2.97,25.23l.04-.32h3.62l-.04.32h-1.61v3.87h-.34v-3.87h-1.66Z"/>
-        <path class="cls-1" d="M8.77,28.59c.18.18.42.27.71.27s.53-.09.7-.27c.19-.2.28-.47.28-.81v-1.66h.33v1.69c0,.41-.12.74-.37,1-.24.24-.56.36-.95.36s-.71-.12-.96-.36c-.25-.25-.37-.59-.37-1v-1.69h.33v1.66c0,.34.09.61.28.81Z"/>
-        <path class="cls-1" d="M18.72,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM16.5,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M21.82,27.4l.56.08c.29.04.51.13.67.27.16.14.24.32.24.53,0,.26-.11.47-.33.63-.22.16-.5.25-.86.26-.45,0-.87-.13-1.27-.39l.17-.27c.34.25.7.37,1.08.37.26,0,.47-.05.63-.16.16-.11.24-.25.24-.42,0-.28-.22-.45-.65-.51l-.56-.08c-.26-.04-.47-.12-.62-.26-.15-.13-.23-.3-.23-.51,0-.25.11-.46.32-.63s.49-.25.84-.25c.43,0,.82.12,1.17.37l-.17.26c-.32-.23-.66-.34-1-.34-.24,0-.43.05-.59.15-.15.1-.23.24-.23.41,0,.26.2.42.59.48Z"/>
-        <path class="cls-1" d="M28.2,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM25.99,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M30.92,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M38.17,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M40.73,25.02c0,.06-.02.12-.07.16s-.1.07-.16.07c-.07,0-.13-.02-.17-.07-.05-.05-.07-.1-.07-.16,0-.07.02-.13.07-.17s.1-.07.17-.07c.06,0,.12.02.16.07.05.05.07.1.07.17ZM40.66,29.11h-.33v-2.99h.33v2.99Z"/>
-        <path class="cls-1" d="M45.25,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM43.21,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M47.78,30.19l.21-1.54h.43l.02.04-.49,1.5h-.17Z"/>
-        <path class="cls-1" d="M53.29,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM51.07,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M56,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M66.28,28.74c-.29.28-.65.43-1.07.43-.28,0-.53-.07-.76-.21-.23-.14-.4-.33-.52-.57v.72h-.3v-4.52h.33v2.19c.12-.22.3-.39.52-.52.22-.13.46-.19.73-.19.42,0,.78.14,1.07.43.31.3.47.68.47,1.13s-.16.83-.47,1.12ZM66.05,26.72c-.24-.23-.53-.35-.87-.35s-.63.12-.86.35c-.25.23-.37.53-.37.9s.12.66.37.89c.24.24.52.36.86.36s.63-.12.87-.35c.25-.25.37-.54.37-.9s-.12-.65-.37-.9Z"/>
-        <path class="cls-1" d="M71.12,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM69.08,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M73.84,29.11v-4.52h.33v4.52h-.33Z"/>
-        <path class="cls-1" d="M78.76,29.11v-.46c-.42.34-.84.52-1.27.52-.33,0-.6-.08-.8-.24-.21-.16-.31-.38-.31-.66s.11-.51.33-.67c.22-.16.51-.25.86-.25.33,0,.72.1,1.17.3v-.21c0-.37-.1-.65-.3-.83-.19-.16-.42-.25-.68-.25-.41,0-.75.13-1.03.4l-.19-.23c.32-.31.72-.46,1.21-.46.36,0,.66.11.9.32.27.22.4.54.4.95v1.78h-.3ZM76.72,28.26c0,.19.07.34.22.46.15.11.34.17.58.17.4,0,.8-.17,1.22-.52v-.44c-.46-.2-.86-.3-1.19-.3-.25,0-.45.06-.6.17-.15.11-.23.26-.23.46Z"/>
-        <path class="cls-1" d="M81.82,27.43v1.68h-.33v-2.99h.32v.62c.1-.21.25-.38.45-.5.2-.12.42-.18.67-.18.37,0,.67.11.9.34.25.24.37.56.37.97v1.74h-.33v-1.69c0-.34-.1-.6-.3-.79-.18-.17-.4-.26-.68-.26s-.52.08-.71.25c-.24.2-.36.47-.36.8Z"/>
-        <path class="cls-1" d="M89.07,26.52l-.23.21c-.23-.24-.53-.36-.89-.36s-.64.12-.87.36c-.23.24-.35.54-.35.88s.12.64.36.88c.24.24.53.36.87.36s.66-.13.92-.38l.21.23c-.31.3-.68.45-1.12.45s-.82-.15-1.12-.45-.45-.67-.45-1.1.15-.8.45-1.1.67-.45,1.12-.45.83.15,1.12.46Z"/>
-        <path class="cls-1" d="M93.76,28.57c-.32.4-.76.59-1.32.59-.45,0-.82-.14-1.12-.43-.31-.29-.46-.67-.46-1.12s.15-.83.45-1.12c.31-.29.66-.44,1.07-.44s.78.14,1.07.42c.29.28.44.65.44,1.1v.15h-2.68c.02.32.13.58.34.78.24.23.54.35.89.35.43,0,.79-.17,1.09-.5l.23.21ZM91.55,26.71c-.19.19-.29.43-.33.73h2.34c-.03-.31-.14-.56-.33-.74-.23-.22-.51-.33-.84-.33-.32,0-.6.11-.84.34Z"/>
-        <path class="cls-1" d="M95.88,27.49v-.32h1.49v.32h-1.49Z"/>
-      </g>
-      <g>
-        <path class="cls-1" d="M11.7,15.51h.08v2.22H0v-.07c1.25,0,1.55-.6,1.57-3.34V3.69C1.55.95,1.25.35,0,.35v-.05h11.25v2.22h-.07c-.8-1.6-1.75-1.97-4.66-1.97h-3.24v8.33h5.64l-.65,1.97h-.08c-.57-1.15-1.62-1.7-4.04-1.7v-.02h-.87v8.33h3.77c2.92,0,3.87-.35,4.66-1.95Z"/>
-        <path class="cls-1" d="M20.1.27c-3.62,0-5.44,4.36-5.44,8.73,0,6.73,3.84,10.35,10.82,10.35.6,0,1.22-.03,1.87-.08l-.52,1.9c-6.86-.7-14.04-5.16-14.04-12.27,0-4.46,2.47-8.9,7.31-8.9,9.65,0,9.73,17.76.2,18.03v-.3c7.03-.32,6.96-17.46-.2-17.46Z"/>
-        <path class="cls-1" d="M41.98.3v11.85c0,3.97-2.77,5.84-5.59,5.84s-5.91-2.02-5.91-5.84V3.52c-.05-2.59-.35-3.17-1.57-3.17v-.05h4.84v.05c-1.22,0-1.52.57-1.57,3.17v8.63c0,3.19,2.39,4.79,4.79,4.79s4.76-1.6,4.76-4.79v-4.69h-.03c0-4.46-.55-6.58-3.29-7.08v-.07h3.57Z"/>
-        <path class="cls-1" d="M47.39,5.04v7.93c-.02,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h4.84v.05c-1.42,0-1.6.8-1.57,4.69Z"/>
-        <path class="cls-1" d="M61.95,15.51h.07v2.22h-11.77v-.07c1.25,0,1.55-.57,1.57-3.32V3.69c-.03-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.2,0-1.52.55-1.57,2.97v14.14h3.74c2.94,0,3.89-.37,4.69-1.97ZM63.92.37c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07Z"/>
-        <path class="cls-1" d="M71.73,17.73h-6.53v-.07c1.25,0,1.55-.6,1.57-3.34V3.69c-.03-2.74-.32-3.34-1.57-3.34v-.05h5.69c6.04,0,6.53,6.58,1.52,7.71,7.48.52,7.26,9.73-.67,9.73ZM68.46.55v7.41h2.42c4.09,0,4.09-7.38,0-7.38v-.03h-2.42ZM71.73,8.2h-3.27v9.25h3.27c5.66,0,5.66-9.25,0-9.25Z"/>
-        <path class="cls-1" d="M93.18,16.73c.6,0,1.22-.2,1.85-.75v.08c-.67,1.27-1.8,1.97-3.24,1.97-1.97,0-4.34-3.72-4.34-3.72l-2.94-4.74h-2.24v4.91c.05,2.47.37,3.02,1.57,3.02v.07h-4.84v-.07c1.25,0,1.55-.57,1.57-3.32V3.57c-.03-2.74-.32-3.34-1.57-3.34v-.08h6.53c6.38,0,6.71,8.5.97,9.35.52.85,2.67,4.24,2.67,4.24.03,0,1.8,2.99,4.02,2.99ZM85.52,9.33c4.21,0,4.24-8.9,0-8.9h-3.27v8.9h3.27ZM97.44,13.17v.07h-4.84v-.07c1.25,0,1.55-.6,1.57-3.32V3.69c-.02-2.72-.32-3.32-1.57-3.32v-.07h4.84v.07c-1.42,0-1.6.77-1.57,4.69v3.42c-.03,3.92.15,4.69,1.57,4.69Z"/>
-      </g>
-    </g>
-  </g>
-</svg>
-        <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con el poder de las autoafirmaciones para transformar tu estado de ánimo.</p>
+        <img src="sitio-img/logo equilibri -beige.svg" alt="Equilibri" style="height:44px;width:auto;display:block;margin-bottom:14px">
+        <p class="footer-brand-desc">Marca de cosmética emocional premium que fusiona aromaterapia con neurociencia para transformar tu estado de ánimo.</p>
       </div>
       <div>
         <p class="footer-col-t">Páginas</p>
         <ul class="footer-links">
           <li><a onclick="showPage('inicio')">Inicio</a></li>
           <li><a onclick="showPage('equilibri')">Nosotros</a></li>
-          <li><a onclick="showPage('kit')">Kit Balance &amp; Bloom</a></li>
-          <li><a onclick="showPage('faq')">Preguntas Frecuentes</a></li>
+          <li><a href="https://somosequilibri.com/kit/" target="_blank">Kit Balance &amp; Bloom</a></li>
         </ul>
       </div>
       <div>
-        <p class="footer-col-t">El Kit</p>
+        <p class="footer-col-t">Síguenos</p>
         <ul class="footer-links">
-          <li><a onclick="showPage('kit')">Bruma Abundancia</a></li>
-          <li><a onclick="showPage('kit')">Bruma Centro</a></li>
-          <li><a onclick="showPage('kit')">Bruma Serenidad</a></li>
-          <li><a onclick="showPage('kit')">Uso Responsable</a></li>
+          <li><a href="https://instagram.com/somosequilibri" target="_blank">Instagram</a></li>
+          <li><a href="https://facebook.com/somosequilibri" target="_blank">Facebook</a></li>
+          <li><a href="https://wa.me/524775895981" target="_blank">WhatsApp</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Equilibri · Cosmética Emocional · Producto artesanal.</p>
+      <p class="footer-copy">© 2025 Equilibri · Cosmética Emocional Premium · Producto artesanal.</p>
       <svg width="80" height="28" viewBox="0 0 160 60" opacity="0.3">
         <path d="M30 44 Q55 52 80 44 Q105 36 130 44" fill="none" stroke="#cda274" stroke-width="1"/>
         <circle cx="30" cy="30" r="13" fill="none" stroke="#cda274" stroke-width="1"/>
@@ -3445,10 +3264,13 @@ footer::before {
 
 <script>
 function showPage(id) {
+  if (id === 'kit') { window.open('https://somosequilibri.com/kit/', '_blank'); return; }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  document.getElementById('nav-' + id).classList.add('active');
+  const page = document.getElementById('page-' + id);
+  const nav = document.getElementById('nav-' + id);
+  if (page) page.classList.add('active');
+  if (nav) nav.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
   setTimeout(initFadeUp, 100);
 }
@@ -3477,6 +3299,13 @@ function toggleFaq(btn) {
   document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
   // Open clicked if it was closed
   if (!isOpen) item.classList.add('open');
+}
+
+function toggleMenu() {
+  const btn = document.getElementById('navHamburger');
+  const menu = document.getElementById('navMobile');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
 }
 </script>
 </body>
