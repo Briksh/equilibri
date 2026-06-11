@@ -16,8 +16,9 @@
     --shadow:rgba(79,94,79,.14);
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;font-size:18px}
   body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);font-weight:300;line-height:1.7;letter-spacing:.02em;overflow-x:hidden}
+  @media(max-width:768px){html{font-size:17px}}
   h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.08;letter-spacing:.01em}
   .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
   .eyebrow{font-size:.74rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold)}
@@ -38,7 +39,7 @@
 
   .hero-col{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;padding-right:clamp(16px,3vw,48px)}
   .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
-  .hero .inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;height:100%;align-items:center;padding:clamp(80px,10vh,120px) 0 clamp(40px,6vh,80px)}
+  .hero .inner{position:relative;z-index:1;display:grid;grid-template-columns:1.4fr 1fr;height:100%;align-items:center;padding:clamp(80px,10vh,120px) 0 clamp(40px,6vh,80px)}
   .hero .eyebrow{margin-bottom:12px;display:block;color:var(--gold-soft);letter-spacing:.32em}
   .hero h1{font-size:clamp(2.4rem,4.5vw,4.8rem);color:#fff;margin-bottom:4px;line-height:1.05}
   .ritual-tag{font-weight:300;letter-spacing:.3em;text-transform:uppercase;font-size:.76rem;color:var(--gold-soft);margin-bottom:20px}
@@ -117,24 +118,76 @@
   .tip p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.02rem;color:rgba(238,230,218,.9)}
 
   .buy{padding:30px 0 70px}
-  .offers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1180px;margin:0 auto}
-  .card{background:var(--cream-soft);border:1px solid rgba(205,162,116,.3);border-radius:22px;padding:36px 28px;text-align:center;display:flex;flex-direction:column}
-  .card.feature{background:linear-gradient(165deg,#fdfaf5,var(--cream-soft));border:2px solid var(--gold);position:relative;box-shadow:0 26px 50px -20px var(--shadow);transform:scale(1.03)}
-  .ribbon{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;padding:7px 20px;border-radius:30px;white-space:nowrap}
-  .card .kicker{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:block}
-  .card h3{font-size:1.6rem;color:var(--green-deep);margin-bottom:4px}
-  .card .sub{font-size:.88rem;color:var(--ink-soft);margin-bottom:16px;line-height:1.55}
-  .card-img{width:100%;height:auto;border-radius:12px;display:block;margin:0 auto 16px;max-width:200px}
-  .price{font-family:'Jost',sans-serif;color:var(--green-deep);margin-bottom:4px;line-height:1}
-  .price .num{font-size:3.2rem;font-weight:500}
-  .price .cur{font-size:1.6rem;color:var(--green);letter-spacing:.06em;vertical-align:super;font-family:'Jost',sans-serif}
-  .price-note{font-size:.8rem;color:var(--ink-soft);margin-bottom:20px}
+
+  /* Kit hero */
+  .kit-hero-section{max-width:85%;margin:0 auto 60px;background:linear-gradient(165deg,#fdfaf5,var(--cream-soft));border:2px solid rgba(205,162,116,.4);border-radius:28px;overflow:hidden;box-shadow:0 26px 60px -20px var(--shadow);position:relative}
+  .ribbon{position:absolute;top:20px;right:20px;background:#7a8d7a;color:#fff;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;padding:7px 20px;border-radius:30px;white-space:nowrap;z-index:2}
+  .kit-hero-inner{display:grid;grid-template-columns:1.4fr 1fr;align-items:stretch}
+  .kit-hero-img-wrap{position:relative}
+  .kit-hero-img-wrap img{width:100%;height:100%;display:block;border-radius:0;object-fit:cover}
+  .kit-hero-body{padding:40px 40px 40px 36px;display:flex;flex-direction:column}
+  .kit-hero-body .kicker{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block}
+  .kit-hero-body h3{font-size:2rem;color:var(--green-deep);margin-bottom:8px;line-height:1.1}
+  .kit-hero-body .sub{font-size:.9rem;color:var(--ink-soft);line-height:1.6;margin-bottom:20px}
+  .kit-includes{display:flex;flex-direction:column;gap:8px;margin:0 0 24px;text-align:left;background:rgba(79,94,79,.06);border-radius:14px;padding:18px 22px}
+  .kit-includes span{font-size:.86rem;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .kit-includes em{color:var(--gold);font-style:normal;font-weight:500}
+  .price{font-family:'Jost',sans-serif;color:var(--green-deep);margin:0 auto 4px;line-height:1}
+  .price .num{font-size:3rem;font-weight:500}
+  .price .cur{font-size:1.5rem;color:var(--green);letter-spacing:.06em;vertical-align:super;font-family:'Jost',sans-serif}
+  .price-note{font-size:.8rem;color:var(--ink-soft);margin-bottom:18px;text-align:center}
   .shipping-badge{display:inline-block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);border-radius:20px;padding:5px 14px;margin-bottom:16px}
   .shipping-badge.free{background:rgba(79,94,79,.15);color:var(--green-deep);font-weight:500}
-  .save{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:rgba(79,94,79,.1);border-radius:30px;padding:6px 14px;margin-bottom:18px}
-  .card .btn{margin-top:auto}
+
+  /* Brumas individuales */
+  .brumas-section{max-width:960px;margin:0 auto 48px}
+  .brumas-titulo{text-align:center;margin-bottom:10px}
+  .brumas-titulo h3{font-size:1.4rem;color:var(--green-deep)}
+  .brumas-titulo p{font-size:.88rem;color:var(--ink-soft);margin-bottom:28px}
+  .brumas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .bruma-card{background:var(--cream-soft);border:1px solid rgba(205,162,116,.3);border-radius:20px;padding:30px 22px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .bruma-card.abundancia{background:linear-gradient(160deg,#f5f0e8 0%,rgba(205,162,116,.2) 100%);border-color:rgba(205,162,116,.4)}
+  .bruma-card.centro{background:linear-gradient(160deg,#f5f0e8 0%,rgba(60,100,65,.2) 100%);border-color:rgba(60,100,65,.2)}
+  .bruma-card.serenidad{background:linear-gradient(160deg,#f5f0e8 0%,rgba(120,80,170,.2) 100%);border-color:rgba(120,80,170,.15)}
+  .bruma-card .bruma-img{width:auto;height:200px;object-fit:cover;margin-bottom:14px;border-radius:16px}
+  .bruma-figura{width:48px;height:48px;margin-bottom:10px}
+  .bruma-card .kicker{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:6px;display:block}
+  .bruma-card h4{font-size:1.3rem;color:var(--green-deep);margin-bottom:4px}
+  .bruma-card .bruma-sub{font-size:.82rem;color:var(--ink-soft);line-height:1.5;margin-bottom:16px}
+  .bruma-card .price{margin-bottom:2px}
+  .bruma-card .price .num{font-size:2.2rem}
+  .bruma-card .price .cur{font-size:1.1rem}
+  .bruma-card .price-note{font-size:.76rem;margin-bottom:14px}
+  .bruma-card .btn{margin-top:auto;width:100%}
+
+  /* WhatsApp más de una */
+  .brumas-wa{text-align:center;margin-top:10px;padding:24px;background:rgba(79,94,79,.05);border-radius:16px;max-width:960px;margin-left:auto;margin-right:auto}
+  .brumas-wa p{font-size:.9rem;color:var(--ink-soft);margin-bottom:12px}
+  .btn-wa{background:#25D366;color:#fff;display:inline-flex;align-items:center;gap:8px;border-radius:46px;padding:14px 28px;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:.3s;font-weight:500}
+  .btn-wa:hover{background:#1db954;transform:translateY(-2px)}
+  .btn-wa svg{width:18px;height:18px}
+
   .buy-foot{text-align:center;margin-top:34px;color:var(--ink-soft);font-size:.9rem;letter-spacing:.04em}
   .buy-foot svg{width:16px;height:16px;vertical-align:-2px;color:var(--gold);margin-right:6px}
+
+  /* Responsive buy */
+  @media(max-width:768px){
+    .kit-hero-inner{grid-template-columns:1fr}
+    .kit-hero-img-wrap img{max-height:260px}
+    .kit-hero-body{padding:28px 24px 32px}
+    .kit-hero-body h3{font-size:1.6rem}
+    .brumas-grid{grid-template-columns:1fr;gap:16px;padding:0 24px}
+    .bruma-card .bruma-img{width:190px;height:190px}
+  }
+  @media(min-width:601px) and (max-width:880px){
+    .brumas-grid{grid-template-columns:repeat(3,1fr)}
+  }
+  @media(max-width:600px){
+    .buy{padding:24px 40px 50px}
+    .kit-hero-section{border-radius:20px}
+    .brumas-section,.brumas-wa{padding-left:0;padding-right:0}
+    .brumas-wa p{padding:0 16px}
+  }
 
   .safe{padding:20px 0 40px}
   .safe-box{background:var(--cream-soft);border:1px solid rgba(205,162,116,.3);border-radius:22px;padding:48px 46px;max-width:980px;margin:0 auto}
@@ -388,7 +441,7 @@
     .kit-card-wrap{max-width:100%}
     .kit-solo{padding:0 0 28px}
     .kit-solo h3{font-size:2.4rem}
-    .kit-includes{margin:0 18px 20px;padding:14px 18px}
+    .kit-includes{margin:0 0 20px;padding:14px 18px}
     .btn-lg{width:calc(100% - 36px);margin:0 18px;padding:18px 24px}
     .ribbon{white-space:normal;max-width:85%;text-align:center;line-height:1.4}
     .price .num{font-size:3rem}
@@ -456,7 +509,7 @@
   @media(min-width:601px){.quiz-cards{grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;padding:0 28px}}
   .quiz-card{background:rgba(255,255,255,.07);border:1px solid rgba(205,162,116,.3);border-radius:20px;padding:34px 24px;text-align:center;cursor:pointer;transition:.4s}
   .quiz-card:hover{background:rgba(255,255,255,.13);border-color:var(--gold-soft);transform:translateY(-5px)}
-  .quiz-card .q-emoji{font-size:2.4rem;margin-bottom:14px;display:block}
+  .quiz-card .q-emoji{width:56px;height:56px;margin:0 auto 14px;display:block}
   .quiz-card h3{font-size:1.3rem;color:#fff;margin-bottom:8px}
   .quiz-card p{font-size:.88rem;color:rgba(238,230,218,.72);line-height:1.6;margin-bottom:18px}
   .quiz-card .q-result{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);font-weight:400}
@@ -480,9 +533,6 @@
   .kit-solo .ribbon{position:relative;top:auto;left:auto;transform:none;white-space:normal;font-size:.72rem;margin:20px auto;display:inline-block;border-radius:30px}
   .kit-subtitle{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:20px;display:block}
   .kit-solo .sub{font-size:.92rem;color:var(--ink-soft);margin-bottom:20px;padding:0 28px}
-  .kit-includes{display:flex;flex-direction:column;gap:8px;margin:0 28px 24px;text-align:left;background:rgba(79,94,79,.06);border-radius:14px;padding:18px 22px}
-  .kit-includes span{font-size:.88rem;color:var(--ink);display:flex;align-items:center;gap:8px}
-  .kit-includes em{color:var(--gold);font-style:normal;font-weight:500}
   .kit-solo .price{margin-bottom:4px}
   .kit-solo .price-note{margin-bottom:16px}
   .kit-solo .save{display:block;margin:0 28px 20px}
@@ -583,7 +633,7 @@
       <div class="cta-row">
         <a href="#comprar" class="btn btn-gold">Comprar el Kit</a>
       </div>
-      <p class="ship-note" style="color:rgba(238,230,218,.7)">✶ Envío a todo México · 5–6 días hábiles</p>
+      <p class="ship-note" style="color:rgba(238,230,218,.7)">✶ Envío a todo México</p>
     </div>
     <div><!-- columna derecha: imagen de fondo visible --></div>
   </div>
@@ -734,75 +784,98 @@
 <section class="buy wrap" id="comprar">
   <div class="section-head reveal">
     <span class="eyebrow">Llévate tu ritual</span>
-    <h2>Tu kit completo te espera</h2>
+    <h2>Elige lo que necesitas hoy</h2>
+    <p style="color:var(--ink-soft);font-size:.95rem;margin-top:8px">Envío $99 · Gratis en compras de $1,500 o más</p>
   </div>
   <div class="stock-alert reveal">
     <span class="dot"></span>
     <p><strong>Lote artesanal</strong> Cada pieza se prepara a mano en pequeñas tandas para garantizar la calidad.</p>
   </div>
 
-  <div class="offers-grid reveal">
-
-    <!-- OPCIÓN 1 · 1 Kit -->
-    <div class="card">
-      <span class="kicker">1 Kit</span>
-      <img src="img/balance and bloom + guia.webp" alt="1 Kit Balance &amp; Bloom" class="card-img">
-      <h3>Balance &amp; Bloom</h3>
-      <p class="sub">3 brumas + Guía de Aromaterapia de regalo.</p>
-      <div class="kit-includes" style="margin:0 0 16px;text-align:left">
-        <span>🌿 Bruma Abundancia · 30 ml</span>
-        <span>🌿 Bruma Centro · 30 ml</span>
-        <span>🌙 Bruma Serenidad · 30 ml</span>
-        <span>📖 Guía de Aromaterapia <em>(regalo)</em></span>
-        <span>🎁 Caja ritual Equilibri</span>
+  <!-- KIT HERO -->
+  <div class="kit-hero-section reveal">
+    <div class="kit-hero-inner">
+      <div class="kit-hero-img-wrap">
+        <span class="ribbon">✦ Más completo</span>
+        <img src="img/balance and bloom + guia.webp" alt="Kit Balance &amp; Bloom">
       </div>
-      <div class="price"><span class="cur">$</span><span class="num">759</span><span class="cur">MXN</span></div>
-      <span class="shipping-badge">+ costo de envío</span>
-      <a href="https://mpago.la/2bqrtZx" class="btn btn-outline btn-lg" target="_blank" rel="noopener" style="margin-top:auto">Comprar 1 Kit</a>
-    </div>
-
-    <!-- OPCIÓN 2 · 2 Kits — DESTACADA -->
-    <div class="card feature">
-      <span class="ribbon">✦ Más popular</span>
-      <span class="kicker">2 Kits</span>
-      <img src="img/balance and bloom para regalo + guia.webp" alt="2 Kits Balance &amp; Bloom" class="card-img">
-      <h3>Para ti y para regalar</h3>
-      <p class="sub">Dos kits completos — comparte el ritual con alguien especial.</p>
-      <div class="kit-includes" style="margin:0 0 16px;text-align:left">
-        <span>🌿 2× Bruma Abundancia · 30 ml</span>
-        <span>🌿 2× Bruma Centro · 30 ml</span>
-        <span>🌙 2× Bruma Serenidad · 30 ml</span>
-        <span>📖 2× Guía de Aromaterapia <em>(regalo)</em></span>
-        <span>🎁 2× Caja ritual Equilibri</span>
+      <div class="kit-hero-body">
+        <span class="kicker">La experiencia completa</span>
+        <h3>Kit Balance &amp; Bloom</h3>
+        <p class="sub">Las tres brumas juntas para vivir el ritual completo — de la mañana a la noche.</p>
+        <div class="kit-includes">
+          <span>🌿 Bruma Abundancia · 30 ml</span>
+          <span>🌿 Bruma Centro · 30 ml</span>
+          <span>🌙 Bruma Serenidad · 30 ml</span>
+          <span>📖 Guía de Aromaterapia <em>(de regalo)</em></span>
+          <span>🎁 Caja ritual Equilibri</span>
+        </div>
+        <div class="price"><span class="cur">$</span><span class="num">759</span><span class="cur">MXN</span></div>
+        <p class="price-note">+ $99 envío a todo México</p>
+        <a href="https://mpago.la/1i4zFgT" class="btn btn-gold btn-lg" target="_blank" rel="noopener" style="display:block;text-align:center">Lo quiero →</a>
       </div>
-      <div class="price"><span class="cur">$</span><span class="num">1,518</span><span class="cur">MXN</span></div>
-      <span class="shipping-badge free">✦ Envío gratis</span>
-      <a href="https://mpago.la/2AiGup8" class="btn btn-gold btn-lg" target="_blank" rel="noopener" style="margin-top:auto">Comprar 2 Kits</a>
     </div>
+  </div>
 
-    <!-- OPCIÓN 3 · 3 Kits -->
-    <div class="card">
-      <span class="kicker">3 Kits</span>
-      <img src="img/balance and bloom para la familia + guia.webp" alt="3 Kits Balance &amp; Bloom" class="card-img">
-      <h3>Para toda la familia</h3>
-      <p class="sub">Tres kits para compartir el bienestar con quienes más quieres.</p>
-      <div class="kit-includes" style="margin:0 0 16px;text-align:left">
-        <span>🌿 3× Bruma Abundancia · 30 ml</span>
-        <span>🌿 3× Bruma Centro · 30 ml</span>
-        <span>🌙 3× Bruma Serenidad · 30 ml</span>
-        <span>📖 3× Guía de Aromaterapia <em>(regalo)</em></span>
-        <span>🎁 3× Caja ritual Equilibri</span>
+  <!-- BRUMAS INDIVIDUALES -->
+  <div class="brumas-section reveal">
+    <div class="brumas-titulo">
+      <h3>¿Prefieres empezar con una sola bruma?</h3>
+      <p>Elige la que más resuene contigo ahora.</p>
+    </div>
+    <div class="brumas-grid">
+
+      <!-- Abundancia -->
+      <div class="bruma-card abundancia">
+        <img src="img/abundancia frasco.webp" alt="Bruma Abundancia" class="bruma-img">
+        <span class="kicker">Mañana · Energía</span>
+        <img src="img/abundancia-figura.svg" alt="" class="bruma-figura">
+        <h4>Abundancia</h4>
+        <p class="bruma-sub">Para los días que necesitas arrancar con fuerza y claridad.</p>
+        <div class="price"><span class="cur">$</span><span class="num">289</span><span class="cur">MXN</span></div>
+        <p class="price-note">+ $99 envío</p>
+        <a href="https://mpago.la/27JUet6" class="btn btn-outline" target="_blank" rel="noopener">La quiero</a>
       </div>
-      <div class="price"><span class="cur">$</span><span class="num">2,277</span><span class="cur">MXN</span></div>
-      <span class="shipping-badge free">✦ Envío gratis</span>
-      <a href="https://mpago.la/1cTAew7" class="btn btn-outline btn-lg" target="_blank" rel="noopener" style="margin-top:auto">Comprar 3 Kits</a>
-    </div>
 
+      <!-- Centro -->
+      <div class="bruma-card centro">
+        <img src="img/centro frasco.webp" alt="Bruma Centro" class="bruma-img">
+        <span class="kicker">Tarde · Enfoque</span>
+        <img src="img/centro-figura.svg" alt="" class="bruma-figura">
+        <h4>Centro</h4>
+        <p class="bruma-sub">Para volver a ti cuando el día se pone intenso y necesitas calma.</p>
+        <div class="price"><span class="cur">$</span><span class="num">289</span><span class="cur">MXN</span></div>
+        <p class="price-note">+ $99 envío</p>
+        <a href="https://mpago.la/1Eb3RZA" class="btn btn-outline" target="_blank" rel="noopener">La quiero</a>
+      </div>
+
+      <!-- Serenidad -->
+      <div class="bruma-card serenidad">
+        <img src="img/serenidad frasco.jpg" alt="Bruma Serenidad" class="bruma-img">
+        <span class="kicker">Noche · Descanso</span>
+        <img src="img/serenidad-figura.svg" alt="" class="bruma-figura">
+        <h4>Serenidad</h4>
+        <p class="bruma-sub">Para soltar el día y preparar cuerpo y mente para el descanso.</p>
+        <div class="price"><span class="cur">$</span><span class="num">289</span><span class="cur">MXN</span></div>
+        <p class="price-note">+ $99 envío</p>
+        <a href="https://mpago.la/2EotjPa" class="btn btn-outline" target="_blank" rel="noopener">La quiero</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MÁS DE UNA BRUMA → WHATSAPP -->
+  <div class="brumas-wa reveal">
+    <p>¿Quieres más de una bruma individual? Escríbenos y te armamos tu pedido.</p>
+    <a href="https://wa.me/524775895981?text=Hola%2C%20quiero%20pedir%20varias%20brumas%20individuales%20de%20Equilibri%20%F0%9F%8C%BF" class="btn-wa" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Escríbenos por WhatsApp
+    </a>
   </div>
 
   <p class="buy-foot">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
-    Pago seguro con Mercado Pago · Envíos a todo México en 5–6 días hábiles · costo de envío adicional según tu ubicación.
+    Pago seguro con Mercado Pago · Envíos a todo México
   </p>
 </section>
 
@@ -945,19 +1018,19 @@
   </div>
   <div class="quiz-cards">
     <div class="quiz-card reveal stagger-1">
-      <span class="q-emoji">☀️</span>
+      <img src="img/abundancia-figura.svg" alt="" class="q-emoji">
       <h3>Necesito energía</h3>
       <p>El día arrancó pesado, sientes bloqueo o simplemente necesitas arrancar con impulso.</p>
       <span class="q-result">→ Bruma Abundancia</span>
     </div>
     <div class="quiz-card reveal stagger-2">
-      <span class="q-emoji">🌿</span>
+      <img src="img/centro-figura.svg" alt="" class="q-emoji">
       <h3>Necesito claridad</h3>
       <p>Tu mente da vueltas, no puedes concentrarte o el estrés no te deja pensar con calma.</p>
       <span class="q-result">→ Bruma Centro</span>
     </div>
     <div class="quiz-card reveal stagger-3">
-      <span class="q-emoji">🌙</span>
+      <img src="img/serenidad-figura.svg" alt="" class="q-emoji">
       <h3>Necesito descanso</h3>
       <p>El día fue intenso, hay tensión acumulada y tu cuerpo necesita soltar y respirar.</p>
       <span class="q-result">→ Bruma Serenidad</span>
@@ -1109,7 +1182,7 @@
           ¿Cuánto tarda en llegar mi pedido?
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <div class="faq-a"><p>El envío tarda <em>5–6 días hábiles</em> a partir de la confirmación de pago. Recibirás tu número de guía por WhatsApp para que puedas rastrear tu paquete en todo momento.</p></div>
+        <div class="faq-a"><p>El envío llega a todo México. Recibirás tu número de guía por WhatsApp para que puedas rastrear tu paquete en todo momento.</p></div>
       </div>
 
       <div class="faq-item">
