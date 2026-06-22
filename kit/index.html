@@ -2,10 +2,18 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9SSW3EP96E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9SSW3EP96E');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <title>Kit Balance &amp; Bloom · Equilibri</title>
-<meta name="description" content="Kit Balance & Bloom: tres brumas de aromaterapia para activar, centrar y descansar. Tu esencia, en balance. Equilibri.">
+<meta name="description" content="Kit Balance & Bloom: tres Brisas de aromaterapia para activar, centrar y descansar. Tu esencia, en balance. Equilibri.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -54,6 +62,23 @@
   .btn-ghost{background:transparent;color:var(--green);border:1px solid var(--green)}
   .btn-ghost:hover{background:var(--green);color:#fff}
   .ship-note{font-size:.82rem;letter-spacing:.06em;color:var(--ink-soft);margin-top:6px}
+
+  /* Sección ¿Qué es una brisa? */
+  .que-es{padding:64px 0 48px}
+  .que-es-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .que-es-txt .eyebrow{display:block;margin-bottom:10px}
+  .que-es-txt h2{font-size:clamp(1.6rem,3vw,2.2rem);color:var(--green-deep);margin-bottom:16px}
+  .que-es-txt p{font-size:.95rem;color:var(--ink-soft);line-height:1.75;margin-bottom:12px}
+  .que-es-cta{color:var(--green-deep) !important;font-size:1rem !important}
+  .que-es-pasos{display:flex;flex-direction:column;gap:20px;padding-top:8px}
+  .qe-paso{display:flex;gap:16px;align-items:flex-start}
+  .qe-num{min-width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;flex-shrink:0}
+  .qe-paso strong{display:block;color:var(--green-deep);font-size:1rem;margin-bottom:2px}
+  .qe-paso p{font-size:.88rem;color:var(--ink-soft);line-height:1.6;margin:0}
+  @media(max-width:700px){
+    .que-es-inner{grid-template-columns:1fr}
+    .que-es{padding:40px 0 24px}
+  }
 
   .band{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-top:0;min-height:clamp(500px,70vw,780px);display:flex;align-items:center;overflow:hidden}
   .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center}
@@ -106,6 +131,9 @@
   .ritual{display:grid;grid-template-columns:1fr 1fr;background:var(--green);border-radius:26px;overflow:hidden;align-items:stretch}
   .ritual .photo{position:relative;min-height:380px;order:2}
   .ritual .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ritual .photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,40,20,.72) 0%,rgba(20,40,20,.2) 60%,transparent 100%)}
+  .photo-overlay-txt{position:absolute;bottom:0;left:0;right:0;padding:28px 28px;z-index:2}
+  .photo-overlay-txt p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:rgba(238,230,218,.92);line-height:1.7;margin:0}
   .ritual .content{padding:56px 50px;color:var(--cream);order:2}
   .ritual .eyebrow{color:var(--gold-soft);display:block;margin-bottom:12px}
   .ritual h2{color:#fff;font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:30px}
@@ -139,7 +167,7 @@
   .shipping-badge{display:inline-block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);border-radius:20px;padding:5px 14px;margin-bottom:16px}
   .shipping-badge.free{background:rgba(79,94,79,.15);color:var(--green-deep);font-weight:500}
 
-  /* Brumas individuales */
+  /* Brisas individuales */
   .brumas-section{max-width:960px;margin:0 auto 48px}
   .brumas-titulo{text-align:center;margin-bottom:10px}
   .brumas-titulo h3{font-size:1.4rem;color:var(--green-deep)}
@@ -500,20 +528,82 @@
   .wa-fab:hover{transform:scale(1.1);background:#1ebe5d}
   .wa-fab svg{width:30px;height:30px;fill:#fff}
 
-  /* Sección quiz / descubre tu bruma */
-  .quiz-sec{padding:90px 0 80px;background:var(--green-deep)}
-  .quiz-sec .section-head .eyebrow{color:var(--gold-soft)}
-  .quiz-sec .section-head h2{color:#fff}
-  .quiz-sec .section-head p{color:rgba(238,230,218,.78)}
-  .quiz-cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:40px;max-width:960px;margin-left:auto;margin-right:auto;padding:0 24px}
-  @media(min-width:601px){.quiz-cards{grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;padding:0 28px}}
-  .quiz-card{background:rgba(255,255,255,.07);border:1px solid rgba(205,162,116,.3);border-radius:20px;padding:34px 24px;text-align:center;cursor:pointer;transition:.4s}
-  .quiz-card:hover{background:rgba(255,255,255,.13);border-color:var(--gold-soft);transform:translateY(-5px)}
-  .quiz-card .q-emoji{width:56px;height:56px;margin:0 auto 14px;display:block}
-  .quiz-card h3{font-size:1.3rem;color:#fff;margin-bottom:8px}
-  .quiz-card p{font-size:.88rem;color:rgba(238,230,218,.72);line-height:1.6;margin-bottom:18px}
-  .quiz-card .q-result{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);font-weight:400}
-  .quiz-cta{text-align:center;margin-top:40px}
+  /* ── Quiz sección de entrada ── */
+  .quiz-sec{padding:80px 0;background:var(--green-deep)}
+  .quiz-hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .quiz-hero-txt h2{font-size:clamp(2rem,4vw,3rem);color:#fff;margin-bottom:14px}
+  .quiz-hero-txt .eyebrow{display:block;margin-bottom:10px}
+  .quiz-hero-txt p{color:rgba(238,230,218,.75);font-size:.97rem;line-height:1.7;margin-bottom:24px}
+  @media(max-width:700px){
+    .quiz-hero-inner{grid-template-columns:1fr;gap:28px}
+    .quiz-hero-img{display:none}
+  }
+
+  /* ── Modal overlay ── */
+  .quiz-overlay{position:fixed;inset:0;background:rgba(20,34,20,.75);backdrop-filter:blur(6px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .35s}
+  .quiz-overlay.open{opacity:1;pointer-events:all}
+
+  .quiz-modal{background:var(--cream);border-radius:24px;width:100%;max-width:620px;max-height:90vh;overflow-y:auto;position:relative;padding:48px 44px;box-shadow:0 32px 80px rgba(0,0,0,.35);transform:translateY(20px);transition:transform .35s}
+  .quiz-overlay.open .quiz-modal{transform:translateY(0)}
+  @media(max-width:600px){.quiz-modal{padding:36px 24px;border-radius:18px}}
+
+  .quiz-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--ink-soft);padding:6px;line-height:1}
+  .quiz-close:hover{color:var(--green-deep)}
+
+  /* Pasos del modal */
+  .qm-step{display:none}
+  .qm-step.active{display:block}
+
+  .qm-eyebrow{display:block;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+  .qm-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,3.5vw,2.2rem);color:var(--green-deep);line-height:1.25;margin-bottom:12px}
+  .qm-sub{font-size:.92rem;color:var(--ink-soft);line-height:1.7;margin-bottom:28px}
+
+  /* Intro */
+  .qm-intro-inner{text-align:center;padding:16px 0}
+
+  /* Progreso */
+  .qm-progress-wrap{display:flex;align-items:center;gap:14px;margin-bottom:32px}
+  .qm-progress-bar{flex:1;height:4px;background:rgba(60,100,65,.15);border-radius:4px;overflow:hidden}
+  .qm-progress-fill{height:100%;background:var(--green);border-radius:4px;transition:width .4s ease;width:0%}
+  .qm-step-lbl{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+
+  /* Pregunta y opciones */
+  .qm-question{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.8vw,1.55rem);color:var(--green-deep);line-height:1.35;margin-bottom:22px;font-style:italic}
+  .qm-opts{display:flex;flex-direction:column;gap:10px;margin-bottom:4px}
+  .qm-opt{background:#fff;border:1.5px solid rgba(60,100,65,.18);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:var(--ink);font-size:.9rem;line-height:1.5;transition:.25s;font-family:inherit;width:100%}
+  .qm-opt:hover{border-color:var(--green);background:rgba(60,100,65,.05)}
+  .qm-opt.selected{border-color:var(--green);background:rgba(60,100,65,.1);color:var(--green-deep);font-weight:500}
+  .qm-opt-emoji{font-size:1.3rem;flex-shrink:0}
+
+  /* Navegación */
+  .qm-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+  .qm-btn-prev{background:none;border:1.5px solid rgba(60,100,65,.3);border-radius:10px;padding:10px 20px;font-size:.85rem;color:var(--ink-soft);cursor:pointer;font-family:inherit;transition:.2s}
+  .qm-btn-prev:hover{border-color:var(--green);color:var(--green-deep)}
+  .qm-btn-next{background:var(--green-deep);color:#fff;border:none;border-radius:10px;padding:11px 24px;font-size:.88rem;cursor:pointer;font-family:inherit;transition:.2s;opacity:.4}
+  .qm-btn-next:not([disabled]){opacity:1}
+  .qm-btn-next:not([disabled]):hover{background:var(--green)}
+
+  /* Email gate */
+  .qm-email-inner{text-align:center;padding:8px 0}
+  .qm-form{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
+  .qm-input{border:1.5px solid rgba(60,100,65,.22);border-radius:10px;padding:13px 16px;font-size:.92rem;font-family:inherit;color:var(--ink);background:#fff;outline:none;transition:.2s}
+  .qm-input:focus{border-color:var(--green)}
+  .qm-input-err{font-size:.78rem;color:#c0392b;margin-top:-6px;display:block;min-height:16px}
+  .qm-skip{background:none;border:none;font-size:.8rem;color:var(--ink-soft);text-decoration:underline;cursor:pointer;font-family:inherit;margin-top:4px}
+  .qm-skip:hover{color:var(--green-deep)}
+
+  /* Resultado */
+  .qm-result-inner{text-align:center}
+  .qm-result-badge{display:inline-block;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+  .qm-result-img{width:110px;height:auto;margin:0 auto 14px;display:block}
+  .qm-result-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,2.8rem);color:var(--green-deep);margin-bottom:4px}
+  .qm-result-sub{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+  .qm-result-desc{font-size:.9rem;color:var(--ink-soft);line-height:1.75;margin-bottom:10px;max-width:440px;margin-left:auto;margin-right:auto}
+  .qm-result-note{font-size:.8rem;color:var(--ink-soft);opacity:.7;margin-bottom:26px;font-style:italic}
+  .qm-result-btns{display:flex;flex-direction:column;gap:10px;align-items:center}
+  @media(min-width:440px){.qm-result-btns{flex-direction:row;justify-content:center}}
+  .qm-restart{background:none;border:none;font-size:.78rem;color:var(--ink-soft);text-decoration:underline;cursor:pointer;font-family:inherit;display:block;margin:20px auto 0;text-align:center}
+  .qm-restart:hover{color:var(--green-deep)}
 
   /* Sección comunidad Instagram */
   .insta-sec{padding:80px 20px 70px;text-align:center}
@@ -612,10 +702,11 @@
       <img src="img/logo equilibri - verde.svg" alt="Equilibri" style="height:32px;width:auto;display:block">
     </a>
     <ul class="nav-links">
-      <li><a href="#brumas">Las Brumas</a></li>
+      <li><a href="#brumas">Las Brisas</a></li>
       <li><a href="#ritual">Cómo usarlo</a></li>
       <li><a href="#para-quien">¿Es para ti?</a></li>
       <li><a href="#testimonios">Reseñas</a></li>
+      <li><a href="#quiz" style="color:var(--gold);opacity:1;font-weight:500">Descubre tu brisa</a></li>
     </ul>
     <a href="#comprar" class="nav-cta">Comprar el Kit</a>
   </div>
@@ -627,7 +718,7 @@
     <div class="hero-col">
       <span class="eyebrow">Equilibri · Cosmética emocional</span>
       <h1>Balance &amp; Bloom</h1>
-      <p class="ritual-tag">3 brumas · 1 ritual completo</p>
+      <p class="ritual-tag">3 brisas · 1 ritual completo</p>
       <p class="lede">Activa. Centra. Descansa.</p>
       <p class="sublede">El kit que te acompaña de la mañana a la noche — más tu <strong style="color:var(--gold-soft)">Guía de Aromaterapia de regalo.</strong></p>
       <div class="cta-row">
@@ -654,14 +745,14 @@
       <span class="trust-icon">✨</span>
       <div>
         <strong>Bienestar emocional</strong>
-        <p>Activa, centra y descansa. Una bruma para cada momento.</p>
+        <p>Activa, centra y descansa. Una brisa para cada momento.</p>
       </div>
     </a>
     <a href="#testimonios" class="trust-card">
       <span class="trust-icon">⭐</span>
       <div>
         <strong>Reseñas reales</strong>
-        <p>Mujeres que ya transformaron su día con Equilibri.</p>
+        <p>Personas que ya transformaron su día con Equilibri.</p>
       </div>
     </a>
     <a href="#comprar" class="trust-card">
@@ -678,22 +769,23 @@
   <img src="img/Equilibri - Balance and Bloom - caja4.webp" alt="Kit Balance &amp; Bloom · Equilibri" class="band-bg">
   <div class="band-inner">
     <div class="band-txt">
-      <span class="eyebrow">Kit de 3 brumas funcionales</span>
+      <span class="eyebrow">Kit de 3 brisas funcionales</span>
       <h2>Un gesto sencillo para volver a ti.</h2>
     </div>
   </div>
 </section>
 
+
 <section class="blends wrap" id="brumas">
   <div class="section-head reveal">
     <span class="eyebrow">Tu guía de rescate emocional</span>
     <h2>Una brisa para cada momento del día</h2>
-    <p>Cada bruma reúne esencias seleccionadas para acompañarte en lo que sientes, a la hora que lo sientes.</p>
+    <p>Cada brisa reúne esencias seleccionadas para acompañarte en lo que sientes, a la hora que lo sientes.</p>
   </div>
   <div class="blend-grid">
 
     <article class="blend b1 reveal stagger-1">
-      <img class="blend-photo" src="img/abundancia frasco.webp" alt="Bruma Abundancia">
+      <img class="blend-photo" src="img/abundancia frasco.webp" alt="Brisa Abundancia">
       <div class="top">
         <div class="icon"><img src="img/abundancia-figura.svg" alt="Abundancia"></div>
         <p class="moment">Mañana · Activar</p>
@@ -713,7 +805,7 @@
     </article>
 
     <article class="blend b2 reveal stagger-2">
-      <img class="blend-photo" src="img/centro frasco.webp" alt="Bruma Centro">
+      <img class="blend-photo" src="img/centro frasco.webp" alt="Brisa Centro">
       <div class="top">
         <div class="icon"><img src="img/centro-figura.svg" alt="Centro"></div>
         <p class="moment">Mediodía · Centrar</p>
@@ -733,7 +825,7 @@
     </article>
 
     <article class="blend b3 reveal stagger-3">
-      <img class="blend-photo" src="img/serenidad frasco.jpg" alt="Bruma Serenidad">
+      <img class="blend-photo" src="img/serenidad frasco.jpg" alt="Brisa Serenidad">
       <div class="top">
         <div class="icon"><img src="img/serenidad-figura.svg" alt="Serenidad"></div>
         <p class="moment">Noche · Descansar</p>
@@ -755,6 +847,12 @@
   </div>
 </section>
 
+<!-- ══════════ QUÉ ES UNA BRISA — intro ══════════ -->
+<section class="wrap reveal" style="padding:56px 0 8px;text-align:center;max-width:680px">
+  <h2 style="font-size:clamp(1.7rem,3.5vw,2.4rem);color:var(--green-deep);margin-bottom:16px">Aromaterapia en un spray de bolsillo</h2>
+  <p style="font-size:.97rem;color:var(--ink-soft);line-height:1.8">Una brisa funcional es un spray de aceites esenciales puros con una intención específica. No es perfume, no es ambientador. Al inhalarla, las moléculas aromáticas llegan al sistema límbico — la parte del cerebro que regula las emociones — en menos de 0.1 segundos.</p>
+</section>
+
 <section class="ritual-sec wrap" id="ritual">
   <div class="ritual reveal">
     <div class="content">
@@ -770,14 +868,16 @@
       </div>
       <div class="step">
         <span class="num">3</span>
-        <div><p class="st">Afirma</p><p>Al exhalar, repite la afirmación de tu bruma. Deja que tus palabras y el aroma trabajen juntos.</p></div>
+        <div><p class="st">Afirma</p><p>Al exhalar, repite la afirmación de tu brisa. Deja que tus palabras y el aroma trabajen juntos.</p></div>
       </div>
       <div class="tip">
         <b>✶ Tip · Método del pañuelo</b>
         <p>En estrés agudo, rocía en un pañuelo y haz 3 inhalaciones cortas. El aroma llega rápido sin saturar el olfato.</p>
       </div>
     </div>
-    <div class="photo"><img src="img/serenidad - spray.webp" alt="Bruma Serenidad de Equilibri en uso."></div>
+    <div class="photo">
+      <img src="img/serenidad - spray.webp" alt="Brisa Serenidad de Equilibri en uso">
+    </div>
   </div>
 </section>
 
@@ -802,16 +902,16 @@
       <div class="kit-hero-body">
         <span class="kicker">La experiencia completa</span>
         <h3>Kit Balance &amp; Bloom</h3>
-        <p class="sub">Las tres brumas juntas para vivir el ritual completo — de la mañana a la noche.</p>
+        <p class="sub">Las tres brisas juntas para vivir el ritual completo — de la mañana a la noche.</p>
         <div class="kit-includes">
-          <span>🌿 Bruma Abundancia · 30 ml</span>
-          <span>🌿 Bruma Centro · 30 ml</span>
-          <span>🌙 Bruma Serenidad · 30 ml</span>
+          <span>🌿 Brisa Abundancia · 30 ml</span>
+          <span>🌿 Brisa Centro · 30 ml</span>
+          <span>🌙 Brisa Serenidad · 30 ml</span>
           <span>📖 Guía de Aromaterapia <em>(de regalo)</em></span>
           <span>🎁 Caja ritual Equilibri</span>
         </div>
         <div class="price"><span class="cur">$</span><span class="num">759</span><span class="cur">MXN</span></div>
-        <p class="price-note">+ $99 envío a todo México</p>
+        <p class="price-note">Envíos a todo México</p>
         <a href="https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20el%20Kit%20Balance%20%26%20Bloom%20(%24759%20MXN).%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F" class="btn btn-gold btn-lg" target="_blank" rel="noopener" style="display:block;text-align:center">Lo quiero →</a>
       </div>
     </div>
@@ -820,44 +920,44 @@
   <!-- BRUMAS INDIVIDUALES -->
   <div class="brumas-section reveal">
     <div class="brumas-titulo">
-      <h3>¿Prefieres empezar con una sola bruma?</h3>
+      <h3>¿Prefieres empezar con una sola brisa?</h3>
       <p>Elige la que más resuene contigo ahora.</p>
     </div>
     <div class="brumas-grid">
 
       <!-- Abundancia -->
       <div class="bruma-card abundancia">
-        <img src="img/abundancia frasco.webp" alt="Bruma Abundancia" class="bruma-img">
+        <img src="img/abundancia frasco.webp" alt="Brisa Abundancia" class="bruma-img">
         <span class="kicker">Mañana · Energía</span>
         <img src="img/abundancia-figura.svg" alt="" class="bruma-figura">
         <h4>Abundancia</h4>
         <p class="bruma-sub">Para los días que necesitas arrancar con fuerza y claridad.</p>
         <div class="price"><span class="cur">$</span><span class="num">289</span><span class="cur">MXN</span></div>
-        <p class="price-note">+ $99 envío</p>
+        <p class="price-note">Envíos a todo México</p>
         <a href="https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20la%20Bruma%20Abundancia%20(%24289%20MXN).%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F" class="btn btn-outline" target="_blank" rel="noopener">La quiero</a>
       </div>
 
       <!-- Centro -->
       <div class="bruma-card centro">
-        <img src="img/centro frasco.webp" alt="Bruma Centro" class="bruma-img">
+        <img src="img/centro frasco.webp" alt="Brisa Centro" class="bruma-img">
         <span class="kicker">Tarde · Enfoque</span>
         <img src="img/centro-figura.svg" alt="" class="bruma-figura">
         <h4>Centro</h4>
         <p class="bruma-sub">Para volver a ti cuando el día se pone intenso y necesitas calma.</p>
         <div class="price"><span class="cur">$</span><span class="num">289</span><span class="cur">MXN</span></div>
-        <p class="price-note">+ $99 envío</p>
+        <p class="price-note">Envíos a todo México</p>
         <a href="https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20la%20Bruma%20Centro%20(%24289%20MXN).%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F" class="btn btn-outline" target="_blank" rel="noopener">La quiero</a>
       </div>
 
       <!-- Serenidad -->
       <div class="bruma-card serenidad">
-        <img src="img/serenidad frasco.jpg" alt="Bruma Serenidad" class="bruma-img">
+        <img src="img/serenidad frasco.jpg" alt="Brisa Serenidad" class="bruma-img">
         <span class="kicker">Noche · Descanso</span>
         <img src="img/serenidad-figura.svg" alt="" class="bruma-figura">
         <h4>Serenidad</h4>
         <p class="bruma-sub">Para soltar el día y preparar cuerpo y mente para el descanso.</p>
         <div class="price"><span class="cur">$</span><span class="num">289</span><span class="cur">MXN</span></div>
-        <p class="price-note">+ $99 envío</p>
+        <p class="price-note">Envíos a todo México</p>
         <a href="https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20la%20Bruma%20Serenidad%20(%24289%20MXN).%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F" class="btn btn-outline" target="_blank" rel="noopener">La quiero</a>
       </div>
 
@@ -866,7 +966,7 @@
 
   <!-- MÁS DE UNA BRUMA → WHATSAPP -->
   <div class="brumas-wa reveal">
-    <p>¿Quieres más de una bruma individual? Escríbenos y te armamos tu pedido.</p>
+    <p>¿Quieres más de una brisa individual? Escríbenos y te armamos tu pedido.</p>
     <a href="https://wa.me/524775895981?text=Hola%2C%20quiero%20pedir%20varias%20brumas%20individuales%20de%20Equilibri%20%F0%9F%8C%BF" class="btn-wa" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Escríbenos por WhatsApp
@@ -900,22 +1000,22 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">¿Es para ti?</span>
-      <h2>Equilibri fue hecho para ellas</h2>
-      <p>Para quienes saben que cuidarse no es un lujo — es una necesidad.</p>
+      <h2>Equilibri es para quienes se atreven a cuidarse</h2>
+      <p>Sin importar quién eres — si buscas bienestar real, presencia y calma en tu día, esto es para ti.</p>
     </div>
 
     <div class="perfiles">
       <div class="perfil p1 reveal stagger-1">
         <div class="perfil-icon">💼</div>
         <div>
-          <h3>Mujeres profesionistas con estrés y exceso de trabajo</h3>
-          <p>Creado para la mujer actual que lidia con agendas exigentes y dispone de tiempo limitado para su bienestar. Inhalar una de nuestras brisas es un reseteo mental exprés; ideal para mentes hiperconectadas que necesitan recuperar el enfoque, la calma y el rendimiento entre juntas sin interrumpir su día.</p>
+          <h3>Mujeres y hombres con agendas al límite</h3>
+          <p>Para quienes lidian con el trabajo, las responsabilidades y apenas encuentran un momento para respirar. Inhalar una de nuestras brisas es un reseteo mental exprés; ideal para mentes hiperconectadas que necesitan recuperar el enfoque, la calma y el rendimiento sin interrumpir su día.</p>
         </div>
       </div>
       <div class="perfil p2 reveal stagger-2">
         <div class="perfil-icon">🌪️</div>
         <div>
-          <h3>Mujeres con estrés o ansiedad</h3>
+          <h3>Personas con estrés o ansiedad</h3>
           <p>Cuando el cuerpo va más rápido que la mente, un aroma puede ser el ancla que te trae de vuelta al presente. Al inhalar la brisa, las moléculas aromáticas viajan en apenas 0.1 segundos a tu sistema límbico, actuando como un interruptor natural que ayuda a calmar la tensión física, modular el estado de ánimo y apagar el estrés al instante.</p>
         </div>
       </div>
@@ -936,14 +1036,14 @@
       <div class="perfil p5 reveal stagger-5">
         <div class="perfil-icon">💛</div>
         <div>
-          <h3>Mamás con poco tiempo para sí mismas</h3>
-          <p>Un ritual de 30 segundos que es solo tuyo. Antes de que se despierten, entre tarea y tarea, o cuando por fin se durmieron. Nuestras brisas funcionan como un verdadero "abrazo olfativo" que apacigua la sobrecarga de responsabilidades, reconfortando tu alma y ofreciéndote ese micro-respiro vital en medio de la rutina.</p>
+          <h3>Mamás, papás y quienes cuidan con poco tiempo para sí mismos</h3>
+          <p>Un ritual de 30 segundos que es solo tuyo. Antes de que se despierten, entre tarea y tarea, o cuando por fin se durmieron. Nuestras brisas funcionan como un verdadero "abrazo olfativo" que apacigua la sobrecarga de responsabilidades, reconfortando tu interior y ofreciéndote ese micro-respiro vital en medio de la rutina.</p>
         </div>
       </div>
       <div class="perfil p6 reveal stagger-6">
         <div class="perfil-icon">📚</div>
         <div>
-          <h3>Maestras con la energía al límite</h3>
+          <h3>Maestras y maestros con la energía al límite</h3>
           <p>Cuando das tanto todos los días, necesitas algo que te recuerde recargarte. Un momento entre grupo y grupo puede cambiarlo todo. Las esencias actúan combatiendo la fatiga intelectual y la pesadez, dándote un subidón de energía y claridad mental para que recuperes tu centro y sigas inspirando.</p>
         </div>
       </div>
@@ -977,7 +1077,7 @@
         <div class="guia-item">
           <span class="guia-num">01</span>
           <div>
-            <strong>Cómo usar tus brumas</strong>
+            <strong>Cómo usar tus brisas</strong>
             <p>Técnicas de inhalación, difusión y aplicación para potenciar cada esencia.</p>
           </div>
         </div>
@@ -999,7 +1099,7 @@
           <span class="guia-num">04</span>
           <div>
             <strong>Afirmaciones y práctica de intención</strong>
-            <p>Frases para acompañar tu ritual y anclar el beneficio emocional de cada bruma.</p>
+            <p>Frases para acompañar tu ritual y anclar el beneficio emocional de cada brisa.</p>
           </div>
         </div>
       </div>
@@ -1007,48 +1107,86 @@
   </div>
 </section>
 
-<!-- ══════════ DESCUBRE TU BRUMA ══════════ -->
-<section class="quiz-sec">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Encuentra tu aliada emocional</span>
-      <h2>¿Qué necesitas hoy?</h2>
-      <p>Cada bruma del kit está diseñada para un momento específico de tu día.</p>
+<!-- ══════════ QUIZ EMOCIONAL — sección de entrada ══════════ -->
+<section class="quiz-sec" id="quiz">
+  <div class="quiz-hero-inner wrap">
+    <div class="quiz-hero-txt reveal">
+      <span class="eyebrow" style="color:var(--gold-soft)">Encuentra tu aliada emocional</span>
+      <h2>Descubre tu brisa</h2>
+      <p>Responde 7 preguntas y descubre qué brisa necesita tu cuerpo y tu mente hoy.</p>
+      <button class="btn btn-gold" id="quizOpenBtn" style="margin-top:8px">Comenzar quiz</button>
     </div>
-  </div>
-  <div class="quiz-cards">
-    <div class="quiz-card reveal stagger-1">
-      <img src="img/abundancia-figura.svg" alt="" class="q-emoji">
-      <h3>Necesito energía</h3>
-      <p>El día arrancó pesado, sientes bloqueo o simplemente necesitas arrancar con impulso.</p>
-      <span class="q-result">→ Bruma Abundancia</span>
+    <div class="quiz-hero-img reveal stagger-2">
+      <img src="img/descubre-tu-brisa.webp" alt="Descubre tu brisa Equilibri" style="width:100%;border-radius:20px;object-fit:cover;max-height:320px">
     </div>
-    <div class="quiz-card reveal stagger-2">
-      <img src="img/centro-figura.svg" alt="" class="q-emoji">
-      <h3>Necesito claridad</h3>
-      <p>Tu mente da vueltas, no puedes concentrarte o el estrés no te deja pensar con calma.</p>
-      <span class="q-result">→ Bruma Centro</span>
-    </div>
-    <div class="quiz-card reveal stagger-3">
-      <img src="img/serenidad-figura.svg" alt="" class="q-emoji">
-      <h3>Necesito descanso</h3>
-      <p>El día fue intenso, hay tensión acumulada y tu cuerpo necesita soltar y respirar.</p>
-      <span class="q-result">→ Bruma Serenidad</span>
-    </div>
-  </div>
-  <div class="quiz-cta reveal">
-    <p style="max-width:560px;margin:0 auto 24px;color:rgba(238,230,218,.78);font-size:.95rem;line-height:1.7">
-      ¿Te identificaste con una? Normal — cada quien tiene su momento más difícil del día.<br>
-      Pero el día no es solo ese momento. El Kit completo te acompaña de la mañana a la noche: <strong style="color:var(--gold-soft)">las tres brumas trabajan juntas</strong>, y muchas clientas descubren que la que menos esperaban se convierte en su favorita.
-    </p>
-    <a href="#comprar" class="btn btn-gold" style="margin-top:0">Llevar el Kit completo</a>
   </div>
 </section>
+
+<!-- ══════════ MODAL QUIZ ══════════ -->
+<div class="quiz-overlay" id="quizOverlay" aria-hidden="true">
+  <div class="quiz-modal" role="dialog" aria-modal="true">
+
+    <!-- Cerrar -->
+    <button class="quiz-close" id="quizClose" aria-label="Cerrar">✕</button>
+
+    <!-- Paso 0: Intro / empty state -->
+    <div class="qm-step active" id="qm-intro">
+      <div class="qm-intro-inner">
+        <span class="qm-eyebrow">Quiz Equilibri</span>
+        <h2 class="qm-title">¿Qué necesita tu cuerpo y tu mente hoy?</h2>
+        <p class="qm-sub">7 preguntas para descubrir tu brisa ideal. Sin respuestas incorrectas — solo lo que sientes ahora mismo.</p>
+        <button class="btn btn-gold" id="quizStartBtn">Comenzar</button>
+      </div>
+    </div>
+
+    <!-- Preguntas 1–7 -->
+    <div class="qm-step" id="qm-questions">
+      <div class="qm-progress-wrap">
+        <div class="qm-progress-bar"><div class="qm-progress-fill" id="qmFill"></div></div>
+        <span class="qm-step-lbl" id="qmStepLbl">1 de 7</span>
+      </div>
+
+      <div class="qm-q-wrap" id="qmQWrap">
+        <!-- preguntas inyectadas por JS -->
+      </div>
+
+      <div class="qm-nav">
+        <button class="qm-btn-prev" id="qmPrev">← Anterior</button>
+        <button class="qm-btn-next" id="qmNext" disabled>Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Email gate -->
+    <div class="qm-step" id="qm-email">
+      <div class="qm-email-inner">
+        <span class="qm-eyebrow">¡Ya tenemos tu resultado!</span>
+        <h2 class="qm-title">¿A dónde te enviamos tu brisa ideal?</h2>
+        <p class="qm-sub">Déjanos tu correo y descubre tu resultado + una guía personalizada de cómo usarla.</p>
+        <form class="qm-form" id="qmForm" novalidate>
+          <input type="text" class="qm-input" id="qmName" placeholder="Tu nombre" autocomplete="given-name">
+          <input type="email" class="qm-input" id="qmEmail" placeholder="Tu correo electrónico" autocomplete="email" required>
+          <span class="qm-input-err" id="qmErr"></span>
+          <button type="submit" class="btn btn-gold" style="width:100%">Ver mi resultado</button>
+        </form>
+        <button class="qm-skip" id="qmSkip">Continuar sin suscribirme</button>
+      </div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="qm-step" id="qm-result">
+      <div class="qm-result-inner" id="qmResultInner">
+        <!-- inyectado por JS -->
+      </div>
+      <button class="qm-restart" id="qmRestart">Repetir el quiz</button>
+    </div>
+
+  </div>
+</div>
 
 <!-- ══════════ TESTIMONIOS ══════════ -->
 <section class="testimonios wrap" id="testimonios">
   <div class="section-head reveal">
-    <span class="eyebrow">Lo que dicen ellas</span>
+    <span class="eyebrow">Lo que dicen quienes lo usan</span>
     <h2>Historias que nos llenan el corazón</h2>
     <p>Cada botella lleva la intención de quien la crea y la magia de quien la recibe.</p>
   </div>
@@ -1075,33 +1213,33 @@
         <div class="test-avatar" style="background:var(--lilac)">T</div>
         <div>
           <p class="test-name">Teresita L.</p>
-          <p class="test-product">Bruma Serenidad · Uso diario</p>
+          <p class="test-product">Brisa Serenidad · Uso diario</p>
         </div>
       </div>
     </div>
 
-    <!-- Sofía -->
+    <!-- Silvia -->
     <div class="test-card reveal stagger-1">
       <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      <p class="test-body">El Kit de 3 Brumas Funcionales está integrado por Abundancia, Centro y Serenidad, cada una con aromas y propiedades para diferentes momentos del día. La que más utilicé fue Centro, diseñada para favorecer la concentración y despejar la mente mientras se realizan actividades que requieren atención.</p>
+      <p class="test-body">¡Me han encantado!! Ahorita tengo la rutina de usar el de Abundancia cuando me levanto y cuando salgo de trabajar, que me siento muy abrumada, hago inhalaciones del de Centro y me ayuda bastante a despejar mi mente y enfocarme a lo que sigue en casa.</p>
       <div class="test-author">
         <div class="test-avatar" style="background:var(--green)">S</div>
         <div>
-          <p class="test-name">Sofía R.</p>
-          <p class="test-product">Kit Balance &amp; Bloom · Bruma Centro</p>
+          <p class="test-name">Silvia G.</p>
+          <p class="test-product">Kit Balance &amp; Bloom · Brisas Abundancia y Centro</p>
         </div>
       </div>
     </div>
 
-    <!-- Mariana -->
+    <!-- Jenny -->
     <div class="test-card reveal stagger-2">
       <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      <p class="test-body">Su uso es muy sencillo y los efectos de relajación se perciben de manera casi inmediata. Seguí la recomendación de aplicar la bruma sobre un pañuelo y realizar tres inhalaciones cortas, lo que me permitió aprovechar mejor su aroma y sus beneficios.</p>
+      <p class="test-body">Su uso es muy sencillo y los efectos de relajación se perciben de manera casi inmediata. Seguí la recomendación de aplicar la brisa sobre un pañuelo y realizar tres inhalaciones cortas, lo que me permitió aprovechar mejor su aroma y sus beneficios.</p>
       <div class="test-author">
-        <div class="test-avatar" style="background:var(--green)">M</div>
+        <div class="test-avatar" style="background:var(--green)">J</div>
         <div>
-          <p class="test-name">Mariana V.</p>
-          <p class="test-product">Kit Balance &amp; Bloom · Bruma Centro</p>
+          <p class="test-name">Jenny R.</p>
+          <p class="test-product">Kit Balance &amp; Bloom · Brisa Centro</p>
         </div>
       </div>
     </div>
@@ -1109,12 +1247,12 @@
     <!-- Daniela -->
     <div class="test-card reveal stagger-3">
       <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      <p class="test-body">Las esencias son concentradas, el empaque conserva bien el producto y los frascos generan una bruma fina y uniforme. Destaca el cuidado en la presentación y el embalaje, muy atractivos visualmente. Es un producto de muy buena calidad, funcional y agradable. Por su efectividad, presentación y practicidad, es una opción que recomiendo ampliamente.</p>
+      <p class="test-body">Las esencias son concentradas, el empaque conserva bien el producto y los frascos generan una brisa fina y uniforme. Destaca el cuidado en la presentación y el embalaje, muy atractivos visualmente. Es un producto de muy buena calidad, funcional y agradable. Por su efectividad, presentación y practicidad, es una opción que recomiendo ampliamente.</p>
       <div class="test-author">
         <div class="test-avatar" style="background:var(--green)">D</div>
         <div>
           <p class="test-name">Daniela C.</p>
-          <p class="test-product">Kit Balance &amp; Bloom · Bruma Centro</p>
+          <p class="test-product">Kit Balance &amp; Bloom · Brisa Centro</p>
         </div>
       </div>
     </div>
@@ -1147,7 +1285,7 @@
 
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Cómo se usan las brumas?
+          ¿Cómo se usan las brisas?
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
         </button>
         <div class="faq-a"><p>Rocía <em>8–10 cm</em> sobre tu espacio, almohada o ropa. Respira profundo, cierra los ojos e intenciona el momento. Úsalas según tu necesidad: <em>Abundancia</em> por la mañana para activarte, <em>Centro</em> a mediodía para enfocarte y <em>Serenidad</em> por la noche para descansar.</p></div>
@@ -1158,7 +1296,7 @@
           ¿Puedo aplicarlas directo en la piel?
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <div class="faq-a"><p>Son brumas <em>principalmente ambientales</em>. Si las aplicas en piel, evita la exposición al sol directo durante las <em>24 horas siguientes</em> ya que contienen aceites cítricos que pueden ser fotosensibilizantes. Nunca apliques cerca de los ojos.</p></div>
+        <div class="faq-a"><p>Son brisas <em>principalmente ambientales</em>. Si las aplicas en piel, evita la exposición al sol directo durante las <em>24 horas siguientes</em> ya que contienen aceites cítricos que pueden ser fotosensibilizantes. Nunca apliques cerca de los ojos.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1174,7 +1312,7 @@
           ¿Los ingredientes son naturales?
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <div class="faq-a"><p>Sí. Las brumas están formuladas con <em>aceites esenciales puros</em> (lavanda, bergamota, cedro, naranja dulce, romero, sándalo y pachulí) en agua purificada con alcohol como dispersante. Sin fragancias sintéticas ni ingredientes artificiales.</p></div>
+        <div class="faq-a"><p>Sí. Las brisas están formuladas con <em>aceites esenciales puros</em> (lavanda, bergamota, cedro, naranja dulce, romero, sándalo y pachulí) en agua purificada con alcohol como dispersante. Sin fragancias sintéticas ni ingredientes artificiales.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1190,7 +1328,7 @@
           ¿Tienen envío gratuito?
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <div class="faq-a"><p>El envío gratuito aplica al comprar <em>2 o más kits</em>. En pedidos de un solo kit o brumas individuales se cobra el costo de envío estándar según tu ubicación.</p></div>
+        <div class="faq-a"><p>El envío gratuito aplica al comprar <em>2 o más kits</em>. En pedidos de un solo kit o brisas individuales se cobra el costo de envío estándar según tu ubicación.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1256,6 +1394,266 @@
     document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
     if(!isOpen) item.classList.add('open');
   }
+
+  /* ── QUIZ MODAL EQUILIBRI ── */
+  (function(){
+    const TOTAL = 7;
+    const scores = {A:0,B:0,C:0};
+    const answers = {};
+    let current = 0;
+
+    const questions = [
+      {
+        q: '¿Cómo amaneciste hoy?',
+        opts: [
+          {e:'😶‍🌫️', t:'Sin energía ni motivación. Me cuesta arrancar.', v:'A'},
+          {e:'🌀',     t:'Con la mente ya a mil. Mil cosas desde que abrí los ojos.', v:'B'},
+          {e:'🪨',     t:'Pesado/a y tenso/a, aunque dormí horas.', v:'C'}
+        ]
+      },
+      {
+        q: '¿Qué emoción te visita más seguido últimamente?',
+        opts: [
+          {e:'😔', t:'Sensación de que nada avanza o de que no soy suficiente.', v:'A'},
+          {e:'😤', t:'Presión y autocrítica constante. Me cuesta enfocarme.', v:'B'},
+          {e:'😮‍💨', t:'Tensión acumulada. Cargo demasiado y necesito soltar.', v:'C'}
+        ]
+      },
+      {
+        q: '¿Cómo describes tu relación con el trabajo o las responsabilidades?',
+        opts: [
+          {e:'🔒', t:'Me siento bloqueado/a. Las ideas no fluyen como antes.', v:'A'},
+          {e:'🔁', t:'No paro. Salto de tarea en tarea sin terminar ninguna.', v:'B'},
+          {e:'🏋️', t:'Cargo con todo. Las responsabilidades me pesan físicamente.', v:'C'}
+        ]
+      },
+      {
+        q: '¿Cuándo sueles necesitar más un respiro?',
+        opts: [
+          {e:'🌅', t:'En las mañanas, para arrancar el día con impulso.', v:'A'},
+          {e:'☀️', t:'A media jornada, cuando la mente ya no puede más.', v:'B'},
+          {e:'🌙', t:'Al final del día, para desconectar y descansar de verdad.', v:'C'}
+        ]
+      },
+      {
+        q: '¿Qué frase te resuena más en este momento?',
+        opts: [
+          {e:'✨', t:'"Quiero volver a sentir que tengo energía y que las cosas fluyen."', v:'A'},
+          {e:'🎯', t:'"Necesito silenciar el ruido y reconectarme conmigo."', v:'B'},
+          {e:'🌿', t:'"Solo quiero respirar, soltar y sentir paz."', v:'C'}
+        ]
+      },
+      {
+        q: '¿Qué pasa en tu cuerpo cuando el estrés llega?',
+        opts: [
+          {e:'🥱', t:'Me apago. Pierdo el entusiasmo y la iniciativa.', v:'A'},
+          {e:'🫀', t:'Me acelero. El corazón va rápido y la mente no para.', v:'B'},
+          {e:'💢', t:'Se acumula en el cuerpo. Tensión en cuello, hombros o pecho.', v:'C'}
+        ]
+      },
+      {
+        q: 'Si pudieras sentir algo en los próximos 30 minutos, ¿qué sería?',
+        opts: [
+          {e:'🌟', t:'Impulso, optimismo y ganas genuinas de moverme.', v:'A'},
+          {e:'🧘', t:'Claridad mental. Un momento de calma y enfoque.', v:'B'},
+          {e:'🛁', t:'Relajación profunda. Dejar ir el peso del día.', v:'C'}
+        ]
+      }
+    ];
+
+    const results = {
+      A: {
+        badge:'✦ Tu brisa ideal es',
+        title:'Abundancia',
+        sub:'El aceite del impulso y la renovación',
+        img:'img/abundancia frasco.webp',
+        desc:'Tu sistema emocional necesita salir del estancamiento y recuperar el flujo. La naranja silvestre disipa la mentalidad de escasez y rigidez; la bergamota suaviza la autocrítica y despierta el optimismo; el romero despeja la confusión y activa tu claridad mental. Juntos, son el arranque que necesitas.',
+        note:'Ideal para las mañanas o cuando sientes que nada avanza.',
+        btn:'Quiero Abundancia',
+        wa:'https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20la%20Brisa%20Abundancia.%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F'
+      },
+      B: {
+        badge:'✦ Tu brisa ideal es',
+        title:'Centro',
+        sub:'El aceite de la presencia y el enfoque',
+        img:'img/centro frasco.webp',
+        desc:'Tu mente va demasiado rápido y necesita un ancla. La lavanda calma la tensión interna y libera lo no expresado; el cedro te reconecta con la sensación de arraigo y apoyo; el pachulí te baja al cuerpo y modera el pensamiento obsesivo. El resultado: claridad y presencia sin esfuerzo.',
+        note:'Ideal para el trabajo, entre reuniones o cuando la mente no para.',
+        btn:'Quiero Centro',
+        wa:'https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20la%20Brisa%20Centro.%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F'
+      },
+      C: {
+        badge:'✦ Tu brisa ideal es',
+        title:'Serenidad',
+        sub:'El aceite de la paz y el descanso profundo',
+        img:'img/serenidad frasco.jpg',
+        desc:'Tu cuerpo y tu mente piden soltar. El sándalo calma el pensamiento excesivo y prepara el espíritu para la quietud; la lavanda libera la tensión acumulada del día; el pachulí te trae de vuelta al momento presente. Tres respiraciones profundas lo cambian todo.',
+        note:'Ideal para la noche, después de un día intenso o cuando necesitas soltar.',
+        btn:'Quiero Serenidad',
+        wa:'https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20la%20Brisa%20Serenidad.%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F'
+      }
+    };
+
+    const overlay  = document.getElementById('quizOverlay');
+    const btnOpen  = document.getElementById('quizOpenBtn');
+    const btnClose = document.getElementById('quizClose');
+    const btnStart = document.getElementById('quizStartBtn');
+    const btnPrev  = document.getElementById('qmPrev');
+    const btnNext  = document.getElementById('qmNext');
+    const btnSkip  = document.getElementById('qmSkip');
+    const form     = document.getElementById('qmForm');
+    const fill     = document.getElementById('qmFill');
+    const stepLbl  = document.getElementById('qmStepLbl');
+    const qWrap    = document.getElementById('qmQWrap');
+    const btnRestart = document.getElementById('qmRestart');
+
+    function openModal(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeModal(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+
+    function showQMStep(id){
+      document.querySelectorAll('.qm-step').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function renderQuestion(idx){
+      const q = questions[idx];
+      const sel = answers[idx];
+      qWrap.innerHTML = `
+        <p class="qm-question">${q.q}</p>
+        <div class="qm-opts">
+          ${q.opts.map((o,i)=>`
+            <button class="qm-opt${sel===i?' selected':''}" data-qi="${idx}" data-oi="${i}" data-val="${o.v}">
+              <span class="qm-opt-emoji">${o.e}</span>
+              <span>${o.t}</span>
+            </button>`).join('')}
+        </div>`;
+
+      // eventos de opciones
+      qWrap.querySelectorAll('.qm-opt').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          const qi = parseInt(this.dataset.qi);
+          const oi = parseInt(this.dataset.oi);
+          answers[qi] = oi;
+          qWrap.querySelectorAll('.qm-opt').forEach(b=>b.classList.remove('selected'));
+          this.classList.add('selected');
+          btnNext.disabled = false;
+        });
+      });
+
+      // progreso
+      const pct = (idx / TOTAL) * 100;
+      fill.style.width = pct + '%';
+      stepLbl.textContent = (idx+1) + ' de ' + TOTAL;
+      btnPrev.style.visibility = idx === 0 ? 'hidden' : 'visible';
+      btnNext.disabled = answers[idx] === undefined;
+    }
+
+    function calcResult(){
+      const s = {A:0,B:0,C:0};
+      questions.forEach(function(q, idx){
+        if(answers[idx] !== undefined){
+          s[q.opts[answers[idx]].v]++;
+        }
+      });
+      if(s.B >= s.A && s.B >= s.C) return 'B';
+      if(s.C > s.A && s.C > s.B) return 'C';
+      return 'A';
+    }
+
+    function showResult(){
+      fill.style.width = '100%';
+      const r = results[calcResult()];
+      document.getElementById('qmResultInner').innerHTML = `
+        <span class="qm-result-badge">${r.badge}</span>
+        <img src="${r.img}" alt="Brisa ${r.title}" class="qm-result-img">
+        <h3 class="qm-result-title">${r.title}</h3>
+        <p class="qm-result-sub">${r.sub}</p>
+        <p class="qm-result-desc">${r.desc}</p>
+        <p class="qm-result-note">${r.note}</p>
+        <div class="qm-result-btns">
+          <a href="${r.wa}" target="_blank" rel="noopener" class="btn btn-gold">${r.btn}</a>
+          <a href="#comprar" class="btn btn-outline" onclick="closeQuizModal()">Ver el Kit completo</a>
+        </div>`;
+      showQMStep('qm-result');
+    }
+
+    window.closeQuizModal = closeModal;
+
+    function resetQuiz(){
+      Object.keys(answers).forEach(k=>delete answers[k]);
+      current = 0;
+      showQMStep('qm-intro');
+    }
+
+    // Abrir modal
+    if(btnOpen) btnOpen.addEventListener('click', openModal);
+    btnClose.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+    // Inicio
+    btnStart.addEventListener('click', function(){
+      showQMStep('qm-questions');
+      renderQuestion(0);
+    });
+
+    // Navegación
+    btnNext.addEventListener('click', function(){
+      if(answers[current] === undefined) return;
+      current++;
+      if(current < TOTAL){
+        renderQuestion(current);
+      } else {
+        showQMStep('qm-email');
+      }
+    });
+
+    btnPrev.addEventListener('click', function(){
+      if(current > 0){ current--; renderQuestion(current); }
+    });
+
+    // Email gate
+    function handleEmailContinue(){
+      const err   = document.getElementById('qmErr');
+      const name  = document.getElementById('qmName').value.trim();
+      const email = document.getElementById('qmEmail').value.trim();
+      if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        err.textContent = 'Por favor ingresa un correo válido.';
+        return;
+      }
+      err.textContent = '';
+
+      // Calcular resultado para incluirlo en el correo
+      const resultKey = calcResult();
+      const resultName = {A:'Abundancia', B:'Centro', C:'Serenidad'}[resultKey];
+
+      // Enviar a Web3Forms
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify({
+          access_key: '418878f5-53ee-4165-8317-7d8ac0464b6a',
+          subject: 'Nuevo resultado de Quiz Equilibri',
+          nombre: name || '(no proporcionado)',
+          correo: email,
+          brisa_recomendada: resultName,
+          fuente: 'Quiz Equilibri Landing'
+        })
+      }).catch(function(){
+        // Si falla el envío, continuamos igual — no bloqueamos al usuario
+      });
+
+      showResult();
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      handleEmailContinue();
+    });
+
+    if(btnSkip) btnSkip.addEventListener('click', showResult);
+    if(btnRestart) btnRestart.addEventListener('click', resetQuiz);
+  })();
 </script>
 
 <!-- WhatsApp flotante -->
