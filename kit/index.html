@@ -41,6 +41,8 @@
   .brand{font-weight:400;letter-spacing:.42em;font-size:.86rem;color:var(--green);text-transform:uppercase;padding-left:.42em}
   .nav-cta{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--green);padding:11px 22px;border-radius:40px;text-decoration:none;transition:.3s;white-space:nowrap}
   .nav-cta:hover{background:var(--green-deep)}
+  .hamburger{display:none}
+  .mobile-menu{display:none}
 
   .hero{position:relative;height:100vh;min-height:600px;max-height:1080px;overflow:hidden}
   .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#4f5e4f 0%,rgba(122,141,122,.88) 35%,rgba(122,141,122,.3) 64%,transparent 100%);z-index:0;pointer-events:none}
@@ -62,6 +64,21 @@
   .btn-ghost{background:transparent;color:var(--green);border:1px solid var(--green)}
   .btn-ghost:hover{background:var(--green);color:#fff}
   .ship-note{font-size:.82rem;letter-spacing:.06em;color:var(--ink-soft);margin-top:6px}
+
+  /* Sección intro brisa funcional */
+  .brisa-intro{padding:56px 20px 48px;max-width:960px;margin:0 auto}
+  .brisa-intro-box{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;background:var(--cream-soft);border:1.5px solid rgba(205,162,116,.35);border-radius:24px;overflow:hidden;box-shadow:0 16px 48px -12px var(--shadow)}
+  .brisa-intro-txt{padding:48px 44px;display:flex;flex-direction:column;justify-content:center}
+  .brisa-intro-txt .eyebrow{display:block;margin-bottom:12px}
+  .brisa-intro-txt h2{font-size:clamp(1.5rem,2.8vw,2rem);color:var(--green-deep);margin-bottom:16px;line-height:1.25}
+  .brisa-intro-txt p{font-size:.93rem;color:var(--ink-soft);line-height:1.8}
+  .brisa-intro-img{position:relative;min-height:320px}
+  .brisa-intro-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  @media(max-width:600px){
+    .brisa-intro-box{grid-template-columns:1fr}
+    .brisa-intro-img{min-height:220px}
+    .brisa-intro-txt{padding:32px 28px}
+  }
 
   /* Sección ¿Qué es una brisa? */
   .que-es{padding:64px 0 48px}
@@ -131,7 +148,7 @@
   .ritual{display:grid;grid-template-columns:1fr 1fr;background:var(--green);border-radius:26px;overflow:hidden;align-items:stretch}
   .ritual .photo{position:relative;min-height:380px;order:2}
   .ritual .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .ritual .photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,40,20,.72) 0%,rgba(20,40,20,.2) 60%,transparent 100%)}
+  .ritual .photo::after{display:none}
   .photo-overlay-txt{position:absolute;bottom:0;left:0;right:0;padding:28px 28px;z-index:2}
   .photo-overlay-txt p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:rgba(238,230,218,.92);line-height:1.7;margin:0}
   .ritual .content{padding:56px 50px;color:var(--cream);order:2}
@@ -422,8 +439,19 @@
     .guia-box{margin-left:-20px;margin-right:-20px}
     .nav{padding:13px 18px;gap:12px}
     .nav-links{display:none}
+    .nav-cta{display:none}
+    .hamburger{display:flex;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px;width:36px;height:36px}
+    .hamburger span{display:block;height:2px;width:100%;background:var(--green-deep);border-radius:2px;transition:.3s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-menu{display:none;background:var(--cream-soft);border-top:1px solid rgba(60,100,65,.1);padding:16px 24px 28px}
+    .mobile-menu.open{display:block}
+    .mobile-menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+    .mobile-menu ul li a{display:block;padding:13px 0;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep);text-decoration:none;border-bottom:1px solid rgba(60,100,65,.1)}
+    .mobile-menu-highlight{color:var(--gold) !important;font-weight:600}
+    .mobile-menu-cta{display:block;margin-top:16px;background:var(--green);color:#fff !important;text-align:center;padding:14px !important;border-radius:40px;border:none !important;letter-spacing:.14em}
     .brand{letter-spacing:.3em;font-size:.72rem}
-    .nav-cta{padding:10px 16px;font-size:.68rem;letter-spacing:.12em}
 
     /* Hero — 1 columna */
     .hero{height:auto;min-height:100svh}
@@ -709,6 +737,20 @@
       <li><a href="#quiz" style="color:var(--gold);opacity:1;font-weight:500">Descubre tu brisa</a></li>
     </ul>
     <a href="#comprar" class="nav-cta">Comprar el Kit</a>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Menú móvil -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#brumas">Las Brisas</a></li>
+      <li><a href="#ritual">Cómo usarlo</a></li>
+      <li><a href="#para-quien">¿Es para ti?</a></li>
+      <li><a href="#testimonios">Reseñas</a></li>
+      <li><a href="#quiz" class="mobile-menu-highlight">Descubre tu brisa</a></li>
+      <li><a href="#comprar" class="mobile-menu-cta">Comprar el Kit</a></li>
+    </ul>
   </div>
 </header>
 
@@ -775,6 +817,20 @@
   </div>
 </section>
 
+
+<!-- ══════════ QUÉ ES UNA BRISA — intro ══════════ -->
+<section class="brisa-intro reveal">
+  <div class="brisa-intro-box">
+    <div class="brisa-intro-txt">
+      <span class="eyebrow">¿Qué es una brisa funcional?</span>
+      <h2>Aromaterapia en un spray de bolsillo</h2>
+      <p>Una brisa funcional es un spray de aceites esenciales puros con una intención específica. No es perfume, no es ambientador. Al inhalarla, las moléculas aromáticas llegan al sistema límbico — la parte del cerebro que regula las emociones — en menos de 0.1 segundos.</p>
+    </div>
+    <div class="brisa-intro-img">
+      <img src="img/serenidad - spray.webp" alt="Brisa Serenidad · Equilibri">
+    </div>
+  </div>
+</section>
 
 <section class="blends wrap" id="brumas">
   <div class="section-head reveal">
@@ -847,12 +903,6 @@
   </div>
 </section>
 
-<!-- ══════════ QUÉ ES UNA BRISA — intro ══════════ -->
-<section class="wrap reveal" style="padding:56px 0 8px;text-align:center;max-width:680px">
-  <h2 style="font-size:clamp(1.7rem,3.5vw,2.4rem);color:var(--green-deep);margin-bottom:16px">Aromaterapia en un spray de bolsillo</h2>
-  <p style="font-size:.97rem;color:var(--ink-soft);line-height:1.8">Una brisa funcional es un spray de aceites esenciales puros con una intención específica. No es perfume, no es ambientador. Al inhalarla, las moléculas aromáticas llegan al sistema límbico — la parte del cerebro que regula las emociones — en menos de 0.1 segundos.</p>
-</section>
-
 <section class="ritual-sec wrap" id="ritual">
   <div class="ritual reveal">
     <div class="content">
@@ -876,7 +926,7 @@
       </div>
     </div>
     <div class="photo">
-      <img src="img/serenidad - spray.webp" alt="Brisa Serenidad de Equilibri en uso">
+      <img src="img/rocio-serenidad.webp" alt="Brisa Serenidad de Equilibri en uso">
     </div>
   </div>
 </section>
@@ -885,7 +935,7 @@
   <div class="section-head reveal">
     <span class="eyebrow">Llévate tu ritual</span>
     <h2>Elige lo que necesitas hoy</h2>
-    <p style="color:var(--ink-soft);font-size:.95rem;margin-top:8px">Envío $99 · Gratis en compras de $1,500 o más</p>
+    <p style="color:var(--ink-soft);font-size:.95rem;margin-top:8px">Envío gratis en compras de $1,500 o más</p>
   </div>
   <div class="stock-alert reveal">
     <span class="dot"></span>
@@ -1394,6 +1444,22 @@
     document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
     if(!isOpen) item.classList.add('open');
   }
+
+  /* ── MENÚ HAMBURGUESA ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function(){
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
 
   /* ── QUIZ MODAL EQUILIBRI ── */
   (function(){
