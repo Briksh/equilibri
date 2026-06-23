@@ -1557,6 +1557,17 @@
         note:'Ideal para la noche, después de un día intenso o cuando necesitas soltar.',
         btn:'Quiero Serenidad',
         wa:'https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20la%20Brisa%20Serenidad.%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F'
+      },
+      K: {
+        badge:'✦ Tu energía necesita las tres',
+        title:'Kit Balance & Bloom',
+        sub:'Mañana, tarde y noche en perfecto equilibrio',
+        img:'img/kit-Balance-and-Bloom.webp',
+        desc:'Tu mundo emocional es rico y multidimensional — necesitas activarte, centrarte y descansar en igual medida. Las tres brisas trabajan juntas como un sistema completo: Abundancia para arrancar el día, Centro para mantenerte presente, y Serenidad para soltar y descansar.',
+        note:'El Kit Balance & Bloom fue hecho exactamente para ti.',
+        btn:'Quiero el Kit completo',
+        wa:'https://wa.me/524775895981?text=Hola%20Equilibri%20%F0%9F%8C%BF%20Me%20interesa%20el%20Kit%20Balance%20%26%20Bloom.%20%C2%BFC%C3%B3mo%20hago%20mi%20pedido%3F',
+        isKit: true
       }
     };
 
@@ -1621,6 +1632,9 @@
           s[q.opts[answers[idx]].v]++;
         }
       });
+      const max = Math.max(s.A, s.B, s.C);
+      const min = Math.min(s.A, s.B, s.C);
+      if(max - min <= 1) return 'K';
       if(s.B >= s.A && s.B >= s.C) return 'B';
       if(s.C > s.A && s.C > s.B) return 'C';
       return 'A';
@@ -1639,7 +1653,16 @@
         <div class="qm-result-btns">
           <a href="${r.wa}" target="_blank" rel="noopener" class="btn btn-gold">${r.btn}</a>
           <a href="#comprar" class="btn btn-outline" onclick="closeQuizModal()">Ver el Kit completo</a>
-        </div>`;
+        </div>
+        ${r.isKit ? `
+        <div style="margin-top:20px;border-top:1px solid rgba(60,100,65,.12);padding-top:16px">
+          <p style="font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);opacity:.6;margin-bottom:12px">O conoce cada brisa</p>
+          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+            <a href="#brumas" onclick="closeQuizModal()" style="font-size:.8rem;font-weight:600;color:#fff;background:var(--green-deep);border-radius:30px;padding:9px 18px;text-decoration:none">☀ Abundancia</a>
+            <a href="#brumas" onclick="closeQuizModal()" style="font-size:.8rem;font-weight:600;color:#fff;background:var(--green-deep);border-radius:30px;padding:9px 18px;text-decoration:none">✦ Centro</a>
+            <a href="#brumas" onclick="closeQuizModal()" style="font-size:.8rem;font-weight:600;color:#fff;background:var(--green-deep);border-radius:30px;padding:9px 18px;text-decoration:none">🌙 Serenidad</a>
+          </div>
+        </div>` : `<p style="font-size:.78rem;color:var(--ink-soft);opacity:.7;margin-top:14px;font-style:italic">¿Quieres el ritual completo? El Kit incluye las tres brisas.</p>`}`;
       showQMStep('qm-result');
     }
 
