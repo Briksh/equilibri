@@ -1676,6 +1676,7 @@
 
     // Abrir modal
     if(btnOpen) btnOpen.addEventListener('click', openModal);
+    if(window.location.hash === '#quiz') setTimeout(openModal, 300);
     btnClose.addEventListener('click', closeModal);
     overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
